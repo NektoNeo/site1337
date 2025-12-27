@@ -8,6 +8,15 @@ export { ProductGrid } from './ProductGrid';
 export { Pagination } from './Pagination';
 export { SortDropdown } from './SortDropdown';
 
+// VK-integrated catalog components
+export { VKProductCard } from './VKProductCard';
+export { VKProductGrid, EmptyState, ErrorState, ProductCount } from './VKProductGrid';
+export { ProductSkeleton, ProductSkeletonGrid } from './ProductSkeleton';
+
+// New filter components
+export { ProductFilters, MobileFilterBar } from './ProductFilters';
+export { CategoryTabs, CategoryTabsCompact, CategoryPills } from './CategoryTabs';
+
 // Performance-optimized components
 export { OptimizedProductCard } from './OptimizedProductCard';
 export { VirtualizedProductList } from './VirtualizedProductList';
