@@ -221,7 +221,7 @@ export function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <section ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-10 pb-32">
+    <section ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-10 pb-32" style={{ position: 'relative' }}>
       {/* Hero-specific background effects */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Central glow */}

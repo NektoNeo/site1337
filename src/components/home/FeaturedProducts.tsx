@@ -3,80 +3,23 @@
 import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ProductCard } from '../ui/ProductCard';
+import { products as allProducts, categoryLabels } from '@/lib/products-data';
 
-const products = [
-  {
-    id: 1,
-    name: 'VA-PC Starter',
-    specs: {
-      cpu: 'Intel Core i5-14600K',
-      gpu: 'RTX 4070 12GB',
-      ram: '32GB DDR5 5600MHz',
-      storage: '1TB NVMe Gen4',
-    },
-    price: 159900,
-    badge: 'Популярный',
-  },
-  {
-    id: 2,
-    name: 'VA-PC Pro',
-    specs: {
-      cpu: 'Intel Core i7-14700K',
-      gpu: 'RTX 4070 Ti SUPER',
-      ram: '32GB DDR5 6000MHz',
-      storage: '2TB NVMe Gen4',
-    },
-    price: 219900,
-    originalPrice: 239900,
-  },
-  {
-    id: 3,
-    name: 'VA-PC Elite',
-    specs: {
-      cpu: 'Intel Core i7-14700KF',
-      gpu: 'RTX 4080 SUPER 16GB',
-      ram: '64GB DDR5 6000MHz',
-      storage: '2TB NVMe Gen4',
-    },
-    price: 299900,
-    badge: 'Выбор геймеров',
-  },
-  {
-    id: 4,
-    name: 'VA-PC Predator',
-    specs: {
-      cpu: 'Intel Core i9-14900K',
-      gpu: 'RTX 4090 24GB',
-      ram: '64GB DDR5 6400MHz',
-      storage: '4TB NVMe Gen4',
-    },
-    price: 459900,
-    badge: 'Топ',
-  },
-  {
-    id: 5,
-    name: 'VA-PC Stream',
-    specs: {
-      cpu: 'Intel Core i7-14700K',
-      gpu: 'RTX 4070 Ti 12GB',
-      ram: '64GB DDR5 5600MHz',
-      storage: '2TB NVMe Gen4',
-    },
-    price: 249900,
-  },
-  {
-    id: 6,
-    name: 'VA-PC Workstation',
-    specs: {
-      cpu: 'Intel Core i9-14900K',
-      gpu: 'RTX 4080 16GB',
-      ram: '128GB DDR5 5600MHz',
-      storage: '4TB NVMe RAID',
-    },
-    price: 489900,
-    badge: 'Для работы',
-  },
-];
+// Get a diverse selection of products for the featured section
+const featuredProducts = [
+  // Budget options
+  allProducts.find(p => p.slug === 'phoenix'),
+  allProducts.find(p => p.slug === 'vortex'),
+  // Mid-range gaming
+  allProducts.find(p => p.slug === 'nexus'),
+  allProducts.find(p => p.slug === 'blaze'),
+  // Performance
+  allProducts.find(p => p.slug === 'punk'),
+  allProducts.find(p => p.slug === 'titan'),
+  // Premium
+  allProducts.find(p => p.slug === 'enigma'),
+  allProducts.find(p => p.slug === 'ultra'),
+].filter(Boolean);
 
 export function FeaturedProducts() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -155,17 +98,22 @@ export function FeaturedProducts() {
               msOverflowStyle: 'none',
             }}
           >
-            {products.map((product, index) => (
+            {featuredProducts.map((product, index) => (
               <div
-                key={product.id}
+                key={product!.id}
                 className="flex-shrink-0 w-[320px] md:w-[350px] snap-start"
               >
                 <ProductCard
-                  name={product.name}
-                  specs={product.specs}
-                  price={product.price}
-                  originalPrice={product.originalPrice}
-                  badge={product.badge}
+                  name={product!.title}
+                  specs={{
+                    cpu: product!.cpu,
+                    gpu: product!.gpu,
+                    ram: product!.ram,
+                    storage: product!.storage,
+                  }}
+                  price={product!.price}
+                  image={product!.image}
+                  badge={categoryLabels[product!.category]}
                   index={index}
                 />
               </div>

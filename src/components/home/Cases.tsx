@@ -3,46 +3,47 @@
 import { motion } from 'framer-motion';
 import { Quote, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
+import Image from 'next/image';
 
-const cases = [
+const reviews = [
   {
-    category: 'Для симрейсинга и VR',
-    project: 'Lavington',
-    description: 'Собрали тихую машину для VR-гонок. Настроили вентиляторы по кривым, добились комфортных температур и без свиста под нагрузкой.',
-    specs: ['RTX 4080', 'i7-14700K', '32GB DDR5'],
-    image: '/images/cases/simracing.jpg',
+    image: '/images/cases/1.jpg',
+    service: 'Услуга — сборка ПК',
+    name: 'Михаил',
+    text: 'Все супер) Рекомендую обратиться в эту компанию, если вы ищете надежных специалистов по сборке компьютеров.',
+    rating: 5,
   },
   {
-    category: '3D, рендер, монтаж',
-    project: 'MotionLab',
-    description: 'Баланс GPU/CPU для Autodesk Maya и Premiere Pro. Оставили запас по питанию и охлаждению под будущий апгрейд.',
-    specs: ['RTX 4090', 'Ryzen 9 7950X', '64GB DDR5'],
-    image: '/images/cases/3d-render.jpg',
+    image: '/images/cases/2.jpg',
+    service: 'Услуга — апгрейд ПК',
+    name: 'Алексей',
+    text: 'Отличная компьютерная мастерская! Я обратился к ним, чтобы собрать свой первый компьютер, ребята сделали все на высшем уровне.',
+    rating: 5,
   },
   {
-    category: 'Киберспорт',
-    project: 'Midlane',
-    description: 'Топовый FPS в CS2 и Valorant. Оптимизировали BIOS, отключили лишние службы Windows, проверили стабильность на соревновательных настройках.',
-    specs: ['RTX 4070 Ti', 'i5-14600K', '32GB DDR5'],
-    image: '/images/cases/esports.jpg',
+    image: '/images/cases/3.jpg',
+    service: 'Услуга — сборка ПК',
+    name: 'Василиса',
+    text: 'Эти ребята лучшие!! Я честно говоря полный ноль в компах, но они по ходу сборки максимально доступно смогли объяснить принципы всего этого процесса. Спасибо :)))',
+    rating: 5,
   },
   {
-    category: 'Работа + игры',
-    project: 'Creator',
-    description: 'Делали упор на тишину: широкие вентиляторы, демпферные панели и грамотный airflow. Бенчмарки и шум — в карте сборки.',
-    specs: ['RTX 4070', 'Ryzen 7 7800X3D', '32GB DDR5'],
-    image: '/images/cases/workstation.jpg',
+    image: '/images/cases/4.jpg',
+    service: 'Услуга — сборка ПК',
+    name: 'Иван',
+    text: 'Спасибо за такую красоту))) И за оказанную помощь. В уточнениях и советах при выборе комплектующих. Желаю удачи вашему делу)))',
+    rating: 5,
   },
 ];
 
 export function Cases() {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const nextCase = () => setActiveIndex((prev) => (prev + 1) % cases.length);
-  const prevCase = () => setActiveIndex((prev) => (prev - 1 + cases.length) % cases.length);
+  const nextReview = () => setActiveIndex((prev) => (prev + 1) % reviews.length);
+  const prevReview = () => setActiveIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
 
   return (
-    <section id="cases" className="py-24 relative overflow-hidden">
+    <section id="reviews" className="py-24 relative overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/5 to-transparent" />
 
@@ -55,58 +56,58 @@ export function Cases() {
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
-              НАШИ КЕЙСЫ
+              ОТЗЫВЫ КЛИЕНТОВ
             </span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Реальные проекты для разных задач — от киберспорта до продакшена
+            Реальные отзывы от наших клиентов — мы гордимся каждой сборкой
           </p>
         </motion.div>
 
         {/* Desktop Grid */}
         <div className="hidden lg:grid lg:grid-cols-2 gap-6">
-          {cases.map((item, index) => (
+          {reviews.map((review, index) => (
             <motion.div
-              key={item.project}
+              key={review.name}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group relative bg-black/40 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-purple-500/50 transition-all duration-300"
+              className="group relative bg-black/40 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-purple-500/50 transition-all duration-300"
             >
-              {/* Category badge */}
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-purple-500/20 border border-purple-500/30 rounded-full text-purple-400 text-sm mb-4">
-                {item.category}
+              {/* Review image */}
+              <div className="relative h-48 overflow-hidden">
+                <Image
+                  src={review.image}
+                  alt={`Сборка для ${review.name}`}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
               </div>
 
-              {/* Quote icon */}
-              <Quote className="absolute top-6 right-6 w-8 h-8 text-purple-500/20" />
+              <div className="p-6">
+                {/* Service badge */}
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-purple-500/20 border border-purple-500/30 rounded-full text-purple-400 text-sm mb-4">
+                  {review.service}
+                </div>
 
-              {/* Project name */}
-              <h3 className="text-xl font-bold text-white mb-1">
-                Проект: <span className="text-purple-400">{item.project}</span>
-              </h3>
+                {/* Quote icon */}
+                <Quote className="absolute top-52 right-6 w-8 h-8 text-purple-500/20" />
 
-              {/* Description */}
-              <p className="text-gray-400 mb-4 leading-relaxed">{item.description}</p>
+                {/* Customer name */}
+                <h3 className="text-xl font-bold text-white mb-2">{review.name}</h3>
 
-              {/* Specs badges */}
-              <div className="flex flex-wrap gap-2">
-                {item.specs.map((spec) => (
-                  <span
-                    key={spec}
-                    className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-xs text-gray-300"
-                  >
-                    {spec}
-                  </span>
-                ))}
-              </div>
+                {/* Review text */}
+                <p className="text-gray-400 leading-relaxed">{review.text}</p>
 
-              {/* Rating */}
-              <div className="absolute bottom-6 right-6 flex gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                ))}
+                {/* Rating */}
+                <div className="flex gap-1 mt-4">
+                  {[...Array(review.rating)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
               </div>
             </motion.div>
           ))}
@@ -119,47 +120,48 @@ export function Cases() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -50 }}
-            className="bg-black/40 backdrop-blur-sm border border-white/10 rounded-2xl p-6"
+            className="bg-black/40 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden"
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-purple-500/20 border border-purple-500/30 rounded-full text-purple-400 text-sm mb-4">
-              {cases[activeIndex].category}
+            {/* Review image */}
+            <div className="relative h-48 overflow-hidden">
+              <Image
+                src={reviews[activeIndex].image}
+                alt={`Сборка для ${reviews[activeIndex].name}`}
+                fill
+                sizes="100vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
             </div>
 
-            <h3 className="text-xl font-bold text-white mb-1">
-              Проект: <span className="text-purple-400">{cases[activeIndex].project}</span>
-            </h3>
+            <div className="p-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-purple-500/20 border border-purple-500/30 rounded-full text-purple-400 text-sm mb-4">
+                {reviews[activeIndex].service}
+              </div>
 
-            <p className="text-gray-400 mb-4">{cases[activeIndex].description}</p>
+              <h3 className="text-xl font-bold text-white mb-2">{reviews[activeIndex].name}</h3>
 
-            <div className="flex flex-wrap gap-2 mb-4">
-              {cases[activeIndex].specs.map((spec) => (
-                <span
-                  key={spec}
-                  className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-xs text-gray-300"
-                >
-                  {spec}
-                </span>
-              ))}
-            </div>
+              <p className="text-gray-400 mb-4">{reviews[activeIndex].text}</p>
 
-            <div className="flex gap-1">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-              ))}
+              <div className="flex gap-1">
+                {[...Array(reviews[activeIndex].rating)].map((_, i) => (
+                  <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
             </div>
           </motion.div>
 
           {/* Navigation */}
           <div className="flex justify-center items-center gap-4 mt-6">
             <button
-              onClick={prevCase}
+              onClick={prevReview}
               className="p-2 bg-white/5 border border-white/10 rounded-full hover:bg-purple-500/20 transition-colors"
             >
               <ChevronLeft className="w-5 h-5 text-white" />
             </button>
 
             <div className="flex gap-2">
-              {cases.map((_, i) => (
+              {reviews.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setActiveIndex(i)}
@@ -171,7 +173,7 @@ export function Cases() {
             </div>
 
             <button
-              onClick={nextCase}
+              onClick={nextReview}
               className="p-2 bg-white/5 border border-white/10 rounded-full hover:bg-purple-500/20 transition-colors"
             >
               <ChevronRight className="w-5 h-5 text-white" />
@@ -188,12 +190,12 @@ export function Cases() {
           className="text-center mt-12"
         >
           <a
-            href="https://vk.com/vapcbuild"
+            href="https://vk.com/topic-218975719_49337252"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-4 bg-white/5 border border-white/10 text-white font-bold rounded-xl hover:bg-purple-500/20 hover:border-purple-500/30 transition-all duration-300"
           >
-            Все отзывы
+            Все отзывы в VK
           </a>
         </motion.div>
       </div>

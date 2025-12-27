@@ -39,6 +39,11 @@ export const metadata: Metadata = {
   keywords: ['игровой компьютер', 'gaming PC', 'сборка ПК', 'RTX 4090', 'VA-PC'],
   authors: [{ name: 'VA-PC' }],
   creator: 'VA-PC',
+  icons: {
+    icon: '/icon.svg',
+    shortcut: '/icon.svg',
+    apple: '/icon.svg',
+  },
   metadataBase: new URL('https://va-pc.ru'),
   openGraph: {
     type: 'website',
@@ -79,9 +84,11 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* Preconnect to critical origins for faster resource loading */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/*
+          Preconnect to external image origins for faster resource loading.
+          Note: Google Fonts preconnects are NOT needed - next/font downloads fonts
+          at build time and self-hosts them from /_next/static/media/
+        */}
         <link rel="preconnect" href="https://images.unsplash.com" />
         {/* VK API images */}
         <link rel="preconnect" href="https://sun1.userapi.com" />
@@ -90,15 +97,6 @@ export default function RootLayout({
         {/* DNS prefetch for API endpoints */}
         <link rel="dns-prefetch" href="https://api.va-pc.ru" />
         <link rel="dns-prefetch" href="https://api.vk.com" />
-
-        {/* Preload critical resources */}
-        <link
-          rel="preload"
-          href="/fonts/orbitron-var.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
       </head>
       <body className="antialiased bg-black text-white min-h-screen flex flex-col font-outfit">
         {/* React Query Provider for data fetching */}

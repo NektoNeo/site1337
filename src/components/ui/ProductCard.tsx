@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { GlassCard } from './GlassCard';
 
 interface ProductSpec {
@@ -77,35 +78,39 @@ export function ProductCard({
               />
             </div>
             
-            {/* PC Icon/Placeholder */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <motion.div 
-                className="relative"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: 'spring', stiffness: 200 }}
-              >
-                <svg
-                  className="w-24 h-24 text-purple-400/50 group-hover:text-purple-400/70 transition-colors duration-500"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
+            {/* PC Icon/Placeholder - only show when no image */}
+            {!image && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <motion.div
+                  className="relative"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: 'spring', stiffness: 200 }}
                 >
-                  <path d="M4 2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6v2h2a1 1 0 0 1 0 2H8a1 1 0 0 1 0-2h2v-2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 2v12h16V4H4z"/>
-                  <circle cx="12" cy="10" r="3" className="text-cyan-400/60" />
-                </svg>
-                
-                {/* RGB Ring effect */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <div className="absolute inset-[-10px] rounded-full border-2 border-purple-500/30 animate-ping" style={{ animationDuration: '2s' }} />
-                  <div className="absolute inset-[-20px] rounded-full border border-cyan-500/20 animate-ping" style={{ animationDuration: '3s' }} />
-                </div>
-              </motion.div>
-            </div>
+                  <svg
+                    className="w-24 h-24 text-purple-400/50 group-hover:text-purple-400/70 transition-colors duration-500"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M4 2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6v2h2a1 1 0 0 1 0 2H8a1 1 0 0 1 0-2h2v-2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 2v12h16V4H4z"/>
+                    <circle cx="12" cy="10" r="3" className="text-cyan-400/60" />
+                  </svg>
+
+                  {/* RGB Ring effect */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="absolute inset-[-10px] rounded-full border-2 border-purple-500/30 animate-ping" style={{ animationDuration: '2s' }} />
+                    <div className="absolute inset-[-20px] rounded-full border border-cyan-500/20 animate-ping" style={{ animationDuration: '3s' }} />
+                  </div>
+                </motion.div>
+              </div>
+            )}
             
             {image && (
-              <img 
-                src={image} 
+              <Image
+                src={image}
                 alt={name}
-                className="absolute inset-0 w-full h-full object-cover"
+                fill
+                className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                sizes="(max-width: 768px) 320px, 350px"
               />
             )}
           </div>

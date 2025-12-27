@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState, useEffect, useMemo } from 'react';
 import { AnimatedBackground } from '@/components/ui/AnimatedBackground';
 import { Hero } from '@/components/home/Hero';
 import { Services } from '@/components/home/Services';
@@ -16,31 +16,54 @@ import { Live } from '@/components/home/Live';
 import { CTASection } from '@/components/home/CTASection';
 
 // Floating RGB particles component for extra visual flair
+// Reduced from 20 to 10 particles for better DOM performance while maintaining visual effect
 function FloatingParticles() {
+  const [mounted, setMounted] = useState(false);
+
+  // Generate particle data only on client side to avoid hydration mismatch
+  const particles = useMemo(() => {
+    if (!mounted) return [];
+    return [...Array(10)].map((_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      xOffset: Math.random() * 50 - 25,
+      duration: 5 + Math.random() * 5,
+      delay: Math.random() * 5,
+      isEven: i % 2 === 0,
+    }));
+  }, [mounted]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-      {[...Array(20)].map((_, i) => (
+      {particles.map((particle) => (
         <motion.div
-          key={i}
+          key={particle.id}
           className="absolute w-1 h-1 rounded-full"
           style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            background: i % 2 === 0 ? '#8B5CF6' : '#06B6D4',
-            boxShadow: i % 2 === 0
+            left: `${particle.left}%`,
+            top: `${particle.top}%`,
+            background: particle.isEven ? '#8B5CF6' : '#06B6D4',
+            boxShadow: particle.isEven
               ? '0 0 10px #8B5CF6, 0 0 20px #8B5CF6'
               : '0 0 10px #06B6D4, 0 0 20px #06B6D4',
           }}
           animate={{
             y: [0, -100, 0],
-            x: [0, Math.random() * 50 - 25, 0],
+            x: [0, particle.xOffset, 0],
             opacity: [0, 1, 0],
             scale: [0, 1, 0],
           }}
           transition={{
-            duration: 5 + Math.random() * 5,
+            duration: particle.duration,
             repeat: Infinity,
-            delay: Math.random() * 5,
+            delay: particle.delay,
             ease: 'easeInOut',
           }}
         />
@@ -97,7 +120,7 @@ export default function HomePage() {
   const bgOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.5, 0.3]);
 
   return (
-    <div ref={containerRef} className="relative min-h-screen overflow-hidden">
+    <div ref={containerRef} className="relative min-h-screen overflow-hidden" style={{ position: 'relative' }}>
       {/* Scroll Progress Indicator */}
       <ScrollProgress />
 
