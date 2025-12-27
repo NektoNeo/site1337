@@ -1,0 +1,399 @@
+// Prisma Schema for VA-PC E-commerce Platform
+// Database: PostgreSQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================================
+// ENUMS
+// ============================================================================
+
+enum UserRole {
+  CUSTOMER
+  ADMIN
+}
+
+enum OrderStatus {
+  PENDING
+  CONTACTED
+  CONFIRMED
+  PROCESSING
+  READY
+  COMPLETED
+  CANCELLED
+}
+
+enum ComponentType {
+  CPU
+  GPU
+  MOTHERBOARD
+  RAM
+  STORAGE
+  PSU
+  CASE
+  COOLING
+}
+
+// ============================================================================
+// USER & AUTHENTICATION
+// ============================================================================
+
+model User {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  password     String
+  name         String?
+  phone        String?
+  role         UserRole      @default(CUSTOMER)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  
+  // Relations
+  cart         Cart?
+  orders       Order[]
+  customBuilds CustomBuild[]
+  
+  @@index([email])
+  @@index([role])
+}
+
+// ============================================================================
+// PRODUCT CATALOG
+// ============================================================================
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  imageUrl    String?
+  sortOrder   Int       @default(0)
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Relations
+  products    Product[]
+  
+  @@index([slug])
+  @@index([isActive])
+}
+
+model Brand {
+  id        String    @id @default(cuid())
+  name      String
+  slug      String    @unique
+  logoUrl   String?
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  
+  // Relations
+  products  Product[]
+  
+  @@index([slug])
+  @@index([isActive])
+}
+
+model Product {
+  id          String    @id @default(cuid())
+  sku         String    @unique
+  name        String
+  slug        String    @unique
+  description String?   @db.Text
+  price       Decimal   @db.Decimal(10, 2)
+  salePrice   Decimal?  @db.Decimal(10, 2)
+  stock       Int       @default(0)
+  isActive    Boolean   @default(true)
+  isFeatured  Boolean   @default(false)
+  vkItemId    String?   // For VK Market synchronization
+  
+  // Specifications stored as JSON
+  specs       Json?
+  
+  // Foreign Keys
+  categoryId  String
+  brandId     String?
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Relations
+  category           Category            @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  brand              Brand?              @relation(fields: [brandId], references: [id], onDelete: SetNull)
+  images             ProductImage[]
+  cartItems          CartItem[]
+  orderItems         OrderItem[]
+  prebuiltItems      PrebuiltConfigItem[]
+  customBuildItems   CustomBuildItem[]
+  
+  @@index([sku])
+  @@index([slug])
+  @@index([categoryId])
+  @@index([brandId])
+  @@index([isActive])
+  @@index([isFeatured])
+  @@index([price])
+  @@index([vkItemId])
+}
+
+model ProductImage {
+  id        String   @id @default(cuid())
+  url       String
+  alt       String?
+  sortOrder Int      @default(0)
+  isPrimary Boolean  @default(false)
+  productId String
+  createdAt DateTime @default(now())
+  
+  // Relations
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  
+  @@index([productId])
+  @@index([isPrimary])
+}
+
+// ============================================================================
+// PREBUILT CONFIGURATIONS
+// ============================================================================
+
+model PrebuiltConfig {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String?  @db.Text
+  price       Decimal  @db.Decimal(10, 2)
+  salePrice   Decimal? @db.Decimal(10, 2)
+  imageUrl    String?
+  isActive    Boolean  @default(true)
+  tier        String   // e.g., "budget", "mid-range", "high-end", "enthusiast"
+  useCase     String[] // e.g., ["gaming", "streaming", "workstation"]
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  items       PrebuiltConfigItem[]
+  cartItems   CartItem[]
+  
+  @@index([slug])
+  @@index([isActive])
+  @@index([tier])
+}
+
+model PrebuiltConfigItem {
+  id            String        @id @default(cuid())
+  quantity      Int           @default(1)
+  componentType ComponentType
+  
+  // Foreign Keys
+  prebuiltId    String
+  productId     String
+  
+  // Relations
+  prebuilt      PrebuiltConfig @relation(fields: [prebuiltId], references: [id], onDelete: Cascade)
+  product       Product        @relation(fields: [productId], references: [id], onDelete: Restrict)
+  
+  @@unique([prebuiltId, componentType])
+  @@index([prebuiltId])
+  @@index([productId])
+}
+
+// ============================================================================
+// CUSTOM BUILD CONFIGURATOR
+// ============================================================================
+
+model CustomBuild {
+  id         String   @id @default(cuid())
+  name       String?
+  isComplete Boolean  @default(false)
+  totalPrice Decimal  @default(0) @db.Decimal(10, 2)
+  
+  // Can belong to user or anonymous session
+  userId     String?
+  sessionId  String?  @unique
+  
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  
+  // Relations
+  user       User?             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items      CustomBuildItem[]
+  cartItems  CartItem[]
+  
+  @@index([userId])
+  @@index([sessionId])
+}
+
+model CustomBuildItem {
+  id            String        @id @default(cuid())
+  componentType ComponentType
+  
+  // Foreign Keys
+  customBuildId String
+  productId     String
+  
+  createdAt     DateTime      @default(now())
+  
+  // Relations
+  customBuild   CustomBuild   @relation(fields: [customBuildId], references: [id], onDelete: Cascade)
+  product       Product       @relation(fields: [productId], references: [id], onDelete: Restrict)
+  
+  @@unique([customBuildId, componentType])
+  @@index([customBuildId])
+  @@index([productId])
+}
+
+// ============================================================================
+// SHOPPING CART
+// ============================================================================
+
+model Cart {
+  id        String     @id @default(cuid())
+  
+  // Can belong to user or anonymous session
+  userId    String?    @unique
+  sessionId String?    @unique
+  
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  
+  // Relations
+  user      User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     CartItem[]
+  
+  @@index([userId])
+  @@index([sessionId])
+}
+
+model CartItem {
+  id            String   @id @default(cuid())
+  quantity      Int      @default(1)
+  
+  // Foreign Keys
+  cartId        String
+  
+  // One of these must be set (product, prebuilt, or customBuild)
+  productId     String?
+  prebuiltId    String?
+  customBuildId String?
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relations
+  cart          Cart           @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  product       Product?       @relation(fields: [productId], references: [id], onDelete: Cascade)
+  prebuilt      PrebuiltConfig? @relation(fields: [prebuiltId], references: [id], onDelete: Cascade)
+  customBuild   CustomBuild?   @relation(fields: [customBuildId], references: [id], onDelete: Cascade)
+  
+  @@index([cartId])
+  @@index([productId])
+  @@index([prebuiltId])
+  @@index([customBuildId])
+}
+
+// ============================================================================
+// ORDERS
+// ============================================================================
+
+model Order {
+  id            String      @id @default(cuid())
+  orderNumber   String      @unique
+  status        OrderStatus @default(PENDING)
+  
+  // Customer Information (denormalized for order history)
+  customerName  String
+  customerEmail String
+  customerPhone String
+  
+  // Pricing
+  subtotal      Decimal     @db.Decimal(10, 2)
+  discount      Decimal     @default(0) @db.Decimal(10, 2)
+  total         Decimal     @db.Decimal(10, 2)
+  
+  // Notes
+  notes         String?     @db.Text  // Customer notes
+  adminNotes    String?     @db.Text  // Internal admin notes
+  
+  // Foreign Keys
+  userId        String?
+  
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  
+  // Relations
+  user          User?                @relation(fields: [userId], references: [id], onDelete: SetNull)
+  items         OrderItem[]
+  statusHistory OrderStatusHistory[]
+  
+  @@index([orderNumber])
+  @@index([status])
+  @@index([customerEmail])
+  @@index([userId])
+  @@index([createdAt])
+}
+
+model OrderItem {
+  id          String   @id @default(cuid())
+  quantity    Int
+  unitPrice   Decimal  @db.Decimal(10, 2)
+  totalPrice  Decimal  @db.Decimal(10, 2)
+  
+  // Denormalized product info (for order history)
+  productName String
+  productSku  String
+  
+  // Foreign Keys
+  orderId     String
+  productId   String?  // Nullable in case product is deleted
+  
+  createdAt   DateTime @default(now())
+  
+  // Relations
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product     Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  
+  @@index([orderId])
+  @@index([productId])
+}
+
+model OrderStatusHistory {
+  id        String      @id @default(cuid())
+  status    OrderStatus
+  note      String?
+  changedBy String?     // Admin user id or system
+  
+  // Foreign Keys
+  orderId   String
+  
+  createdAt DateTime    @default(now())
+  
+  // Relations
+  order     Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  
+  @@index([orderId])
+  @@index([createdAt])
+}
+
+// ============================================================================
+// APPLICATION SETTINGS
+// ============================================================================
+
+model Setting {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       Json
+  description String?
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([key])
+}
