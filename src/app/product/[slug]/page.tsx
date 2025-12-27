@@ -3,7 +3,15 @@
 import { useParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { Loader2, AlertCircle, ArrowUp, ChevronRight } from 'lucide-react';
+import { Loader2, AlertCircle, ArrowUp } from 'lucide-react';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import {
   ProductImageGallery,
   ProductInfo,
@@ -134,32 +142,35 @@ function ErrorState({ error, onRetry }: { error: Error; onRetry: () => void }) {
   );
 }
 
-// Breadcrumb component
-function Breadcrumb({ productName }: { productName: string }) {
+// Breadcrumb component using shadcn/ui
+function ProductBreadcrumb({ productName }: { productName: string }) {
   return (
-    <motion.nav
+    <motion.div
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="flex items-center gap-2 text-sm flex-wrap"
     >
-      <Link
-        href="/"
-        className="text-white/50 hover:text-white transition-colors"
-      >
-        Главная
-      </Link>
-      <ChevronRight className="w-4 h-4 text-white/30" />
-      <Link
-        href="/catalog"
-        className="text-white/50 hover:text-white transition-colors"
-      >
-        Каталог
-      </Link>
-      <ChevronRight className="w-4 h-4 text-white/30" />
-      <span className="text-purple-400 font-medium truncate max-w-[200px] sm:max-w-none">
-        {productName}
-      </span>
-    </motion.nav>
+      <Breadcrumb>
+        <BreadcrumbList className="text-white/50">
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild className="text-white/50 hover:text-white">
+              <Link href="/">Главная</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator className="text-white/30" />
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild className="text-white/50 hover:text-white">
+              <Link href="/catalog">Каталог</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator className="text-white/30" />
+          <BreadcrumbItem>
+            <BreadcrumbPage className="text-purple-400 font-medium truncate max-w-[200px] sm:max-w-none">
+              {productName}
+            </BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+    </motion.div>
   );
 }
 
@@ -225,7 +236,7 @@ export default function ProductPage() {
       <div className="relative z-10">
         {/* Breadcrumb */}
         <div className="container mx-auto px-4 py-6">
-          <Breadcrumb productName={product.name} />
+          <ProductBreadcrumb productName={product.name} />
         </div>
 
         {/* Product Section */}

@@ -3,14 +3,21 @@
 /**
  * Featured Products Section
  * Displays a carousel of VK products from the catalog
+ * Uses shadcn/embla-carousel for smooth navigation and touch support
  */
 
-import { useRef } from 'react';
+import { useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Loader2, AlertCircle, ChevronLeft, ChevronRight } from 'lucide-react';
+import { AlertCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { ProductCard } from '../ui/ProductCard';
 import { useVKCatalogPage } from '@/hooks/use-vk-catalog';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from '@/components/ui/carousel';
 
 // Loading skeleton
 function FeaturedSkeleton() {
@@ -47,7 +54,9 @@ function FeaturedError({ onRetry }: { onRetry: () => void }) {
 }
 
 export function FeaturedProducts() {
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const [api, setApi] = useState<CarouselApi>();
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(false);
 
   // Fetch featured products (8 products sorted by popularity)
   const { products, isLoading, error, refetch } = useVKCatalogPage({
@@ -59,15 +68,40 @@ export function FeaturedProducts() {
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      const scrollAmount = 380;
-      scrollRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth',
-      });
-    }
-  };
+  // Update scroll state when carousel initializes or changes
+  const onApiChange = useCallback((emblaApi: CarouselApi) => {
+    if (!emblaApi) return;
+
+    setCanScrollPrev(emblaApi.canScrollPrev());
+    setCanScrollNext(emblaApi.canScrollNext());
+
+    emblaApi.on('select', () => {
+      setCanScrollPrev(emblaApi.canScrollPrev());
+      setCanScrollNext(emblaApi.canScrollNext());
+    });
+
+    emblaApi.on('reInit', () => {
+      setCanScrollPrev(emblaApi.canScrollPrev());
+      setCanScrollNext(emblaApi.canScrollNext());
+    });
+  }, []);
+
+  // Set API and attach listeners
+  const handleSetApi = useCallback(
+    (emblaApi: CarouselApi) => {
+      setApi(emblaApi);
+      onApiChange(emblaApi);
+    },
+    [onApiChange]
+  );
+
+  const scrollPrev = useCallback(() => {
+    api?.scrollPrev();
+  }, [api]);
+
+  const scrollNext = useCallback(() => {
+    api?.scrollNext();
+  }, [api]);
 
   return (
     <section className="relative py-24 overflow-hidden">
@@ -96,19 +130,21 @@ export function FeaturedProducts() {
           {/* Navigation arrows */}
           <div className="flex gap-3">
             <motion.button
-              onClick={() => scroll('left')}
-              className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 hover:border-purple-500/30 transition-all"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              onClick={scrollPrev}
+              disabled={!canScrollPrev}
+              className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 hover:border-purple-500/30 transition-all disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-white/5 disabled:hover:border-white/10 disabled:hover:text-white/50"
+              whileHover={canScrollPrev ? { scale: 1.05 } : undefined}
+              whileTap={canScrollPrev ? { scale: 0.95 } : undefined}
               aria-label="Прокрутить влево"
             >
               <ChevronLeft className="w-5 h-5" />
             </motion.button>
             <motion.button
-              onClick={() => scroll('right')}
-              className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 hover:border-purple-500/30 transition-all"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              onClick={scrollNext}
+              disabled={!canScrollNext}
+              className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 hover:border-purple-500/30 transition-all disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-white/5 disabled:hover:border-white/10 disabled:hover:text-white/50"
+              whileHover={canScrollNext ? { scale: 1.05 } : undefined}
+              whileTap={canScrollNext ? { scale: 0.95 } : undefined}
               aria-label="Прокрутить вправо"
             >
               <ChevronRight className="w-5 h-5" />
@@ -130,39 +166,46 @@ export function FeaturedProducts() {
             <FeaturedError onRetry={refetch} />
           )}
 
-          {/* Scrollable container */}
+          {/* Carousel */}
           {!isLoading && !error && products.length > 0 && (
-            <div
-              ref={scrollRef}
-              className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide scroll-smooth snap-x snap-mandatory"
-              style={{
-                scrollbarWidth: 'none',
-                msOverflowStyle: 'none',
+            <Carousel
+              setApi={handleSetApi}
+              opts={{
+                align: 'start',
+                dragFree: true,
+                containScroll: 'trimSnaps',
               }}
+              className="w-full"
             >
-              {products.map((product, index) => (
-                <Link
-                  key={product.id}
-                  href={`/product/${product.slug}`}
-                  className="flex-shrink-0 w-[320px] md:w-[350px] snap-start block"
-                >
-                  <ProductCard
-                    name={product.title}
-                    specs={{
-                      cpu: product.specs?.cpu || 'Не указано',
-                      gpu: product.specs?.gpu || 'Не указано',
-                      ram: product.specs?.ram || 'Не указано',
-                      storage: product.specs?.ssd || 'Не указано',
-                    }}
-                    price={product.price.amount}
-                    originalPrice={product.price.originalAmount || undefined}
-                    image={product.image}
-                    badge={product.platformBadge || undefined}
-                    index={index}
-                  />
-                </Link>
-              ))}
-            </div>
+              <CarouselContent className="-ml-6">
+                {products.map((product, index) => (
+                  <CarouselItem
+                    key={product.id}
+                    className="pl-6 basis-auto"
+                  >
+                    <Link
+                      href={`/product/${product.slug}`}
+                      className="block w-[320px] md:w-[350px]"
+                    >
+                      <ProductCard
+                        name={product.title}
+                        specs={{
+                          cpu: product.specs?.cpu || 'Не указано',
+                          gpu: product.specs?.gpu || 'Не указано',
+                          ram: product.specs?.ram || 'Не указано',
+                          storage: product.specs?.ssd || 'Не указано',
+                        }}
+                        price={product.price.amount}
+                        originalPrice={product.price.originalAmount || undefined}
+                        image={product.image}
+                        badge={product.platformBadge || undefined}
+                        index={index}
+                      />
+                    </Link>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
           )}
 
           {/* Empty state */}
