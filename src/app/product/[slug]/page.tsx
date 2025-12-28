@@ -133,7 +133,7 @@ function ErrorState({ error, onRetry }: { error: Error; onRetry: () => void }) {
               В каталог
             </Button>
           </Link>
-          <Button variant="primary" onClick={onRetry}>
+          <Button variant="default" onClick={onRetry}>
             Повторить
           </Button>
         </div>

@@ -319,7 +319,7 @@ export function ProductFilters({
             </div>
             <SheetFooter>
               <SheetClose asChild>
-                <Button variant="primary" className="w-full">
+                <Button variant="default" className="w-full">
                   Применить
                 </Button>
               </SheetClose>

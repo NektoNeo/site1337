@@ -197,7 +197,7 @@ export function FeaturedProducts() {
                         }}
                         price={product.price.amount}
                         originalPrice={product.price.originalAmount || undefined}
-                        image={product.image}
+                        image={product.images?.[0]?.url || ''}
                         badge={product.platformBadge || undefined}
                         index={index}
                       />

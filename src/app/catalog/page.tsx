@@ -167,7 +167,7 @@ function ErrorState({ error, onRetry }: { error: Error; onRetry: () => void }) {
         {error.message || 'Не удалось загрузить товары. Пожалуйста, попробуйте позже.'}
       </p>
       <Button
-        variant="primary"
+        variant="default"
         onClick={onRetry}
         className="gap-2"
       >

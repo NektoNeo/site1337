@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
+import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from "motion/react";
 import { ShoppingCart, Search, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { MobileNav } from "./mobile-nav";
+import { Logo } from "@/components/ui/Logo";
 
 // Navigation configuration
 const navLinks = [
@@ -16,101 +17,81 @@ const navLinks = [
   { href: "/contacts", label: "Контакты" },
 ];
 
-// VA-PC Logo Component with animated glow
-function VAPCLogo({ className }: { className?: string }) {
-  return (
-    <Link href="/" className={cn("flex items-center gap-3 group", className)}>
-      {/* Triangular VA Mark */}
-      <div className="relative">
-        <svg
-          width="40"
-          height="40"
-          viewBox="0 0 40 40"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="transition-all duration-300 group-hover:drop-shadow-[0_0_10px_rgba(139,92,246,0.8)]"
-        >
-          {/* Outer triangle with gradient */}
-          <defs>
-            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#8B5CF6" />
-              <stop offset="100%" stopColor="#06B6D4" />
-            </linearGradient>
-            <filter id="glow">
-              <feGaussianBlur stdDeviation="2" result="coloredBlur" />
-              <feMerge>
-                <feMergeNode in="coloredBlur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-          </defs>
-          {/* Main triangle */}
-          <path
-            d="M20 4L36 34H4L20 4Z"
-            stroke="url(#logoGradient)"
-            strokeWidth="2"
-            fill="none"
-            filter="url(#glow)"
-          />
-          {/* Inner V shape */}
-          <path
-            d="M14 24L20 12L26 24"
-            stroke="#8B5CF6"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="transition-all duration-300 group-hover:stroke-[#06B6D4]"
-          />
-          {/* Accent dot */}
-          <circle
-            cx="20"
-            cy="28"
-            r="2"
-            fill="#06B6D4"
-            className="transition-all duration-300 group-hover:fill-[#8B5CF6]"
-          />
-        </svg>
-        {/* Glow effect on hover */}
-        <div className="absolute inset-0 bg-neon-purple/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      </div>
-      
-      {/* Text Logo */}
-      <div className="flex flex-col">
-        <span className="font-display text-2xl font-bold tracking-wider text-white group-hover:text-glow-purple transition-all duration-300">
-          VA-PC
-        </span>
-        <span className="text-[10px] font-mono text-neon-cyan/70 tracking-[0.3em] uppercase">
-          Gaming Systems
-        </span>
-      </div>
-    </Link>
-  );
-}
-
-// Navigation Link with scan-line effect
+// Navigation Link with magnetic hover effect
 function NavLink({ href, label, isActive }: { href: string; label: string; isActive?: boolean }) {
+  const ref = useRef<HTMLAnchorElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const springConfig = { damping: 25, stiffness: 400 };
+  const xSpring = useSpring(x, springConfig);
+  const ySpring = useSpring(y, springConfig);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    x.set((e.clientX - centerX) * 0.15);
+    y.set((e.clientY - centerY) * 0.15);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
   return (
-    <Link
-      href={href}
-      className={cn(
-        "relative px-4 py-2 font-display text-sm font-semibold uppercase tracking-wider transition-colors duration-300",
-        "hover:text-neon-purple",
-        isActive ? "text-neon-purple" : "text-white/80"
-      )}
+    <motion.div
+      style={{ x: xSpring, y: ySpring }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
     >
-      <span className="relative z-10">{label}</span>
-      {/* Scan line effect */}
-      <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-neon-purple to-neon-cyan transition-all duration-300 group-hover:w-full hover:w-full" 
-        style={{ width: isActive ? '100%' : undefined }}
-      />
-      {/* Hover underline */}
-      <motion.span
-        className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-neon-purple to-neon-cyan"
-        initial={{ width: 0 }}
-        whileHover={{ width: "100%" }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
-      />
-    </Link>
+      <Link
+        ref={ref}
+        href={href}
+        className={cn(
+          "relative px-4 py-2 font-display text-sm font-semibold uppercase tracking-wider transition-all duration-300 block",
+          "hover:text-neon-purple",
+          isActive ? "text-neon-purple" : "text-white/80"
+        )}
+      >
+        <span className="relative z-10">{label}</span>
+
+        {/* Glow background on hover */}
+        <motion.span
+          className="absolute inset-0 rounded-lg bg-neon-purple/0 -z-10"
+          whileHover={{ backgroundColor: "rgba(139, 92, 246, 0.1)" }}
+          transition={{ duration: 0.2 }}
+        />
+
+        {/* Animated underline */}
+        <motion.span
+          className="absolute bottom-0 left-1/2 h-0.5 bg-gradient-to-r from-neon-purple via-neon-cyan to-neon-purple"
+          initial={{ width: isActive ? "80%" : "0%", x: "-50%" }}
+          whileHover={{ width: "80%", x: "-50%" }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+        />
+
+        {/* Corner accents on hover */}
+        <motion.span
+          className="absolute top-0 left-0 w-2 h-2 border-l border-t border-neon-purple/0 rounded-tl"
+          whileHover={{ borderColor: "rgba(139, 92, 246, 0.5)" }}
+        />
+        <motion.span
+          className="absolute top-0 right-0 w-2 h-2 border-r border-t border-neon-cyan/0 rounded-tr"
+          whileHover={{ borderColor: "rgba(6, 182, 212, 0.5)" }}
+        />
+        <motion.span
+          className="absolute bottom-0 left-0 w-2 h-2 border-l border-b border-neon-cyan/0 rounded-bl"
+          whileHover={{ borderColor: "rgba(6, 182, 212, 0.5)" }}
+        />
+        <motion.span
+          className="absolute bottom-0 right-0 w-2 h-2 border-r border-b border-neon-purple/0 rounded-br"
+          whileHover={{ borderColor: "rgba(139, 92, 246, 0.5)" }}
+        />
+      </Link>
+    </motion.div>
   );
 }
 
@@ -251,15 +232,27 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [cartItemCount] = useState(3); // Demo cart count
-  
+  const [isScrolled, setIsScrolled] = useState(false);
+
   // Scroll-based header shrink effect
   const { scrollY } = useScroll();
   const headerHeight = useTransform(scrollY, [0, 100], [80, 64]);
   const headerBg = useTransform(
     scrollY,
     [0, 50],
-    ["rgba(17, 17, 24, 0.6)", "rgba(17, 17, 24, 0.95)"]
+    ["rgba(10, 10, 15, 0.7)", "rgba(10, 10, 15, 0.95)"]
   );
+  const borderOpacity = useTransform(scrollY, [0, 100], [0.3, 0.8]);
+  const blurAmount = useTransform(scrollY, [0, 100], [12, 20]);
+
+  // Track scroll position for RGB border
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -276,37 +269,53 @@ export function Header() {
   return (
     <>
       <motion.header
-        style={{ 
+        style={{
           height: headerHeight,
-          backgroundColor: headerBg 
+          backgroundColor: headerBg,
         }}
         className={cn(
           "fixed top-0 left-0 right-0 z-40",
           "backdrop-blur-xl",
-          "border-b border-glass-border",
-          "transition-[border-color] duration-300"
+          "transition-all duration-500"
         )}
       >
+        {/* RGB Animated border on scroll */}
+        <motion.div
+          className="absolute inset-0 rounded-none pointer-events-none"
+          style={{
+            background: isScrolled
+              ? "linear-gradient(90deg, transparent, rgba(139,92,246,0.1) 20%, rgba(6,182,212,0.1) 80%, transparent)"
+              : "transparent",
+          }}
+          animate={{
+            opacity: isScrolled ? 1 : 0,
+          }}
+          transition={{ duration: 0.3 }}
+        />
+
+        {/* Top edge glow */}
+        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-neon-purple/30 to-transparent" />
+
         <div className="container mx-auto h-full px-4 lg:px-8">
           <div className="flex items-center justify-between h-full">
             {/* Logo */}
-            <VAPCLogo />
-            
+            <Logo size="md" />
+
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-1">
               {navLinks.map((link) => (
                 <NavLink key={link.href} href={link.href} label={link.label} />
               ))}
             </nav>
-            
+
             {/* Actions */}
             <div className="flex items-center gap-2">
               {/* Search Button */}
               <SearchButton onClick={() => setIsSearchOpen(true)} />
-              
+
               {/* Cart Button */}
               <CartButton itemCount={cartItemCount} />
-              
+
               {/* Mobile Menu Toggle */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -346,9 +355,40 @@ export function Header() {
             </div>
           </div>
         </div>
-        
-        {/* Decorative bottom gradient line */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-neon-purple/50 to-transparent" />
+
+        {/* Animated RGB bottom border */}
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 h-[2px] overflow-hidden"
+          style={{ opacity: borderOpacity }}
+        >
+          <motion.div
+            className="h-full w-[200%]"
+            style={{
+              background: "linear-gradient(90deg, transparent, #8B5CF6, #06B6D4, #EC4899, #8B5CF6, transparent)",
+            }}
+            animate={{
+              x: ["-50%", "0%"],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          />
+        </motion.div>
+
+        {/* Glow effect beneath header */}
+        <motion.div
+          className="absolute -bottom-8 left-0 right-0 h-8 pointer-events-none"
+          style={{
+            background: "linear-gradient(to bottom, rgba(139,92,246,0.1), transparent)",
+            opacity: isScrolled ? 1 : 0,
+          }}
+          animate={{
+            opacity: isScrolled ? 0.5 : 0,
+          }}
+          transition={{ duration: 0.3 }}
+        />
       </motion.header>
       
       {/* Mobile Navigation */}

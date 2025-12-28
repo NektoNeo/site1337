@@ -30,3 +30,15 @@ export {
   useProductPrefetch,
   useIntersectionObserver,
 } from './usePrefetch';
+
+// Animation optimization hooks
+export {
+  useAnimationVisibility,
+  useThrottledMousePosition,
+  useGlobalMousePosition,
+  seededRandom,
+  useSeededRandom,
+  useAnimationPaused,
+  useMounted,
+  useParticleBurstPositions,
+} from './useAnimationOptimization';

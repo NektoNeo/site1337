@@ -97,6 +97,18 @@ export default function RootLayout({
         {/* DNS prefetch for API endpoints */}
         <link rel="dns-prefetch" href="https://api.va-pc.ru" />
         <link rel="dns-prefetch" href="https://api.vk.com" />
+
+        {/* Preload critical hero image for LCP optimization */}
+        <link
+          rel="preload"
+          href="/gaming-pc-hero.png"
+          as="image"
+          type="image/png"
+          fetchPriority="high"
+        />
+
+        {/* Prefetch catalog page for faster navigation */}
+        <link rel="prefetch" href="/catalog" />
       </head>
       <body className="antialiased bg-black text-white min-h-screen flex flex-col font-outfit">
         {/* React Query Provider for data fetching */}

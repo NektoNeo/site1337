@@ -5,6 +5,7 @@ import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 import { Phone, Mail, MapPin, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Logo } from "@/components/ui/Logo";
 
 // Footer navigation configuration
 const footerNav = {
@@ -178,46 +179,11 @@ function ContactItem({
   );
 }
 
-// VA-PC Footer Logo
+// VA-PC Footer Logo - uses the unified Logo component
 function FooterLogo() {
   return (
-    <div className="flex items-center gap-3 mb-4">
-      <svg
-        width="48"
-        height="48"
-        viewBox="0 0 40 40"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <linearGradient id="footerLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#8B5CF6" />
-            <stop offset="100%" stopColor="#06B6D4" />
-          </linearGradient>
-        </defs>
-        <path
-          d="M20 4L36 34H4L20 4Z"
-          stroke="url(#footerLogoGradient)"
-          strokeWidth="2"
-          fill="none"
-        />
-        <path
-          d="M14 24L20 12L26 24"
-          stroke="#8B5CF6"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <circle cx="20" cy="28" r="2" fill="#06B6D4" />
-      </svg>
-      <div>
-        <span className="font-display text-2xl font-bold text-white tracking-wider block">
-          VA-PC
-        </span>
-        <span className="text-[10px] font-mono text-neon-cyan/70 tracking-[0.3em] uppercase">
-          Gaming Systems
-        </span>
-      </div>
+    <div className="mb-4">
+      <Logo size="lg" linkTo="/" />
     </div>
   );
 }
