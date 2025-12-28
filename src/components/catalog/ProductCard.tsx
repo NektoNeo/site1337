@@ -38,10 +38,10 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
       className="group relative"
     >
       {/* RGB Glow effect */}
-      <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-neon-purple-500 via-neon-magenta-500 to-neon-purple-600 opacity-0 group-hover:opacity-60 blur-xl transition-all duration-500 animate-glow-pulse" />
+      <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-neon-purple-500 via-neon-purple-500 to-neon-purple-600 opacity-0 group-hover:opacity-60 blur-xl transition-all duration-500 animate-glow-pulse" />
       
       {/* Card container */}
-      <div className="relative h-full rounded-2xl overflow-hidden bg-void-200 border border-neon-purple-500/20 group-hover:border-neon-magenta-400/40 transition-all duration-300">
+      <div className="relative h-full rounded-2xl overflow-hidden bg-void-200 border border-neon-purple-500/20 group-hover:border-neon-purple-400/40 transition-all duration-300">
         {/* Badges */}
         {product.badges && product.badges.length > 0 && (
           <div className="absolute top-4 left-4 z-20 flex flex-wrap gap-2">
@@ -52,11 +52,11 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
                 animate={{ opacity: 1, scale: 1, x: 0 }}
                 transition={{ delay: 0.3 + i * 0.1 }}
                 className={cn(
-                  'px-3 py-1 rounded-full text-xs font-display font-bold uppercase tracking-wider',
+                  'px-3 py-1 rounded-full text-xs font-inter font-bold uppercase tracking-wider',
                   badge === 'СКИДКА' || badge === 'SALE'
                     ? 'bg-gradient-to-r from-red-500 to-orange-500 text-white shadow-[0_0_15px_rgba(239,68,68,0.5)]'
                     : badge === 'ТОП' || badge === 'TOP'
-                    ? 'bg-gradient-to-r from-neon-purple-500 to-neon-magenta-500 text-white shadow-neon-mixed'
+                    ? 'bg-gradient-to-r from-neon-purple-500 to-neon-purple-500 text-white shadow-neon-mixed'
                     : 'bg-white/10 backdrop-blur-sm text-white/90 border border-white/20'
                 )}
               >
@@ -75,7 +75,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
               transition={{ delay: 0.4, type: 'spring' }}
               className="w-14 h-14 rounded-full bg-gradient-to-br from-red-500 to-orange-600 flex items-center justify-center shadow-[0_0_20px_rgba(239,68,68,0.6)]"
             >
-              <span className="font-display font-black text-white text-sm">-{discount}%</span>
+              <span className="font-inter font-black text-white text-sm">-{discount}%</span>
             </motion.div>
           </div>
         )}
@@ -85,9 +85,9 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           {/* Tech frame corners */}
           <div className="absolute inset-4 pointer-events-none z-10">
             {/* Top left corner */}
-            <div className="absolute top-0 left-0 w-6 h-6 border-l-2 border-t-2 border-neon-magenta-400/60" />
+            <div className="absolute top-0 left-0 w-6 h-6 border-l-2 border-t-2 border-neon-purple-400/60" />
             {/* Top right corner */}
-            <div className="absolute top-0 right-0 w-6 h-6 border-r-2 border-t-2 border-neon-magenta-400/60" />
+            <div className="absolute top-0 right-0 w-6 h-6 border-r-2 border-t-2 border-neon-purple-400/60" />
             {/* Bottom left corner */}
             <div className="absolute bottom-0 left-0 w-6 h-6 border-l-2 border-b-2 border-neon-purple-400/60" />
             {/* Bottom right corner */}
@@ -98,7 +98,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="relative w-48 h-48 group-hover:scale-105 transition-transform duration-500">
               {/* Glow under image */}
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-8 bg-neon-magenta-500/30 blur-xl rounded-full" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-8 bg-neon-purple-500/30 blur-xl rounded-full" />
               
               {/* PC Icon placeholder */}
               <div className="absolute inset-0 flex items-center justify-center">
@@ -107,7 +107,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
               
               {/* Animated scan line */}
               <motion.div
-                className="absolute inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-neon-magenta-400 to-transparent opacity-0 group-hover:opacity-100"
+                className="absolute inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-neon-purple-400 to-transparent opacity-0 group-hover:opacity-100"
                 initial={{ top: '0%' }}
                 animate={{ top: ['0%', '100%', '0%'] }}
                 transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
@@ -122,7 +122,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
         {/* Content section */}
         <div className="relative p-5">
           {/* Name */}
-          <h3 className="font-display text-lg font-bold text-white mb-3 group-hover:text-neon-magenta-300 transition-colors duration-300 line-clamp-1">
+          <h3 className="font-inter text-lg font-bold text-white mb-3 group-hover:text-neon-purple-300 transition-colors duration-300 line-clamp-1">
             {product.name}
           </h3>
 
@@ -141,12 +141,12 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
                   <div className="text-sm text-white/40 line-through font-mono">
                     {formatPrice(product.price)}
                   </div>
-                  <div className="text-2xl font-display font-black text-transparent bg-gradient-to-r from-neon-magenta-400 to-neon-purple-400 bg-clip-text">
+                  <div className="text-2xl font-inter font-black text-transparent bg-gradient-to-r from-neon-purple-400 to-neon-purple-400 bg-clip-text">
                     {formatPrice(product.salePrice)}
                   </div>
                 </>
               ) : (
-                <div className="text-2xl font-display font-black text-white">
+                <div className="text-2xl font-inter font-black text-white">
                   {formatPrice(product.price)}
                 </div>
               )}
@@ -170,13 +170,13 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="relative w-full py-3.5 px-6 rounded-xl overflow-hidden font-display font-bold text-sm uppercase tracking-wider"
+              className="relative w-full py-3.5 px-6 rounded-xl overflow-hidden font-inter font-bold text-sm uppercase tracking-wider"
             >
               {/* Button gradient background */}
               <div className="absolute inset-0 bg-gradient-to-r from-neon-purple-600 to-neon-purple-500" />
               
               {/* Hover overlay */}
-              <div className="absolute inset-0 bg-gradient-to-r from-neon-magenta-500 to-neon-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-neon-purple-500 to-neon-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               
               {/* Shine effect */}
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -190,7 +190,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
         </div>
 
         {/* Bottom glow line */}
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-neon-purple-500 via-neon-magenta-500 to-neon-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-neon-purple-500 via-neon-purple-500 to-neon-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
     </motion.article>
   );
@@ -200,7 +200,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
 function SpecBadge({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
     <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-white/70 text-xs font-mono">
-      <span className="text-neon-magenta-400">{icon}</span>
+      <span className="text-neon-purple-400">{icon}</span>
       <span>{label}</span>
     </div>
   );

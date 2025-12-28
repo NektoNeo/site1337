@@ -98,7 +98,7 @@ export function Features() {
         style={{
           backgroundImage: `
             radial-gradient(circle at 25% 25%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
-            radial-gradient(circle at 75% 75%, rgba(6, 182, 212, 0.3) 0%, transparent 50%)
+            radial-gradient(circle at 75% 75%, rgba(139, 92, 246, 0.3) 0%, transparent 50%)
           `,
         }}
       />
@@ -119,12 +119,12 @@ export function Features() {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="inline-block px-4 py-1.5 rounded-full bg-magenta-500/10 border border-magenta-500/20 text-magenta-400 text-sm font-medium mb-6"
+            className="inline-block px-4 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-sm font-medium mb-6"
           >
             Почему мы
           </motion.span>
           
-          <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl text-white mb-4">
+          <h2 className="font-inter font-bold text-3xl md:text-4xl lg:text-5xl text-white mb-4">
             Что входит в <span className="text-gradient-purple">каждый PC</span>
           </h2>
           <p className="text-white/50 text-lg max-w-2xl mx-auto">

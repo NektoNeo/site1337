@@ -47,12 +47,12 @@ export function Header() {
               whileHover={{ scale: 1.02 }}
             >
               <div className="relative">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-magenta-500 flex items-center justify-center">
-                  <span className="font-display font-black text-white text-lg">V</span>
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-purple-500 flex items-center justify-center">
+                  <span className="font-inter font-black text-white text-lg">V</span>
                 </div>
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-purple-600 to-magenta-500 blur-lg opacity-50" />
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-purple-600 to-purple-500 blur-lg opacity-50" />
               </div>
-              <div className="font-display font-bold text-xl">
+              <div className="font-inter font-bold text-xl">
                 <span className="text-white">VA</span>
                 <span className="text-gradient-purple">-PC</span>
               </div>
@@ -68,7 +68,7 @@ export function Header() {
                   whileHover={{ y: -2 }}
                 >
                   {link.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-magenta-500 group-hover:w-full transition-all duration-300" />
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-purple-500 group-hover:w-full transition-all duration-300" />
                 </motion.a>
               ))}
             </nav>
@@ -141,7 +141,7 @@ export function Header() {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className="text-2xl font-display font-semibold text-white/80 hover:text-white transition-colors"
+                    className="text-2xl font-inter font-semibold text-white/80 hover:text-white transition-colors"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {link.label}

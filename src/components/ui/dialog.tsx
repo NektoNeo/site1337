@@ -111,8 +111,8 @@ const dialogContentVariants = cva(
           "shadow-[0_0_30px_rgba(139,92,246,0.3),inset_0_0_20px_rgba(139,92,246,0.05)]",
         ].join(" "),
         magenta: [
-          "border-[#06B6D4]/30",
-          "shadow-[0_0_30px_rgba(6,182,212,0.2)]",
+          "border-[#8B5CF6]/30",
+          "shadow-[0_0_30px_rgba(139,92,246,0.2)]",
         ].join(" "),
         danger: [
           "border-red-500/30",
@@ -164,7 +164,7 @@ function DialogContent({
           className="absolute inset-0 rounded-xl pointer-events-none opacity-50"
           style={{
             background:
-              "linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, transparent 50%, rgba(6, 182, 212, 0.05) 100%)",
+              "linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, transparent 50%, rgba(139, 92, 246, 0.05) 100%)",
           }}
         />
 
@@ -235,7 +235,7 @@ function DialogTitle({
       className={cn(
         "text-xl font-bold leading-none font-orbitron tracking-wide",
         gradient
-          ? "bg-gradient-to-r from-[#8B5CF6] to-[#06B6D4] bg-clip-text text-transparent"
+          ? "bg-gradient-to-r from-[#8B5CF6] to-[#8B5CF6] bg-clip-text text-transparent"
           : "text-white",
         className
       )}
@@ -251,7 +251,7 @@ function DialogDescription({
   return (
     <DialogPrimitive.Description
       data-slot="dialog-description"
-      className={cn("text-sm text-zinc-400 font-outfit", className)}
+      className={cn("text-sm text-zinc-400 font-inter", className)}
       {...props}
     />
   );

@@ -1,10 +1,9 @@
 'use client';
 
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
-import { useRef, useState, useMemo, memo } from 'react';
+import { useRef, useState, memo } from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/cn';
-import { useParticleBurstPositions } from '@/hooks/useAnimationOptimization';
 
 // ============================================
 // PERFORMANCE OPTIMIZED MAGNETIC BUTTON
@@ -30,9 +29,6 @@ interface MagneticButtonProps {
 }
 
 // Pre-computed particle positions for burst effect
-const PARTICLE_COUNT = 4;
-const PARTICLE_RADIUS = 40;
-
 function MagneticButtonComponent({
   children,
   href,
@@ -41,14 +37,11 @@ function MagneticButtonComponent({
   size = 'md',
   className,
   magneticStrength = 0.3,
-  glowColor = 'rgba(139, 92, 246, 0.6)',
+  glowColor: _glowColor = 'rgba(139, 92, 246, 0.6)',
 }: MagneticButtonProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const shouldReduceMotion = useReducedMotion();
-
-  // Pre-computed particle positions
-  const particlePositions = useParticleBurstPositions(PARTICLE_COUNT, PARTICLE_RADIUS);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -58,13 +51,10 @@ function MagneticButtonComponent({
   const ySpring = useSpring(y, springConfig);
 
   // Glow effect transforms
-  const glowOpacity = useTransform(
-    [xSpring, ySpring],
-    ([latestX, latestY]: number[]) => {
-      const distance = Math.sqrt(latestX * latestX + latestY * latestY);
-      return Math.min(1, distance / 50 + 0.5);
-    }
-  );
+  const glowOpacity = useTransform([xSpring, ySpring], ([latestX, latestY]: number[]) => {
+    const distance = Math.sqrt(latestX * latestX + latestY * latestY);
+    return Math.min(1, distance / 60 + 0.4);
+  });
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!ref.current || shouldReduceMotion) return;
@@ -94,20 +84,18 @@ function MagneticButtonComponent({
 
   const variantStyles = {
     primary: `
-      bg-gradient-to-r from-purple-600 via-purple-500 to-magenta-500
-      text-white font-bold
-      shadow-[0_0_20px_rgba(139,92,246,0.4)]
-      hover:shadow-[0_0_40px_rgba(139,92,246,0.6),0_0_60px_rgba(6,182,212,0.3)]
+      bg-white text-black font-semibold
+      border border-white/10
+      hover:bg-white/90
     `,
     secondary: `
-      bg-transparent border-2 border-purple-500/50
-      text-purple-400 font-semibold
-      hover:border-purple-400 hover:text-purple-300
-      hover:shadow-[0_0_30px_rgba(139,92,246,0.3)]
+      bg-transparent border border-white/20
+      text-white/80 font-medium
+      hover:border-white/40 hover:text-white
     `,
     ghost: `
       bg-white/5 backdrop-blur-sm
-      text-white/80 font-medium
+      text-white/70 font-medium
       hover:bg-white/10 hover:text-white
     `,
   };
@@ -119,7 +107,7 @@ function MagneticButtonComponent({
     <motion.div
       ref={ref}
       className={cn(
-        'relative inline-flex items-center justify-center gap-2 rounded-xl cursor-pointer overflow-hidden transition-colors duration-300 will-change-transform',
+        'relative inline-flex items-center justify-center gap-2 rounded-xl cursor-pointer transition-colors duration-300 will-change-transform',
         sizeStyles[size],
         variantStyles[variant],
         className
@@ -134,54 +122,15 @@ function MagneticButtonComponent({
       onClick={onClick}
       whileTap={shouldAnimate ? { scale: 0.95 } : undefined}
     >
-      {/* Animated gradient border - only for primary variant and when animating */}
-      {variant === 'primary' && shouldAnimate && (
-        <motion.div
-          className="absolute inset-0 rounded-xl will-change-transform"
-          style={{
-            background: `conic-gradient(from 0deg, #8B5CF6, #06B6D4, #EC4899, #8B5CF6)`,
-            opacity: isHovered ? 0.3 : 0,
-          }}
-          animate={{
-            rotate: isHovered ? 360 : 0,
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-        />
-      )}
-
-      {/* Shimmer effect */}
-      {shouldAnimate && (
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-          initial={{ x: '-100%' }}
-          animate={isHovered ? { x: '100%' } : { x: '-100%' }}
-          transition={{ duration: 0.6, ease: 'easeInOut' }}
-        />
-      )}
-
-      {/* Ripple effect on hover */}
-      {isHovered && shouldAnimate && (
-        <motion.div
-          className="absolute inset-0 rounded-xl"
-          style={{ background: glowColor }}
-          initial={{ scale: 0, opacity: 0.5 }}
-          animate={{ scale: 2, opacity: 0 }}
-          transition={{ duration: 0.6 }}
-        />
-      )}
-
       {/* Glow backdrop */}
       {shouldAnimate && (
         <motion.div
           className="absolute -inset-2 rounded-xl blur-xl -z-10 will-change-opacity"
           style={{
-            background: variant === 'primary'
-              ? 'linear-gradient(135deg, rgba(139,92,246,0.4), rgba(6,182,212,0.3))'
-              : 'rgba(139,92,246,0.2)',
+            background:
+              variant === 'primary'
+                ? 'linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,255,255,0.2))'
+                : 'rgba(255,255,255,0.08)',
             opacity: glowOpacity,
           }}
         />
@@ -191,34 +140,6 @@ function MagneticButtonComponent({
       <span className="relative z-10 flex items-center gap-2">
         {children}
       </span>
-
-      {/* Particle burst on hover - using pre-computed positions */}
-      {isHovered && variant === 'primary' && shouldAnimate && (
-        <>
-          {particlePositions.map((pos, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 rounded-full bg-magenta-400 will-change-transform"
-              initial={{
-                x: 0,
-                y: 0,
-                opacity: 1,
-                scale: 1
-              }}
-              animate={{
-                x: pos.x,
-                y: pos.y,
-                opacity: 0,
-                scale: 0,
-              }}
-              transition={{
-                duration: 0.5,
-                delay: i * 0.05,
-              }}
-            />
-          ))}
-        </>
-      )}
     </motion.div>
   );
 

@@ -43,7 +43,7 @@ function FeaturedError({ onRetry }: { onRetry: () => void }) {
       <p className="text-white/50 mb-4">Не удалось загрузить товары</p>
       <motion.button
         onClick={onRetry}
-        className="px-4 py-2 rounded-lg bg-purple-600/20 border border-purple-500/30 text-purple-400 text-sm font-semibold hover:bg-purple-600/30 transition-all"
+        className="px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 text-sm font-semibold hover:bg-purple-500/30 transition-all"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -106,8 +106,8 @@ export function FeaturedProducts() {
   return (
     <section className="relative py-24 overflow-hidden">
       {/* Background accents */}
-      <div className="absolute right-0 top-1/4 w-[500px] h-[500px] rounded-full bg-purple-600/5 blur-3xl pointer-events-none" />
-      <div className="absolute left-0 bottom-1/4 w-[400px] h-[400px] rounded-full bg-magenta-600/5 blur-3xl pointer-events-none" />
+      <div className="absolute right-0 top-1/4 w-[500px] h-[500px] rounded-full bg-purple-500/5 blur-3xl pointer-events-none" />
+      <div className="absolute left-0 bottom-1/4 w-[400px] h-[400px] rounded-full bg-fuchsia-500/5 blur-3xl pointer-events-none" />
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
@@ -119,7 +119,7 @@ export function FeaturedProducts() {
           className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4"
         >
           <div>
-            <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl text-white mb-4">
+            <h2 className="font-inter font-bold text-3xl md:text-4xl lg:text-5xl text-white mb-4">
               Готовые <span className="text-gradient-purple">сборки</span>
             </h2>
             <p className="text-white/50 text-lg max-w-xl">

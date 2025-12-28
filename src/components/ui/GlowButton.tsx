@@ -35,11 +35,11 @@ export function GlowButton({
       hover:shadow-[0_0_30px_rgba(139,92,246,0.6),0_0_60px_rgba(139,92,246,0.3)]
     `,
     secondary: `
-      bg-gradient-to-r from-magenta-600 to-magenta-500
-      hover:from-magenta-500 hover:to-magenta-400
+      bg-gradient-to-r from-purple-700 to-purple-600
+      hover:from-purple-600 hover:to-purple-500
       text-white font-semibold
-      shadow-[0_0_20px_rgba(6,182,212,0.4)]
-      hover:shadow-[0_0_30px_rgba(6,182,212,0.6),0_0_60px_rgba(6,182,212,0.3)]
+      shadow-[0_0_20px_rgba(139,92,246,0.3)]
+      hover:shadow-[0_0_30px_rgba(139,92,246,0.5),0_0_60px_rgba(139,92,246,0.2)]
     `,
     outline: `
       bg-transparent
@@ -54,7 +54,7 @@ export function GlowButton({
     <motion.span
       className={`
         relative inline-flex items-center justify-center gap-2
-        rounded-xl font-display tracking-wide
+        rounded-xl font-inter tracking-wide
         transition-all duration-300 cursor-pointer
         ${sizeStyles[size]}
         ${variantStyles[variant]}

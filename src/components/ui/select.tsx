@@ -45,7 +45,7 @@ function SelectValue({
 
 interface SelectTriggerProps
   extends React.ComponentProps<typeof SelectPrimitive.Trigger> {
-  variant?: "default" | "magenta" | "glass" | "neon";
+  variant?: "default" | "fuchsia" | "glass" | "neon" | "neon-fuchsia";
   size?: "sm" | "default" | "lg";
 }
 
@@ -57,43 +57,57 @@ function SelectTrigger({
   ...props
 }: SelectTriggerProps) {
   const variantStyles = {
+    // Default - Purple glow
     default: [
-      "bg-[#0a0a0a]",
-      "border-zinc-800",
-      "hover:border-zinc-700",
-      "focus:border-[#8B5CF6]",
-      "focus:ring-2 focus:ring-[#8B5CF6]/20",
-      "focus:shadow-[0_0_20px_rgba(139,92,246,0.15)]",
-      "data-[state=open]:border-[#8B5CF6]",
-      "data-[state=open]:ring-2 data-[state=open]:ring-[#8B5CF6]/20",
+      "bg-[var(--color-bg-primary)]",
+      "border-[var(--color-border-subtle)]",
+      "hover:border-[var(--color-border-glow)]",
+      "focus:border-purple-500",
+      "focus:ring-2 focus:ring-purple-500/20",
+      "focus:shadow-[0_0_20px_rgba(168,85,247,0.15)]",
+      "data-[state=open]:border-purple-500",
+      "data-[state=open]:ring-2 data-[state=open]:ring-purple-500/20",
     ].join(" "),
-    magenta: [
-      "bg-[#0a0a0a]",
-      "border-zinc-800",
-      "hover:border-zinc-700",
-      "focus:border-[#06B6D4]",
-      "focus:ring-2 focus:ring-[#06B6D4]/20",
-      "focus:shadow-[0_0_20px_rgba(6,182,212,0.15)]",
-      "data-[state=open]:border-[#06B6D4]",
-      "data-[state=open]:ring-2 data-[state=open]:ring-[#06B6D4]/20",
+    // Fuchsia - Fuchsia glow
+    fuchsia: [
+      "bg-[var(--color-bg-primary)]",
+      "border-[var(--color-border-subtle)]",
+      "hover:border-fuchsia-500/30",
+      "focus:border-fuchsia-500",
+      "focus:ring-2 focus:ring-fuchsia-500/20",
+      "focus:shadow-[0_0_20px_rgba(217,70,239,0.15)]",
+      "data-[state=open]:border-fuchsia-500",
+      "data-[state=open]:ring-2 data-[state=open]:ring-fuchsia-500/20",
     ].join(" "),
+    // Glass - Glassmorphism effect
     glass: [
-      "bg-white/5",
+      "bg-[var(--glass-bg)]",
       "backdrop-blur-md",
-      "border-white/10",
-      "hover:bg-white/8",
-      "focus:border-[#8B5CF6]/50",
-      "focus:bg-white/10",
-      "data-[state=open]:bg-white/10",
+      "border-[var(--glass-border)]",
+      "hover:bg-[var(--color-bg-card)]",
+      "focus:border-purple-500/50",
+      "focus:bg-[var(--color-bg-elevated)]",
+      "data-[state=open]:bg-[var(--color-bg-elevated)]",
     ].join(" "),
+    // Neon - Intense purple neon glow
     neon: [
       "bg-black",
-      "border-[#8B5CF6]/30",
-      "hover:border-[#8B5CF6]/50",
-      "focus:border-[#8B5CF6]",
-      "focus:shadow-[0_0_10px_#8B5CF6,0_0_20px_rgba(139,92,246,0.3)]",
-      "data-[state=open]:border-[#8B5CF6]",
-      "data-[state=open]:shadow-[0_0_10px_#8B5CF6,0_0_20px_rgba(139,92,246,0.3)]",
+      "border-purple-500/30",
+      "hover:border-purple-500/50",
+      "focus:border-purple-500",
+      "focus:shadow-[0_0_10px_#a855f7,0_0_20px_rgba(168,85,247,0.3)]",
+      "data-[state=open]:border-purple-500",
+      "data-[state=open]:shadow-[0_0_10px_#a855f7,0_0_20px_rgba(168,85,247,0.3)]",
+    ].join(" "),
+    // Neon Fuchsia - Intense fuchsia neon glow
+    "neon-fuchsia": [
+      "bg-black",
+      "border-fuchsia-500/30",
+      "hover:border-fuchsia-500/50",
+      "focus:border-fuchsia-500",
+      "focus:shadow-[0_0_10px_#d946ef,0_0_20px_rgba(217,70,239,0.3)]",
+      "data-[state=open]:border-fuchsia-500",
+      "data-[state=open]:shadow-[0_0_10px_#d946ef,0_0_20px_rgba(217,70,239,0.3)]",
     ].join(" "),
   };
 
@@ -111,7 +125,7 @@ function SelectTrigger({
         // Base styles
         "flex w-full items-center justify-between gap-2",
         "rounded-lg border",
-        "text-white font-outfit",
+        "text-white font-inter",
         "transition-all duration-300 ease-out",
         "outline-none",
         "disabled:cursor-not-allowed disabled:opacity-50",
@@ -147,9 +161,9 @@ function SelectContent({
           // Base styles
           "relative z-50 overflow-hidden",
           "rounded-lg border border-zinc-800",
-          "bg-[#0a0a0a]/95 backdrop-blur-xl",
-          "text-white",
-          "shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5),0_0_30px_rgba(139,92,246,0.1)]",
+          "bg-[var(--color-bg-primary)]/95 backdrop-blur-xl",
+          "text-[var(--color-text-primary)]",
+          "shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5),0_0_30px_rgba(168,85,247,0.1)]",
           // Animation
           "data-[state=open]:animate-in data-[state=closed]:animate-out",
           "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
@@ -180,7 +194,7 @@ function SelectContent({
           className="absolute inset-0 rounded-lg pointer-events-none opacity-50"
           style={{
             background:
-              "linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, transparent 50%, rgba(6, 182, 212, 0.1) 100%)",
+              "linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, transparent 50%, rgba(168, 85, 247, 0.05) 100%)",
           }}
         />
       </SelectPrimitive.Content>
@@ -197,7 +211,7 @@ function SelectLabel({
       data-slot="select-label"
       className={cn(
         "px-2 py-1.5 text-xs font-semibold uppercase tracking-wider",
-        "text-zinc-500 font-outfit",
+        "text-zinc-500 font-inter",
         className
       )}
       {...props}
@@ -217,13 +231,13 @@ function SelectItem({
         // Base styles
         "relative flex w-full cursor-pointer select-none items-center gap-2",
         "rounded-md py-2 px-8 text-sm",
-        "font-outfit text-zinc-300",
+        "font-inter text-zinc-300",
         "outline-none transition-colors duration-150",
         // Hover and focus states
-        "hover:bg-[#8B5CF6]/10 hover:text-white",
-        "focus:bg-[#8B5CF6]/10 focus:text-white",
+        "hover:bg-purple-500/10 hover:text-white",
+        "focus:bg-purple-500/10 focus:text-white",
         // Selected state
-        "data-[state=checked]:bg-[#8B5CF6]/20 data-[state=checked]:text-[#A855F7]",
+        "data-[state=checked]:bg-purple-500/20 data-[state=checked]:text-purple-400",
         // Disabled state
         "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
         className
@@ -232,7 +246,7 @@ function SelectItem({
     >
       <span className="absolute left-2 flex size-4 items-center justify-center">
         <SelectPrimitive.ItemIndicator>
-          <CheckIcon className="size-4 text-[#8B5CF6]" />
+          <CheckIcon className="size-4 text-purple-500" />
         </SelectPrimitive.ItemIndicator>
       </span>
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>

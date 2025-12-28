@@ -67,12 +67,12 @@ export function Logo({
       {showText && (
         <div className="flex flex-col">
           <span className={cn(
-            "font-display font-bold tracking-wider text-white group-hover:text-glow-purple transition-all duration-300",
+            "font-inter font-bold tracking-wider text-white group-hover:text-glow-purple transition-all duration-300",
             textSizeMap[size]
           )}>
             VA-PC
           </span>
-          <span className="text-[10px] font-mono text-neon-magenta/70 tracking-[0.3em] uppercase">
+          <span className="text-[10px] font-mono text-purple-400/70 tracking-[0.3em] uppercase">
             Gaming Systems
           </span>
         </div>

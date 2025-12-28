@@ -64,21 +64,21 @@ export function ProductCard({
           {/* Badge */}
           {badge && (
             <div className="absolute top-4 right-4 z-20">
-              <span className="px-3 py-1 text-xs font-display font-bold uppercase tracking-wider bg-gradient-to-r from-magenta-500 to-magenta-400 text-black rounded-full">
+              <span className="px-3 py-1 text-xs font-inter font-bold uppercase tracking-wider bg-gradient-to-r from-purple-500 to-purple-400 text-black rounded-full">
                 {badge}
               </span>
             </div>
           )}
           
           {/* Image placeholder with RGB glow effect */}
-          <div className="relative w-full aspect-square mb-4 rounded-xl overflow-hidden bg-gradient-to-br from-purple-900/20 to-magenta-900/20">
+          <div className="relative w-full aspect-square mb-4 rounded-xl overflow-hidden bg-gradient-to-br from-purple-900/20 to-purple-900/20">
             {/* RGB Glow effect */}
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-magenta-500/20 to-purple-500/20 animate-pulse" />
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-purple-500/20 to-purple-500/20 animate-pulse" />
               <div 
                 className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-1/2 blur-3xl"
                 style={{
-                  background: 'linear-gradient(to top, rgba(139,92,246,0.4), transparent)',
+                  background: 'linear-gradient(to top, rgba(168,85,247,0.4), transparent)',
                 }}
               />
             </div>
@@ -97,13 +97,13 @@ export function ProductCard({
                     viewBox="0 0 24 24"
                   >
                     <path d="M4 2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6v2h2a1 1 0 0 1 0 2H8a1 1 0 0 1 0-2h2v-2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 2v12h16V4H4z"/>
-                    <circle cx="12" cy="10" r="3" className="text-magenta-400/60" />
+                    <circle cx="12" cy="10" r="3" className="text-purple-400/60" />
                   </svg>
 
                   {/* RGB Ring effect */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                     <div className="absolute inset-[-10px] rounded-full border-2 border-purple-500/30 animate-ping" style={{ animationDuration: '2s' }} />
-                    <div className="absolute inset-[-20px] rounded-full border border-magenta-500/20 animate-ping" style={{ animationDuration: '3s' }} />
+                    <div className="absolute inset-[-20px] rounded-full border border-purple-500/20 animate-ping" style={{ animationDuration: '3s' }} />
                   </div>
                 </motion.div>
               </div>
@@ -121,7 +121,7 @@ export function ProductCard({
           </div>
           
           {/* Product Name */}
-          <h3 className="font-display font-bold text-lg text-white mb-3 group-hover:text-purple-300 transition-colors">
+          <h3 className="font-inter font-bold text-lg text-white mb-3 group-hover:text-purple-300 transition-colors">
             {name}
           </h3>
           
@@ -142,14 +142,14 @@ export function ProductCard({
                     {formatPrice(originalPrice)}
                   </span>
                 )}
-                <span className="text-2xl font-display font-bold text-gradient-purple">
+                <span className="text-2xl font-inter font-bold text-gradient-purple">
                   {formatPrice(price)}
                 </span>
               </div>
               
               <motion.button
-                className="px-4 py-2 rounded-lg bg-purple-600/20 border border-purple-500/30 text-purple-400 text-sm font-semibold
-                  hover:bg-purple-600/30 hover:border-purple-400/50 hover:text-purple-300
+                className="px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 text-sm font-semibold
+                  hover:bg-purple-500/30 hover:border-purple-400/50 hover:text-purple-300
                   transition-all duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -200,11 +200,11 @@ function SpecRow({
 
   return (
     <div className="flex items-center gap-2 text-sm">
-      <span className={accent ? 'text-magenta-400' : 'text-purple-400/70'}>
+      <span className={accent ? 'text-purple-400' : 'text-purple-400/70'}>
         {icons[icon]}
       </span>
       <span className="text-white/50 w-10">{label}</span>
-      <span className={`font-medium ${accent ? 'text-magenta-300' : 'text-white/80'}`}>
+      <span className={`font-medium ${accent ? 'text-purple-300' : 'text-white/80'}`}>
         {value}
       </span>
     </div>

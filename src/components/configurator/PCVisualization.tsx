@@ -45,7 +45,7 @@ export function PCVisualization({ components }: PCVisualizationProps) {
       <motion.div
         className="absolute w-48 h-48 rounded-full blur-[80px] opacity-30"
         style={{
-          background: 'radial-gradient(circle, rgba(6, 182, 212, 0.8), transparent)',
+          background: 'radial-gradient(circle, rgba(139, 92, 246, 0.8), transparent)',
         }}
         animate={{
           x: [0, -40, 30, 0],
@@ -76,7 +76,7 @@ export function PCVisualization({ components }: PCVisualizationProps) {
             className="absolute inset-0 overflow-hidden rounded-lg pointer-events-none"
           >
             <motion.div
-              className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-magenta-400/60 to-transparent"
+              className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-400/60 to-transparent"
               initial={{ top: '-2px' }}
               animate={{ top: '100%' }}
               transition={{
@@ -93,13 +93,13 @@ export function PCVisualization({ components }: PCVisualizationProps) {
           {/* Top section - Cooling */}
           <motion.div 
             className={`absolute top-4 left-4 right-4 h-12 rounded border ${
-              components.cooling ? 'border-magenta-500/50 bg-magenta-500/10' : 'border-white/10 bg-white/5'
+              components.cooling ? 'border-purple-500/50 bg-purple-500/10' : 'border-white/10 bg-white/5'
             }`}
             animate={components.cooling ? {
               boxShadow: [
-                '0 0 10px rgba(6, 182, 212, 0.2)',
-                '0 0 20px rgba(6, 182, 212, 0.4)',
-                '0 0 10px rgba(6, 182, 212, 0.2)',
+                '0 0 10px rgba(139, 92, 246, 0.2)',
+                '0 0 20px rgba(139, 92, 246, 0.4)',
+                '0 0 10px rgba(139, 92, 246, 0.2)',
               ],
             } : {}}
             transition={{ duration: 2, repeat: Infinity }}
@@ -109,11 +109,11 @@ export function PCVisualization({ components }: PCVisualizationProps) {
                 {[0, 1, 2].map((i) => (
                   <motion.div
                     key={i}
-                    className="w-8 h-8 rounded-full border border-magenta-500/50"
+                    className="w-8 h-8 rounded-full border border-purple-500/50"
                     animate={{ rotate: 360 }}
                     transition={{ duration: 2, repeat: Infinity, ease: 'linear', delay: i * 0.1 }}
                   >
-                    <div className="absolute inset-1 border-t-2 border-magenta-400/60 rounded-full" />
+                    <div className="absolute inset-1 border-t-2 border-purple-400/60 rounded-full" />
                   </motion.div>
                 ))}
               </div>
@@ -281,7 +281,7 @@ export function PCVisualization({ components }: PCVisualizationProps) {
             <motion.div
               className="absolute inset-0 rounded-lg border-2 border-purple-500/30 pointer-events-none"
               animate={{
-                borderColor: ['rgba(139, 92, 246, 0.3)', 'rgba(6, 182, 212, 0.3)', 'rgba(139, 92, 246, 0.3)'],
+                borderColor: ['rgba(139, 92, 246, 0.3)', 'rgba(139, 92, 246, 0.3)', 'rgba(139, 92, 246, 0.3)'],
               }}
               transition={{ duration: 4, repeat: Infinity }}
             />
@@ -315,17 +315,17 @@ export function PCVisualization({ components }: PCVisualizationProps) {
               <defs>
                 <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stopColor="#8B5CF6" />
-                  <stop offset="100%" stopColor="#06B6D4" />
+                  <stop offset="100%" stopColor="#8B5CF6" />
                 </linearGradient>
               </defs>
             </svg>
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-lg font-bold font-display text-gradient-purple">
+              <span className="text-lg font-bold font-inter text-gradient-purple">
                 {selectedCount}/8
               </span>
             </div>
           </div>
-          <span className="mt-2 text-xs text-white/50 font-display tracking-wider">
+          <span className="mt-2 text-xs text-white/50 font-inter tracking-wider">
             СБОРКА
           </span>
         </div>
@@ -340,8 +340,8 @@ export function PCVisualization({ components }: PCVisualizationProps) {
               0deg,
               transparent,
               transparent 2px,
-              rgba(6, 182, 212, 0.03) 2px,
-              rgba(6, 182, 212, 0.03) 4px
+              rgba(139, 92, 246, 0.03) 2px,
+              rgba(139, 92, 246, 0.03) 4px
             )
           `,
         }}

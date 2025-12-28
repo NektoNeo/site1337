@@ -19,27 +19,27 @@ const badgeVariants = cva(
     "transition-all duration-200",
     "whitespace-nowrap",
     "[&>svg]:size-3 [&>svg]:mr-1.5",
-    "font-outfit",
+    "font-inter",
   ].join(" "),
   {
     variants: {
       variant: {
-        // Default - Purple theme
+        // Default - Purple theme (updated to purple-500)
         default: [
-          "bg-[#8B5CF6]/10",
-          "border-[#8B5CF6]/30",
-          "text-[#A855F7]",
-          "hover:bg-[#8B5CF6]/20",
-          "hover:border-[#8B5CF6]/50",
+          "bg-purple-500/10",
+          "border-purple-500/30",
+          "text-purple-400",
+          "hover:bg-purple-500/20",
+          "hover:border-purple-500/50",
         ].join(" "),
 
-        // Secondary - Magenta theme
+        // Secondary - Fuchsia theme
         secondary: [
-          "bg-[#06B6D4]/10",
-          "border-[#06B6D4]/30",
-          "text-[#22D3EE]",
-          "hover:bg-[#06B6D4]/20",
-          "hover:border-[#06B6D4]/50",
+          "bg-fuchsia-500/10",
+          "border-fuchsia-500/30",
+          "text-fuchsia-400",
+          "hover:bg-fuchsia-500/20",
+          "hover:border-fuchsia-500/50",
         ].join(" "),
 
         // Outline - Transparent with border
@@ -175,29 +175,38 @@ const badgeVariants = cva(
 
         // Glow - Purple neon glow
         glow: [
-          "bg-[#8B5CF6]/20",
-          "border-[#8B5CF6]",
+          "bg-purple-500/20",
+          "border-purple-500",
           "text-white",
-          "shadow-[0_0_10px_#8B5CF6,0_0_20px_rgba(139,92,246,0.3)]",
-          "hover:shadow-[0_0_15px_#8B5CF6,0_0_30px_rgba(139,92,246,0.5)]",
+          "shadow-[0_0_10px_#a855f7,0_0_20px_rgba(168,85,247,0.3)]",
+          "hover:shadow-[0_0_15px_#a855f7,0_0_30px_rgba(168,85,247,0.5)]",
         ].join(" "),
 
-        // Glow Magenta
+        // Glow Fuchsia
+        "glow-fuchsia": [
+          "bg-fuchsia-500/20",
+          "border-fuchsia-500",
+          "text-white",
+          "shadow-[0_0_10px_#d946ef,0_0_20px_rgba(217,70,239,0.3)]",
+          "hover:shadow-[0_0_15px_#d946ef,0_0_30px_rgba(217,70,239,0.5)]",
+        ].join(" "),
+
+        // Glow Magenta (legacy alias)
         "glow-magenta": [
-          "bg-[#06B6D4]/20",
-          "border-[#06B6D4]",
+          "bg-fuchsia-500/20",
+          "border-fuchsia-500",
           "text-white",
-          "shadow-[0_0_10px_#06B6D4,0_0_20px_rgba(6,182,212,0.3)]",
-          "hover:shadow-[0_0_15px_#06B6D4,0_0_30px_rgba(6,182,212,0.5)]",
+          "shadow-[0_0_10px_#d946ef,0_0_20px_rgba(217,70,239,0.3)]",
+          "hover:shadow-[0_0_15px_#d946ef,0_0_30px_rgba(217,70,239,0.5)]",
         ].join(" "),
 
-        // Gradient - Purple to Magenta gradient
+        // Gradient - Purple to Fuchsia gradient
         gradient: [
-          "bg-gradient-to-r from-[#8B5CF6] to-[#06B6D4]",
+          "bg-gradient-to-r from-purple-500 to-fuchsia-500",
           "border-transparent",
           "text-white",
-          "shadow-[0_0_15px_rgba(139,92,246,0.3)]",
-          "hover:shadow-[0_0_25px_rgba(139,92,246,0.5),0_0_25px_rgba(6,182,212,0.3)]",
+          "shadow-[0_0_15px_rgba(168,85,247,0.3)]",
+          "hover:shadow-[0_0_25px_rgba(168,85,247,0.5),0_0_25px_rgba(217,70,239,0.3)]",
         ].join(" "),
 
         // Glass - Glassmorphism effect
@@ -307,7 +316,7 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
                   ? "#EF4444"
                   : variant === "warning"
                   ? "#F59E0B"
-                  : "#8B5CF6"),
+                  : "#a855f7"), // purple-500
             }}
           />
         )}

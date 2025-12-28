@@ -26,7 +26,7 @@ function TabItem({ tab, isActive, onClick }: TabItemProps) {
       onClick={onClick}
       className={cn(
         'relative px-4 py-2.5 rounded-lg',
-        'text-sm font-medium font-outfit',
+        'text-sm font-medium font-inter',
         'transition-colors duration-200',
         'focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]/50',
         isActive
@@ -40,7 +40,7 @@ function TabItem({ tab, isActive, onClick }: TabItemProps) {
           layoutId="activeTab"
           className={cn(
             'absolute inset-0 rounded-lg',
-            'bg-gradient-to-r from-[#8B5CF6]/20 to-[#06B6D4]/20',
+            'bg-gradient-to-r from-[#8B5CF6]/20 to-[#8B5CF6]/20',
             'border border-[#8B5CF6]/30',
             'shadow-[0_0_20px_rgba(139,92,246,0.15)]'
           )}
@@ -177,12 +177,12 @@ export function CategoryTabsCompact({
           onClick={() => onTabChange(tab.id)}
           className={cn(
             'flex-shrink-0 px-4 py-2 rounded-full',
-            'text-sm font-medium font-outfit',
+            'text-sm font-medium font-inter',
             'transition-all duration-200',
             'border',
             activeTab === tab.id
               ? [
-                  'bg-gradient-to-r from-[#8B5CF6] to-[#06B6D4]',
+                  'bg-gradient-to-r from-[#8B5CF6] to-[#8B5CF6]',
                   'text-white border-transparent',
                   'shadow-[0_0_20px_rgba(139,92,246,0.3)]',
                 ]
@@ -239,7 +239,7 @@ export function CategoryPills({
             whileTap={{ scale: 0.98 }}
             className={cn(
               'inline-flex items-center gap-2 px-4 py-2 rounded-full',
-              'text-sm font-medium font-outfit',
+              'text-sm font-medium font-inter',
               'transition-all duration-200',
               'border',
               isActive

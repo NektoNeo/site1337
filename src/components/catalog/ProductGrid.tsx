@@ -42,7 +42,7 @@ export function ProductGrid({ products, isLoading = false }: ProductGridProps) {
             />
           </svg>
         </div>
-        <h3 className="text-xl font-display font-bold text-white mb-2">
+        <h3 className="text-xl font-inter font-bold text-white mb-2">
           Ничего не найдено
         </h3>
         <p className="text-white/50 text-center max-w-md">

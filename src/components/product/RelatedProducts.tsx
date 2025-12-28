@@ -32,7 +32,7 @@ function ProductCard({ product, index }: { product: RelatedProduct; index: numbe
         {/* Card Container */}
         <div className="relative bg-gradient-to-br from-gray-900 to-gray-950 rounded-2xl overflow-hidden border border-gray-800 group-hover:border-purple-500/50 transition-all duration-300">
           {/* Glow effect on hover */}
-          <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-magenta-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
           {/* Discount Badge */}
           {hasDiscount && (
@@ -41,7 +41,7 @@ function ProductCard({ product, index }: { product: RelatedProduct; index: numbe
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: 'spring', stiffness: 500, damping: 25, delay: index * 0.1 + 0.2 }}
-                className="px-2.5 py-1 bg-gradient-to-r from-red-500 to-pink-500 rounded-lg text-white text-xs font-bold shadow-lg shadow-red-500/25"
+                className="px-2.5 py-1 bg-gradient-to-r from-red-500 to-purple-500 rounded-lg text-white text-xs font-bold shadow-lg shadow-red-500/25"
               >
                 -{discountPercent}%
               </motion.span>
@@ -51,7 +51,7 @@ function ProductCard({ product, index }: { product: RelatedProduct; index: numbe
           {/* Image Container */}
           <div className="relative aspect-square p-4 bg-gradient-to-br from-gray-800/50 to-transparent">
             {/* RGB border glow on hover */}
-            <div className="absolute inset-4 rounded-xl bg-gradient-to-r from-purple-500/20 via-magenta-400/20 to-purple-500/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute inset-4 rounded-xl bg-gradient-to-r from-purple-500/20 via-purple-400/20 to-purple-500/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
             <img
               src={product.imageUrl}
@@ -96,7 +96,7 @@ function ProductCard({ product, index }: { product: RelatedProduct; index: numbe
 
             {/* Quick View Button - appears on hover */}
             <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <span className="block w-full py-2.5 text-center text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-purple-500 rounded-lg hover:from-purple-500 hover:to-magenta-500 transition-all">
+              <span className="block w-full py-2.5 text-center text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-purple-500 rounded-lg hover:from-purple-500 hover:to-purple-500 transition-all">
                 Quick View
               </span>
             </div>
@@ -132,7 +132,7 @@ export function RelatedProducts({ products, title = "You May Also Like" }: Relat
       {/* Section Header */}
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-4">
-          <div className="w-1 h-8 bg-gradient-to-b from-magenta-400 to-purple-500 rounded-full" />
+          <div className="w-1 h-8 bg-gradient-to-b from-purple-400 to-purple-500 rounded-full" />
           <h2 className="font-orbitron text-2xl md:text-3xl font-bold text-white uppercase tracking-wider">
             {title}
           </h2>

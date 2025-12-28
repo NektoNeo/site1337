@@ -1,612 +1,322 @@
 'use client';
 
-import { motion, useScroll, useTransform, useMotionValue, useSpring, useReducedMotion } from 'framer-motion';
-import { useRef, useState, memo } from 'react';
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
+import { useRef, memo } from 'react';
 import Image from 'next/image';
-import { MagneticButton } from '@/components/ui/MagneticButton';
-import { AnimatedCounter } from '@/components/ui/TextReveal';
-import { HeroParticles } from '@/components/ui/ParticleField';
+import Link from 'next/link';
 import { cn } from '@/lib/cn';
-import { useAnimationVisibility } from '@/hooks/useAnimationOptimization';
 
 // ============================================
-// PERFORMANCE OPTIMIZED HERO SECTION
+// HERO SECTION - GRAYSCALE PRO DESIGN
 // ============================================
-// Optimizations applied:
-// 1. useReducedMotion support throughout
-// 2. Intersection Observer for visibility-based animations
-// 3. Reduced animation complexity
-// 4. Memoized sub-components
-// 5. will-change CSS for GPU acceleration
-// 6. Conditional rendering of effects
-// 7. Simplified floating spec badges (3 -> 2 animations)
-// 8. Removed redundant scan lines animation
+// Features:
+// 1. LCP-optimized hero image
+// 2. Trust metrics strip (YouTube, VK, Guarantee)
+// 3. Primary CTA: Telegram, Secondary: Catalog
+// 4. Minimal animations, respects prefers-reduced-motion
+// 5. Clean grayscale aesthetic with subtle ultraviolet accents
 // ============================================
 
-// Animated badge component - memoized
-const AnimatedBadge = memo(function AnimatedBadge() {
+// Trust metrics data
+const TRUST_METRICS = [
+  { 
+    value: '250K+', 
+    label: 'подписчиков YouTube',
+    icon: (
+      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+      </svg>
+    ),
+    color: 'text-red-500'
+  },
+  { 
+    value: '15K+', 
+    label: 'подписчиков VK',
+    icon: (
+      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.862-.523-2.049-1.719-1.033-1.01-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4.03 8.57 4.03 8.096c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.863 2.49 2.303 4.675 2.896 4.675.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.254-1.406 2.15-3.574 2.15-3.574.119-.254.322-.491.763-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.049.17.49-.085.744-.576.744z"/>
+      </svg>
+    ),
+    color: 'text-blue-500'
+  },
+  { 
+    value: '12+', 
+    label: 'месяцев гарантии',
+    icon: (
+      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+      </svg>
+    ),
+    color: 'text-emerald-500'
+  },
+  { 
+    value: '2000+', 
+    label: 'собранных ПК',
+    icon: (
+      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg>
+    ),
+    color: 'text-white'
+  },
+];
+
+// Trust metric badge component - memoized
+const TrustMetric = memo(function TrustMetric({ 
+  metric, 
+  index 
+}: { 
+  metric: typeof TRUST_METRICS[0]; 
+  index: number; 
+}) {
   const shouldReduceMotion = useReducedMotion();
 
-  if (shouldReduceMotion) {
-    return (
-      <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-500/10 to-magenta-500/10 border border-purple-500/30 backdrop-blur-md mb-8">
-        <span className="relative flex h-3 w-3">
-          <span className="relative inline-flex rounded-full h-3 w-3 bg-magenta-400 shadow-[0_0_10px_#22D3EE]" />
-        </span>
-        <span className="text-sm font-semibold bg-gradient-to-r from-purple-300 to-magenta-300 bg-clip-text text-transparent">
-          Premium Gaming PCs
-        </span>
-        <span className="px-2 py-0.5 rounded-full bg-purple-500/20 text-xs font-bold text-purple-300">
-          NEW 2025
-        </span>
+  const content = (
+    <div className="flex items-center gap-3 px-4 py-2 rounded-lg bg-bg-elevated/50 border border-va-border backdrop-blur-sm">
+      <span className={cn('opacity-80', metric.color)}>
+        {metric.icon}
+      </span>
+      <div className="text-left">
+        <div className="text-lg font-bold text-white">{metric.value}</div>
+        <div className="text-xs text-text-secondary">{metric.label}</div>
       </div>
-    );
+    </div>
+  );
+
+  if (shouldReduceMotion) {
+    return content;
   }
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20, scale: 0.9 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.6, delay: 0.2 }}
-      className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-500/10 to-magenta-500/10 border border-purple-500/30 backdrop-blur-md mb-8"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
     >
-      <motion.span className="relative flex h-3 w-3">
-        <motion.span
-          className="absolute inline-flex h-full w-full rounded-full bg-magenta-400"
-          animate={{
-            scale: [1, 1.5, 1],
-            opacity: [1, 0, 1],
-          }}
-          transition={{ duration: 2, repeat: Infinity }}
-        />
-        <span className="relative inline-flex rounded-full h-3 w-3 bg-magenta-400 shadow-[0_0_10px_#22D3EE]" />
-      </motion.span>
-      <span className="text-sm font-semibold bg-gradient-to-r from-purple-300 to-magenta-300 bg-clip-text text-transparent">
-        Premium Gaming PCs
-      </span>
-      <motion.span
-        className="px-2 py-0.5 rounded-full bg-purple-500/20 text-xs font-bold text-purple-300"
-        animate={{ scale: [1, 1.05, 1] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        NEW 2025
-      </motion.span>
+      {content}
     </motion.div>
   );
 });
 
-// Animated headline with gradient - memoized
-const AnimatedHeadline = memo(function AnimatedHeadline() {
-  const shouldReduceMotion = useReducedMotion();
-
-  if (shouldReduceMotion) {
-    return (
-      <div className="mb-8">
-        <h1 className="font-display font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tight">
-          <span className="block text-white mb-2">Собери свой</span>
-          <span className="relative block">
-            <span className="bg-gradient-to-r from-purple-400 via-magenta-400 to-purple-400 bg-clip-text text-transparent">
-              идеальный PC
-            </span>
-            <div
-              className="absolute -bottom-2 left-0 h-1 w-full rounded-full bg-gradient-to-r from-purple-500 via-magenta-500 to-purple-500"
-              style={{
-                boxShadow: '0 0 20px rgba(139,92,246,0.5), 0 0 40px rgba(6,182,212,0.3)',
-              }}
-            />
-          </span>
-        </h1>
-      </div>
-    );
-  }
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.3 }}
-      className="mb-8"
-    >
-      <h1 className="font-display font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tight">
-        <motion.span
-          className="block text-white mb-2"
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          Собери свой
-        </motion.span>
-        <motion.span
-          className="relative block"
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-        >
-          {/* Animated gradient text */}
-          <motion.span
-            className="bg-gradient-to-r from-purple-400 via-magenta-400 to-purple-400 bg-clip-text text-transparent bg-[length:200%_auto] will-change-auto"
-            animate={{
-              backgroundPosition: ['0% center', '200% center'],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-          >
-            идеальный PC
-          </motion.span>
-
-          {/* Underline glow effect */}
-          <motion.div
-            className="absolute -bottom-2 left-0 h-1 rounded-full bg-gradient-to-r from-purple-500 via-magenta-500 to-purple-500"
-            initial={{ width: 0 }}
-            animate={{ width: '100%' }}
-            transition={{ duration: 1, delay: 1 }}
-            style={{
-              boxShadow: '0 0 20px rgba(139,92,246,0.5), 0 0 40px rgba(6,182,212,0.3)',
-            }}
-          />
-        </motion.span>
-      </h1>
-    </motion.div>
-  );
-});
-
-// Subheadline with highlights - memoized
-const SubHeadline = memo(function SubHeadline() {
-  const shouldReduceMotion = useReducedMotion();
-
-  if (shouldReduceMotion) {
-    return (
-      <p className="text-lg md:text-xl lg:text-2xl text-white/60 mb-10 max-w-2xl leading-relaxed">
-        Мощные игровые компьютеры с видеокартами{' '}
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-magenta-400 font-bold">
-          RTX 4070/4080/4090
-        </span>
-        .{' '}
-        <span className="inline-flex items-center gap-1 text-magenta-400 font-semibold">
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-          </svg>
-          Гарантия 12+ месяцев
-        </span>
-        , полная настройка и активация Windows.
-      </p>
-    );
-  }
-
-  return (
-    <motion.p
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, delay: 0.6 }}
-      className="text-lg md:text-xl lg:text-2xl text-white/60 mb-10 max-w-2xl leading-relaxed"
-    >
-      Мощные игровые компьютеры с видеокартами{' '}
-      <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-magenta-400 font-bold">
-        RTX 4070/4080/4090
-      </span>
-      .{' '}
-      <motion.span
-        className="inline-flex items-center gap-1 text-magenta-400 font-semibold"
-        whileHover={{ scale: 1.05 }}
-      >
-        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-        </svg>
-        Гарантия 12+ месяцев
-      </motion.span>
-      , полная настройка и активация Windows.
-    </motion.p>
-  );
-});
-
-// CTA Buttons - memoized
+// CTA Buttons - Primary: Telegram, Secondary: Catalog
 const CTAButtons = memo(function CTAButtons() {
   const shouldReduceMotion = useReducedMotion();
 
   const buttons = (
-    <>
-      <MagneticButton
-        href="/catalog"
-        variant="primary"
-        size="lg"
-        magneticStrength={0.4}
+    <div className="flex flex-col sm:flex-row gap-4">
+      {/* Primary CTA - Telegram */}
+      <Link
+        href="https://t.me/vapc_manager"
+        target="_blank"
+        rel="noopener noreferrer"
+        className={cn(
+          'group relative inline-flex items-center justify-center gap-3',
+          'px-8 py-4 rounded-xl font-semibold text-lg',
+          'bg-[#2AABEE] hover:bg-[#229ED9] text-white',
+          'transition-all duration-300',
+          'shadow-lg shadow-[#2AABEE]/25 hover:shadow-xl hover:shadow-[#2AABEE]/30',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2AABEE] focus-visible:ring-offset-2 focus-visible:ring-offset-black'
+        )}
+        aria-label="Написать в Telegram"
       >
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
         </svg>
-        Смотреть каталог
-      </MagneticButton>
+        <span>Написать менеджеру</span>
+        <span className="absolute -top-2 -right-2 px-2 py-0.5 text-xs font-bold bg-emerald-500 text-white rounded-full">
+          Онлайн
+        </span>
+      </Link>
 
-      <MagneticButton
-        href="/configurator"
-        variant="secondary"
-        size="lg"
-        magneticStrength={0.3}
+      {/* Secondary CTA - Catalog */}
+      <Link
+        href="/catalog"
+        className={cn(
+          'group inline-flex items-center justify-center gap-3',
+          'px-8 py-4 rounded-xl font-semibold text-lg',
+          'bg-bg-elevated border border-va-border',
+          'text-white hover:text-white',
+          'hover:border-purple-500/50 hover:bg-bg-elevated/80',
+          'transition-all duration-300',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black'
+        )}
+        aria-label="Открыть каталог"
       >
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        <svg className="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
         </svg>
-        Собрать свой PC
-      </MagneticButton>
-    </>
+        <span>Смотреть каталог</span>
+        <svg className="w-4 h-4 opacity-50 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+      </Link>
+    </div>
   );
 
   if (shouldReduceMotion) {
-    return (
-      <div className="flex flex-col sm:flex-row gap-4 mb-16">
-        {buttons}
-      </div>
-    );
+    return <div className="mb-12">{buttons}</div>;
   }
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, delay: 0.7 }}
-      className="flex flex-col sm:flex-row gap-4 mb-16"
+      transition={{ duration: 0.6, delay: 0.6 }}
+      className="mb-12"
     >
       {buttons}
     </motion.div>
   );
 });
 
-// Animated stats - memoized
-const Stats = memo(function Stats() {
+// Headline component
+const Headline = memo(function Headline() {
   const shouldReduceMotion = useReducedMotion();
-  const stats = [
-    { value: 500, suffix: '+', label: 'собранных ПК' },
-    { value: 12, suffix: '+', label: 'месяцев гарантии' },
-    { value: 24, suffix: '/7', label: 'поддержка' },
-  ];
 
-  if (shouldReduceMotion) {
-    return (
-      <div className="flex flex-wrap gap-10">
-        {stats.map((stat, index) => (
-          <div key={index} className="relative group">
-            <div className="relative">
-              <div className="font-display font-black text-4xl md:text-5xl bg-gradient-to-r from-purple-400 to-magenta-400 bg-clip-text text-transparent">
-                {stat.value}{stat.suffix}
-              </div>
-              <div className="text-white/50 text-sm mt-1 font-medium">{stat.label}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  }
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.7, delay: 0.9 }}
-      className="flex flex-wrap gap-10"
-    >
-      {stats.map((stat, index) => (
-        <motion.div
-          key={index}
-          className="relative group"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1 + index * 0.1 }}
-        >
-          {/* Glow on hover */}
-          <motion.div
-            className="absolute -inset-4 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            style={{
-              background: 'radial-gradient(circle, rgba(139,92,246,0.2), transparent 70%)',
-            }}
-          />
-
-          <div className="relative">
-            <div className="font-display font-black text-4xl md:text-5xl bg-gradient-to-r from-purple-400 to-magenta-400 bg-clip-text text-transparent">
-              <AnimatedCounter value={stat.value} suffix={stat.suffix} duration={2} delay={1 + index * 0.2} />
-            </div>
-            <div className="text-white/50 text-sm mt-1 font-medium">{stat.label}</div>
-          </div>
-        </motion.div>
-      ))}
-    </motion.div>
-  );
-});
-
-// Hero PC Image with 3D effects - optimized
-const HeroPCImage = memo(function HeroPCImage() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
-  const shouldReduceMotion = useReducedMotion();
-  const { ref: visibilityRef, shouldAnimate } = useAnimationVisibility<HTMLDivElement>();
-
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const springConfig = { damping: 20, stiffness: 300 };
-  const xSpring = useSpring(x, springConfig);
-  const ySpring = useSpring(y, springConfig);
-
-  const rotateX = useTransform(ySpring, [-0.5, 0.5], [10, -10]);
-  const rotateY = useTransform(xSpring, [-0.5, 0.5], [-10, 10]);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!ref.current || shouldReduceMotion) return;
-    const rect = ref.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    x.set((e.clientX - centerX) / (rect.width / 2) * 0.5);
-    y.set((e.clientY - centerY) / (rect.height / 2) * 0.5);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-    setIsHovered(false);
-  };
-
-  const shouldAnimateEffects = shouldAnimate && !shouldReduceMotion;
-
-  // Static version for reduced motion
-  if (shouldReduceMotion) {
-    return (
-      <div className="relative w-full max-w-2xl mx-auto">
-        <div
-          className="absolute inset-0 rounded-full"
-          style={{
-            background: 'radial-gradient(circle, rgba(139,92,246,0.4) 0%, transparent 60%)',
-            filter: 'blur(60px)',
-          }}
-        />
-        <div className="relative z-10">
-          <Image
-            src="/gaming-pc-hero.png"
-            alt="Gaming PC VA-PC with RGB lighting"
-            width={600}
-            height={700}
-            className="relative z-10 drop-shadow-2xl"
-            priority
-          />
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div ref={visibilityRef}>
-      <motion.div
-        ref={ref}
-        className="relative w-full max-w-2xl mx-auto"
-        onMouseMove={handleMouseMove}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={handleMouseLeave}
-        style={{ perspective: 1000 }}
-        initial={{ opacity: 0, scale: 0.8, y: 50 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-      >
-        {/* Multi-layer glow effects - only when visible */}
-        {shouldAnimateEffects && (
-          <motion.div
-            className="absolute inset-0 rounded-full will-change-transform"
-            style={{
-              background: 'radial-gradient(circle, rgba(139,92,246,0.4) 0%, transparent 60%)',
-              filter: 'blur(60px)',
-            }}
-            animate={{
-              scale: [1, 1.1, 1],
-              opacity: [0.5, 0.8, 0.5],
-            }}
-            transition={{ duration: 4, repeat: Infinity }}
-          />
-        )}
-
-        {/* RGB spinning border - only when visible */}
-        {shouldAnimateEffects && (
-          <motion.div
-            className="absolute inset-0 rounded-3xl will-change-transform"
-            style={{
-              background: 'conic-gradient(from 0deg, #8B5CF6, #06B6D4, #EC4899, #8B5CF6)',
-              filter: 'blur(30px)',
-              opacity: 0.3,
-            }}
-            animate={{ rotate: 360 }}
-            transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
-          />
-        )}
-
-        {/* Main image with 3D tilt */}
-        <motion.div
-          className="relative z-10 will-change-transform"
-          style={{
-            rotateX: shouldAnimateEffects ? rotateX : 0,
-            rotateY: shouldAnimateEffects ? rotateY : 0,
-            transformStyle: 'preserve-3d',
-          }}
-          animate={shouldAnimateEffects ? { y: [0, -20, 0] } : undefined}
-          transition={shouldAnimateEffects ? { duration: 5, repeat: Infinity, ease: 'easeInOut' } : undefined}
-        >
-          {/* Image */}
-          <Image
-            src="/gaming-pc-hero.png"
-            alt="Gaming PC VA-PC with RGB lighting"
-            width={600}
-            height={700}
-            className="relative z-10 drop-shadow-2xl"
-            priority
-          />
-
-          {/* Holographic overlay - only on hover */}
-          {isHovered && shouldAnimateEffects && (
-            <motion.div
-              className="absolute inset-0 z-20 pointer-events-none rounded-3xl overflow-hidden will-change-auto"
-              style={{
-                background: `linear-gradient(
-                  135deg,
-                  transparent 0%,
-                  rgba(139,92,246,0.1) 25%,
-                  transparent 50%,
-                  rgba(6,182,212,0.1) 75%,
-                  transparent 100%
-                )`,
-                backgroundSize: '400% 400%',
-              }}
-              animate={{
-                backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
-              }}
-              transition={{ duration: 5, repeat: Infinity }}
-            />
-          )}
-
-          {/* Shine effect */}
-          {shouldAnimateEffects && (
-            <motion.div
-              className="absolute inset-0 z-30 pointer-events-none"
-              style={{
-                background: 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.2) 50%, transparent 60%)',
-              }}
-              initial={{ x: '-100%' }}
-              animate={isHovered ? { x: '100%' } : { x: '-100%' }}
-              transition={{ duration: 0.8, ease: 'easeInOut' }}
-            />
-          )}
-        </motion.div>
-
-        {/* Floating spec badges - reduced from 3 to 2 unique animations */}
-        {shouldAnimateEffects && (
-          <>
-            <motion.div
-              className="absolute -top-4 -right-4 z-30"
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 3, repeat: Infinity }}
-            >
-              <div className="px-4 py-2 rounded-xl bg-black/80 backdrop-blur-md border border-purple-500/50 shadow-lg shadow-purple-500/20">
-                <span className="text-sm font-bold bg-gradient-to-r from-green-400 to-magenta-400 bg-clip-text text-transparent">
-                  RTX 4090
-                </span>
-              </div>
-            </motion.div>
-
-            <motion.div
-              className="absolute top-1/3 -left-8 z-30"
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 3.5, repeat: Infinity }}
-            >
-              <div className="px-4 py-2 rounded-xl bg-black/80 backdrop-blur-md border border-magenta-500/50 shadow-lg shadow-magenta-500/20">
-                <span className="text-sm font-bold text-magenta-400">Intel i9-14900K</span>
-              </div>
-            </motion.div>
-
-            <motion.div
-              className="absolute bottom-1/4 -right-4 z-30"
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
-            >
-              <div className="px-4 py-2 rounded-xl bg-black/80 backdrop-blur-md border border-purple-500/50 shadow-lg shadow-purple-500/20">
-                <span className="text-sm font-bold text-purple-400">64GB DDR5</span>
-              </div>
-            </motion.div>
-          </>
-        )}
-
-        {/* Bottom reflection - only when visible */}
-        {shouldAnimateEffects && (
-          <motion.div
-            className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-3/4 h-16 rounded-full -z-10 will-change-opacity"
-            style={{
-              background: 'linear-gradient(90deg, rgba(139,92,246,0.5), rgba(6,182,212,0.5))',
-              filter: 'blur(30px)',
-            }}
-            animate={{
-              opacity: [0.3, 0.6, 0.3],
-              scaleX: [0.8, 1, 0.8],
-            }}
-            transition={{ duration: 4, repeat: Infinity }}
-          />
-        )}
-      </motion.div>
+  const content = (
+    <div className="mb-6">
+      <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
+        <span className="block text-white">Игровые компьютеры</span>
+        <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-white via-text-secondary to-white">
+          от профессионалов
+        </span>
+      </h1>
     </div>
   );
+
+  if (shouldReduceMotion) {
+    return content;
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, delay: 0.2 }}
+    >
+      {content}
+    </motion.div>
+  );
 });
 
-// Scroll indicator - memoized
-const ScrollIndicator = memo(function ScrollIndicator() {
+// Subheadline component
+const SubHeadline = memo(function SubHeadline() {
   const shouldReduceMotion = useReducedMotion();
+
+  const content = (
+    <p className="text-lg md:text-xl text-text-secondary mb-10 max-w-xl leading-relaxed">
+      Собираем мощные игровые ПК с видеокартами{' '}
+      <span className="text-white font-medium">RTX 4070 / 4080 / 4090</span>.
+      {' '}Полная настройка, гарантия и поддержка 24/7.
+    </p>
+  );
+
+  if (shouldReduceMotion) {
+    return content;
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.4 }}
+    >
+      {content}
+    </motion.div>
+  );
+});
+
+// Hero PC Image - LCP optimized
+const HeroPCImage = memo(function HeroPCImage() {
+  const shouldReduceMotion = useReducedMotion();
+
+  const imageContent = (
+    <div className="relative">
+      {/* Subtle glow behind image */}
+      <div
+        className="absolute inset-0 -z-10 blur-3xl opacity-30"
+        style={{
+          background: 'radial-gradient(circle at center, rgba(168, 85, 247, 0.3), transparent 70%)',
+        }}
+      />
+      
+      {/* Main image - LCP optimized */}
+      <Image
+        src="/IMG_7794.JPG"
+        alt="Премиальный игровой компьютер VA-PC с RGB подсветкой"
+        width={700}
+        height={800}
+        className="relative z-10 drop-shadow-2xl object-cover rounded-2xl"
+        priority
+        fetchPriority="high"
+        sizes="(max-width: 768px) 100vw, 50vw"
+        unoptimized
+      />
+      
+      {/* Subtle spec badges */}
+      <div className="absolute top-8 right-0 z-20">
+        <div className="px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-sm border border-va-border">
+          <span className="text-sm font-semibold text-emerald-400">RTX 4090</span>
+        </div>
+      </div>
+
+      <div className="absolute top-1/3 left-0 z-20">
+        <div className="px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-sm border border-va-border">
+          <span className="text-sm font-semibold text-text-primary">i9-14900K</span>
+        </div>
+      </div>
+
+      <div className="absolute bottom-1/4 right-0 z-20">
+        <div className="px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-sm border border-va-border">
+          <span className="text-sm font-semibold text-text-primary">64GB DDR5</span>
+        </div>
+      </div>
+    </div>
+  );
 
   if (shouldReduceMotion) {
     return (
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
-        <div
-          className="flex flex-col items-center gap-2 cursor-pointer group"
-          onClick={() => window.scrollBy({ top: window.innerHeight, behavior: 'smooth' })}
-        >
-          <span className="text-xs text-white/40 group-hover:text-white/60 transition-colors">
-            Scroll
-          </span>
-          <div className="w-6 h-10 rounded-full border-2 border-white/20 flex justify-center pt-2 group-hover:border-purple-500/50 transition-colors">
-            <div className="w-1.5 h-3 rounded-full bg-gradient-to-b from-purple-400 to-magenta-400" />
-          </div>
-        </div>
+      <div className="relative w-full max-w-xl mx-auto lg:max-w-none">
+        {imageContent}
       </div>
     );
   }
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 2 }}
-      className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+      className="relative w-full max-w-xl mx-auto lg:max-w-none"
+      initial={{ opacity: 0, scale: 0.95, y: 30 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
-      <motion.div
-        className="flex flex-col items-center gap-2 cursor-pointer group"
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        onClick={() => window.scrollBy({ top: window.innerHeight, behavior: 'smooth' })}
-      >
-        <span className="text-xs text-white/40 group-hover:text-white/60 transition-colors">
-          Scroll
-        </span>
-        <div className="w-6 h-10 rounded-full border-2 border-white/20 flex justify-center pt-2 group-hover:border-purple-500/50 transition-colors">
-          <motion.div
-            className="w-1.5 h-3 rounded-full bg-gradient-to-b from-purple-400 to-magenta-400"
-            animate={{ y: [0, 8, 0], opacity: [1, 0.3, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          />
-        </div>
-      </motion.div>
+      {imageContent}
     </motion.div>
   );
 });
 
+// Main Hero component
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
+  
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start start', 'end start'],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
     <section
       ref={ref}
-      className="relative min-h-screen flex items-center overflow-hidden pt-20 pb-32"
+      className="relative min-h-screen flex items-center overflow-hidden pt-20 pb-16"
+      aria-label="Главный баннер"
     >
-      {/* Particle field background */}
-      <HeroParticles />
-
-      {/* Central glow */}
-      <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] pointer-events-none"
+      {/* Subtle background gradient */}
+      <div
+        className="absolute inset-0 -z-10"
         style={{
-          background: 'radial-gradient(circle, rgba(139,92,246,0.15) 0%, transparent 50%)',
-          y: shouldReduceMotion ? 0 : y,
+          background: 'radial-gradient(ellipse at 30% 20%, rgba(168, 85, 247, 0.08) 0%, transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(217, 70, 239, 0.05) 0%, transparent 50%)',
         }}
       />
 
@@ -615,14 +325,19 @@ export function Hero() {
         className="container mx-auto px-4 relative z-10"
         style={{ opacity: shouldReduceMotion ? 1 : opacity }}
       >
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
           {/* Text content */}
           <div className="flex-1 text-center lg:text-left">
-            <AnimatedBadge />
-            <AnimatedHeadline />
+            <Headline />
             <SubHeadline />
             <CTAButtons />
-            <Stats />
+            
+            {/* Trust metrics strip */}
+            <div className="flex flex-wrap justify-center lg:justify-start gap-3">
+              {TRUST_METRICS.map((metric, index) => (
+                <TrustMetric key={index} metric={metric} index={index} />
+              ))}
+            </div>
           </div>
 
           {/* PC Image */}
@@ -631,9 +346,6 @@ export function Hero() {
           </div>
         </div>
       </motion.div>
-
-      {/* Scroll indicator */}
-      <ScrollIndicator />
 
       {/* Bottom gradient fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent pointer-events-none z-10" />

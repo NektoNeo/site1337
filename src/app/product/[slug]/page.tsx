@@ -121,7 +121,7 @@ function ErrorState({ error, onRetry }: { error: Error; onRetry: () => void }) {
         <div className="w-20 h-20 rounded-full bg-red-500/10 flex items-center justify-center mb-6 mx-auto">
           <AlertCircle className="w-10 h-10 text-red-400" />
         </div>
-        <h1 className="text-2xl font-display font-bold text-white mb-2">
+        <h1 className="text-2xl font-inter font-bold text-white mb-2">
           Товар не найден
         </h1>
         <p className="text-white/50 mb-6 max-w-md mx-auto">

@@ -101,7 +101,7 @@ function PageTitle({ totalCount }: { totalCount: number }) {
         </span>
       </motion.div>
 
-      <h1 className="font-display font-black text-4xl md:text-5xl lg:text-6xl">
+      <h1 className="font-inter font-black text-4xl md:text-5xl lg:text-6xl">
         <span className="text-white">Каталог </span>
         <span className="bg-gradient-to-r from-purple-400 to-magenta-400 bg-clip-text text-transparent">
           игровых ПК
@@ -128,7 +128,7 @@ function EmptyState({ onReset }: { onReset: () => void }) {
       <div className="w-24 h-24 rounded-full bg-purple-500/10 flex items-center justify-center mb-6">
         <Package className="w-12 h-12 text-purple-400" />
       </div>
-      <h3 className="text-xl font-display font-bold text-white mb-2">
+      <h3 className="text-xl font-inter font-bold text-white mb-2">
         Ничего не найдено
       </h3>
       <p className="text-white/50 mb-6 max-w-md">
@@ -160,7 +160,7 @@ function ErrorState({ error, onRetry }: { error: Error; onRetry: () => void }) {
       <div className="w-24 h-24 rounded-full bg-red-500/10 flex items-center justify-center mb-6">
         <AlertCircle className="w-12 h-12 text-red-400" />
       </div>
-      <h3 className="text-xl font-display font-bold text-white mb-2">
+      <h3 className="text-xl font-inter font-bold text-white mb-2">
         Ошибка загрузки
       </h3>
       <p className="text-white/50 mb-6 max-w-md">

@@ -150,10 +150,10 @@ function PaginationButton({
       disabled={disabled}
       aria-label={ariaLabel}
       className={cn(
-        'relative w-10 h-10 rounded-xl font-display font-semibold text-sm',
+        'relative w-10 h-10 rounded-xl font-inter font-semibold text-sm',
         'flex items-center justify-center',
         'transition-all duration-200',
-        'focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-magenta-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black',
+        'focus:outline-none focus-visible:ring-2 focus-visible:ring-neon-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black',
         disabled && 'opacity-30 cursor-not-allowed',
         isActive
           ? 'text-white'
@@ -164,9 +164,9 @@ function PaginationButton({
       {isActive && (
         <>
           {/* Glow effect */}
-          <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-neon-purple-500 to-neon-magenta-500 opacity-60 blur-md" />
+          <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-neon-purple-500 to-neon-purple-500 opacity-60 blur-md" />
           {/* Solid background */}
-          <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-neon-purple-500 to-neon-magenta-600" />
+          <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-neon-purple-500 to-neon-purple-600" />
         </>
       )}
 

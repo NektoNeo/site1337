@@ -59,7 +59,7 @@ const Thumbnail = memo(function Thumbnail({
       className={`relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden transition-all duration-300 ${
         isSelected
           ? 'ring-2 ring-purple-500 ring-offset-2 ring-offset-black scale-105'
-          : 'opacity-60 hover:opacity-100 hover:ring-1 hover:ring-magenta-400/50'
+          : 'opacity-60 hover:opacity-100 hover:ring-1 hover:ring-purple-400/50'
       }`}
       aria-label={`View image ${index + 1}`}
       aria-pressed={isSelected}
@@ -201,11 +201,11 @@ function OptimizedImageGalleryComponent({
         >
           {/* RGB Animated Border */}
           <div
-            className="absolute -inset-[2px] rounded-2xl bg-gradient-conic from-purple-500 via-magenta-400 via-pink-500 to-purple-500 opacity-75 blur-sm group-hover:opacity-100 transition-opacity duration-500 animate-rgb-spin"
+            className="absolute -inset-[2px] rounded-2xl bg-gradient-conic from-purple-500 via-purple-400 via-purple-500 to-purple-500 opacity-75 blur-sm group-hover:opacity-100 transition-opacity duration-500 animate-rgb-spin"
             aria-hidden="true"
           />
           <div
-            className="absolute -inset-[2px] rounded-2xl bg-gradient-conic from-purple-500 via-magenta-400 via-pink-500 to-purple-500 opacity-50 animate-rgb-spin"
+            className="absolute -inset-[2px] rounded-2xl bg-gradient-conic from-purple-500 via-purple-400 via-purple-500 to-purple-500 opacity-50 animate-rgb-spin"
             aria-hidden="true"
           />
 
@@ -252,7 +252,7 @@ function OptimizedImageGalleryComponent({
             {/* Zoom Indicator */}
             <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-lg flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
               <svg
-                className="w-4 h-4 text-magenta-400"
+                className="w-4 h-4 text-purple-400"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -341,7 +341,7 @@ function OptimizedImageGalleryComponent({
             >
               {/* RGB Glow */}
               <div
-                className="absolute -inset-8 bg-gradient-to-r from-purple-500/20 via-magenta-400/20 to-purple-500/20 blur-3xl"
+                className="absolute -inset-8 bg-gradient-to-r from-purple-500/20 via-purple-400/20 to-purple-500/20 blur-3xl"
                 aria-hidden="true"
               />
 
@@ -428,7 +428,7 @@ function OptimizedImageGalleryComponent({
                     }}
                     className={`relative w-12 h-12 rounded-lg overflow-hidden transition-all ${
                       index === selectedIndex
-                        ? 'ring-2 ring-magenta-400 scale-110'
+                        ? 'ring-2 ring-purple-400 scale-110'
                         : 'opacity-50 hover:opacity-100'
                     }`}
                     aria-label={`Go to image ${index + 1}`}

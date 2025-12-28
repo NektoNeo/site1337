@@ -12,7 +12,7 @@
  */
 
 import Image, { ImageProps } from 'next/image';
-import { useState, useCallback, memo } from 'react';
+import { useState, useCallback, memo, useEffect } from 'react';
 import { 
   DEFAULT_BLUR_DATA_URL, 
   PRODUCT_IMAGE_SIZES, 
@@ -20,6 +20,7 @@ import {
   getImageWithFallback,
   generateBlurSvg,
 } from '@/lib/image-optimization';
+import { useUIMonitor } from '@/hooks/useUIMonitor';
 
 // ============================================================================
 // TYPES
@@ -79,6 +80,9 @@ export const OptimizedImage = memo(function OptimizedImage({
 }: OptimizedImageProps) {
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  
+  // UI monitoring
+  const { trackImageLoadStart, trackImageLoadSuccess, trackImageLoadError } = useUIMonitor(true);
 
   // Get validated image source
   const imageSrc = error ? fallbackSrc : getImageWithFallback(src, fallbackSrc);
@@ -86,18 +90,38 @@ export const OptimizedImage = memo(function OptimizedImage({
   // Get size configuration from preset
   const sizeConfig = preset ? PRODUCT_IMAGE_SIZES[preset] : null;
 
+  // Track image load start
+  useEffect(() => {
+    if (imageSrc && !error) {
+      trackImageLoadStart(imageSrc);
+    }
+  }, [imageSrc, error, trackImageLoadStart]);
+
   // Handle image load error
   const handleError = useCallback(() => {
     if (!error) {
       setError(true);
       console.warn(`Image failed to load: ${src}`);
+      // #region agent log
+      trackImageLoadError(imageSrc, alt, 'OptimizedImage');
+      // #endregion agent log
     }
-  }, [error, src]);
+  }, [error, src, imageSrc, alt, trackImageLoadError]);
 
   // Handle image load complete
-  const handleLoadComplete = useCallback(() => {
+  const handleLoadComplete = useCallback((e: React.SyntheticEvent<HTMLImageElement>) => {
     setIsLoading(false);
-  }, []);
+    const img = e.currentTarget;
+    // #region agent log
+    trackImageLoadSuccess(
+      imageSrc,
+      alt,
+      img.naturalWidth,
+      img.naturalHeight,
+      'OptimizedImage'
+    );
+    // #endregion agent log
+  }, [imageSrc, alt, trackImageLoadSuccess]);
 
   // Prefetch related images on hover
   const handleMouseEnter = useCallback(() => {

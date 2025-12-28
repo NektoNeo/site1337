@@ -3,8 +3,9 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
-import { X, ChevronRight, Phone, Mail, MapPin } from "lucide-react";
+import { X, ChevronRight, Phone, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Logo } from "@/components/ui/Logo";
 
 interface NavLink {
   href: string;
@@ -16,6 +17,12 @@ interface MobileNavProps {
   onClose: () => void;
   navLinks: NavLink[];
 }
+
+// Environment variables for CTA links
+const TG_URL = process.env.NEXT_PUBLIC_TG_URL || "https://t.me/vapc_support";
+const WA_URL = process.env.NEXT_PUBLIC_WA_URL || "https://wa.me/79999999999";
+const PHONE = process.env.NEXT_PUBLIC_PHONE || "+74951234567";
+const PHONE_DISPLAY = process.env.NEXT_PUBLIC_PHONE_DISPLAY || "+7 (495) 123-45-67";
 
 // Animated background grid pattern
 function GridPattern() {
@@ -36,17 +43,17 @@ function GridPattern() {
             <path
               d="M 40 0 L 0 0 0 40"
               fill="none"
-              stroke="#8B5CF6"
+              stroke="#a855f7"
               strokeWidth="0.5"
             />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#grid)" />
       </svg>
-      
+
       {/* Glowing orbs */}
-      <div className="absolute top-20 -left-20 w-40 h-40 bg-neon-purple/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-40 -right-20 w-60 h-60 bg-neon-magenta/10 rounded-full blur-3xl" />
+      <div className="absolute top-20 -left-20 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl" />
+      <div className="absolute bottom-40 -right-20 w-60 h-60 bg-fuchsia-500/10 rounded-full blur-3xl" />
     </div>
   );
 }
@@ -58,6 +65,26 @@ function MobileNavLink({
   index,
   onClose,
 }: NavLink & { index: number; onClose: () => void }) {
+  // Handle hash links with smooth scroll
+  const isHashLink = href.startsWith('/#');
+  const handleClick = (e: React.MouseEvent) => {
+    if (isHashLink) {
+      e.preventDefault();
+      onClose(); // Close mobile nav first
+      // Small delay to allow nav to close before scrolling
+      setTimeout(() => {
+        const targetId = href.slice(2);
+        const target = document.getElementById(targetId);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+          window.history.pushState(null, '', href);
+        }
+      }, 300);
+    } else {
+      onClose();
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, x: 50 }}
@@ -71,58 +98,76 @@ function MobileNavLink({
     >
       <Link
         href={href}
-        onClick={onClose}
+        scroll={!isHashLink}
+        onClick={handleClick}
         className={cn(
           "group flex items-center justify-between py-4 px-2",
-          "border-b border-neon-purple/10",
+          "border-b border-purple-500/10",
           "transition-all duration-300",
-          "hover:bg-neon-purple/5 hover:px-4"
+          "hover:bg-purple-500/5 hover:px-4"
         )}
       >
-        <span className="font-display text-xl font-semibold text-white/90 uppercase tracking-wider group-hover:text-neon-purple transition-colors">
+        <span className="font-inter text-xl font-semibold text-white/90 uppercase tracking-wider group-hover:text-purple-400 transition-colors">
           {label}
         </span>
-        <ChevronRight className="w-5 h-5 text-neon-purple/50 group-hover:text-neon-purple group-hover:translate-x-1 transition-all" />
+        <ChevronRight className="w-5 h-5 text-purple-500/50 group-hover:text-purple-400 group-hover:translate-x-1 transition-all" />
       </Link>
     </motion.div>
   );
 }
 
-// Contact info item
-function ContactItem({
+// Telegram Icon
+function TelegramIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+    </svg>
+  );
+}
+
+// WhatsApp Icon
+function WhatsAppIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  );
+}
+
+// Quick CTA Button
+function QuickCTAButton({
+  href,
   icon: Icon,
   label,
-  value,
-  href,
+  variant = "default",
 }: {
-  icon: typeof Phone;
+  href: string;
+  icon: React.ComponentType<{ className?: string }>;
   label: string;
-  value: string;
-  href?: string;
+  variant?: "default" | "primary" | "green";
 }) {
-  const content = (
-    <div className="flex items-start gap-3 py-2">
-      <div className="p-2 rounded-lg bg-neon-purple/10">
-        <Icon className="w-4 h-4 text-neon-purple" />
-      </div>
-      <div>
-        <p className="text-xs font-mono text-white/40 uppercase tracking-wider">
-          {label}
-        </p>
-        <p className="text-sm text-white/80 font-body">{value}</p>
-      </div>
-    </div>
+  const variants = {
+    default: "bg-purple-500/10 border-purple-500/20 text-purple-400 hover:bg-purple-500/20 hover:border-purple-500/40",
+    primary: "bg-gradient-to-r from-purple-600 to-purple-500 border-transparent text-white hover:shadow-uv-md",
+    green: "bg-emerald-500/10 border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/20 hover:border-emerald-500/40",
+  };
+
+  return (
+    <a
+      href={href}
+      target={href.startsWith("tel:") ? undefined : "_blank"}
+      rel={href.startsWith("tel:") ? undefined : "noopener noreferrer"}
+      className={cn(
+        "flex items-center justify-center gap-2 py-3 px-4 rounded-xl",
+        "border font-semibold text-sm",
+        "transition-all duration-300",
+        variants[variant]
+      )}
+    >
+      <Icon className="w-5 h-5" />
+      <span>{label}</span>
+    </a>
   );
-
-  if (href) {
-    return (
-      <a href={href} className="hover:opacity-80 transition-opacity">
-        {content}
-      </a>
-    );
-  }
-
-  return content;
 }
 
 export function MobileNav({ isOpen, onClose, navLinks }: MobileNavProps) {
@@ -167,7 +212,7 @@ export function MobileNav({ isOpen, onClose, navLinks }: MobileNavProps) {
             }}
             className={cn(
               "fixed top-0 right-0 bottom-0 w-full max-w-sm z-50 lg:hidden",
-              "bg-void-dark border-l border-neon-purple/20",
+              "bg-void-dark border-l border-purple-500/20",
               "flex flex-col overflow-hidden"
             )}
           >
@@ -178,52 +223,12 @@ export function MobileNav({ isOpen, onClose, navLinks }: MobileNavProps) {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="relative flex items-center justify-between p-4 border-b border-neon-purple/10"
+              className="relative flex items-center justify-between p-4 border-b border-purple-500/10"
             >
-              <div className="flex items-center gap-2">
-                {/* Mini Logo */}
-                <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 40 40"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M20 4L36 34H4L20 4Z"
-                    stroke="url(#mobileLogoGradient)"
-                    strokeWidth="2"
-                    fill="none"
-                  />
-                  <path
-                    d="M14 24L20 12L26 24"
-                    stroke="#8B5CF6"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <circle cx="20" cy="28" r="2" fill="#06B6D4" />
-                  <defs>
-                    <linearGradient
-                      id="mobileLogoGradient"
-                      x1="0%"
-                      y1="0%"
-                      x2="100%"
-                      y2="100%"
-                    >
-                      <stop offset="0%" stopColor="#8B5CF6" />
-                      <stop offset="100%" stopColor="#06B6D4" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-                <span className="font-display text-lg font-bold text-white tracking-wider">
-                  VA-PC
-                </span>
-              </div>
-
+              <Logo size="sm" />
               <button
                 onClick={onClose}
-                className="p-2 rounded-lg hover:bg-neon-purple/10 transition-colors"
+                className="p-2 rounded-lg hover:bg-purple-500/10 transition-colors"
                 aria-label="Закрыть меню"
               >
                 <X className="w-6 h-6 text-white/80" />
@@ -243,82 +248,72 @@ export function MobileNav({ isOpen, onClose, navLinks }: MobileNavProps) {
                 ))}
               </div>
 
-              {/* CTA Button */}
+              {/* Quick CTA Buttons */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="mt-8"
+                transition={{ delay: 0.4 }}
+                className="mt-8 space-y-3"
               >
-                <Link
-                  href="/configurator"
-                  onClick={onClose}
-                  className={cn(
-                    "block w-full py-4 px-6",
-                    "bg-gradient-to-r from-neon-purple to-neon-purple-dark",
-                    "text-center font-display font-bold text-white uppercase tracking-wider",
-                    "rounded-xl",
-                    "shadow-neon-purple-sm hover:shadow-neon-purple",
-                    "transition-all duration-300 hover:scale-[1.02]"
-                  )}
-                >
-                  Собрать ПК
-                </Link>
+                <p className="text-xs font-mono text-purple-500/50 uppercase tracking-wider mb-3">
+                  Связаться с нами
+                </p>
+
+                {/* Primary CTA - Telegram */}
+                <QuickCTAButton
+                  href={TG_URL}
+                  icon={TelegramIcon}
+                  label="Написать в Telegram"
+                  variant="primary"
+                />
+
+                {/* Secondary CTAs */}
+                <div className="grid grid-cols-2 gap-3">
+                  <QuickCTAButton
+                    href={WA_URL}
+                    icon={WhatsAppIcon}
+                    label="WhatsApp"
+                    variant="green"
+                  />
+                  <QuickCTAButton
+                    href={`tel:${PHONE.replace(/\D/g, '')}`}
+                    icon={Phone}
+                    label="Позвонить"
+                    variant="default"
+                  />
+                </div>
               </motion.div>
             </nav>
 
-            {/* Footer with contact info */}
+            {/* Footer info */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="relative p-4 border-t border-neon-purple/10 bg-void-black/50"
+              transition={{ delay: 0.5 }}
+              className="relative p-4 border-t border-purple-500/10 bg-void-black/50"
             >
-              <p className="text-xs font-mono text-neon-magenta/50 uppercase tracking-wider mb-3">
-                Контакты
-              </p>
-              <div className="space-y-1">
-                <ContactItem
-                  icon={Phone}
-                  label="Телефон"
-                  value="+7 (495) 123-45-67"
-                  href="tel:+74951234567"
-                />
-                <ContactItem
-                  icon={Mail}
-                  label="Email"
-                  value="info@va-pc.ru"
-                  href="mailto:info@va-pc.ru"
-                />
-                <ContactItem
-                  icon={MapPin}
-                  label="Адрес"
-                  value="Москва, ул. Примерная, 123"
-                />
+              {/* Work hours */}
+              <div className="p-3 rounded-lg bg-purple-500/5 border border-purple-500/10 mb-3">
+                <p className="text-xs font-mono text-purple-500/60 uppercase tracking-wider mb-1">
+                  Режим работы
+                </p>
+                <p className="text-sm text-white/80 font-medium">
+                  Ежедневно с 11:00 до 21:00
+                </p>
               </div>
 
-              {/* Social links */}
-              <div className="flex gap-3 mt-4 pt-4 border-t border-neon-purple/10">
-                {["VK", "TG", "WA"].map((social) => (
-                  <a
-                    key={social}
-                    href="#"
-                    className={cn(
-                      "w-10 h-10 flex items-center justify-center",
-                      "rounded-lg border border-neon-purple/20",
-                      "text-xs font-mono font-bold text-white/60",
-                      "hover:bg-neon-purple/10 hover:border-neon-purple/40 hover:text-neon-purple",
-                      "transition-all duration-300"
-                    )}
-                  >
-                    {social}
-                  </a>
-                ))}
-              </div>
+              {/* Phone number */}
+              <a
+                href={`tel:${PHONE.replace(/\D/g, '')}`}
+                className="flex items-center gap-2 text-sm text-white/60 hover:text-purple-400 transition-colors"
+              >
+                <Phone className="w-4 h-4" />
+                <span>{PHONE_DISPLAY}</span>
+              </a>
             </motion.div>
 
             {/* Decorative edge glow */}
-            <div className="absolute top-0 left-0 bottom-0 w-px bg-gradient-to-b from-neon-purple/50 via-neon-magenta/30 to-neon-purple/50" />
+            <div className="absolute top-0 left-0 bottom-0 w-px bg-gradient-to-b from-purple-500/50 via-fuchsia-500/30 to-purple-500/50" />
           </motion.div>
         </>
       )}

@@ -6,17 +6,19 @@ import { cn } from "@/lib/utils";
 
 /**
  * VA-PC Input Variants
- * Cyberpunk/Neon styled input with glow focus effects
+ *
+ * Cyberpunk/Neon styled input with glow focus effects.
+ * Uses CSS variables from the design system for consistent theming.
  */
 const inputVariants = cva(
-  // Base styles
+  // Base styles using design tokens
   [
     "w-full rounded-lg",
-    "bg-[#0a0a0a]",
-    "border border-zinc-800",
+    "bg-[var(--color-bg-primary)]",
+    "border border-[var(--color-border-subtle)]",
     "px-4 py-2.5",
-    "text-white text-sm font-outfit",
-    "placeholder:text-zinc-500",
+    "text-[var(--color-text-primary)] text-sm font-inter",
+    "placeholder:text-[var(--color-text-muted)]",
     "transition-all duration-300 ease-out",
     "outline-none",
     "disabled:cursor-not-allowed disabled:opacity-50",
@@ -27,53 +29,53 @@ const inputVariants = cva(
       variant: {
         // Default - Purple glow on focus
         default: [
-          "focus:border-[#8B5CF6]",
-          "focus:ring-2 focus:ring-[#8B5CF6]/20",
-          "focus:shadow-[0_0_20px_rgba(139,92,246,0.15)]",
-          "hover:border-zinc-700",
+          "focus:border-purple-500",
+          "focus:ring-2 focus:ring-purple-500/20",
+          "focus:shadow-[0_0_20px_rgba(168,85,247,0.15)]",
+          "hover:border-[var(--color-border-glow)]",
         ].join(" "),
 
-        // Magenta - Magenta glow on focus
-        magenta: [
-          "focus:border-[#06B6D4]",
-          "focus:ring-2 focus:ring-[#06B6D4]/20",
-          "focus:shadow-[0_0_20px_rgba(6,182,212,0.15)]",
-          "hover:border-zinc-700",
+        // Fuchsia - Fuchsia glow on focus
+        fuchsia: [
+          "focus:border-fuchsia-500",
+          "focus:ring-2 focus:ring-fuchsia-500/20",
+          "focus:shadow-[0_0_20px_rgba(217,70,239,0.15)]",
+          "hover:border-fuchsia-500/30",
         ].join(" "),
 
         // Glass - Glassmorphism effect
         glass: [
-          "bg-white/5",
+          "bg-[var(--glass-bg)]",
           "backdrop-blur-md",
-          "border-white/10",
-          "focus:border-[#8B5CF6]/50",
-          "focus:bg-white/10",
-          "focus:shadow-[0_0_20px_rgba(139,92,246,0.1)]",
-          "hover:bg-white/8",
+          "border-[var(--glass-border)]",
+          "focus:border-purple-500/50",
+          "focus:bg-[var(--color-bg-elevated)]",
+          "focus:shadow-[0_0_20px_rgba(168,85,247,0.1)]",
+          "hover:bg-[var(--color-bg-card)]",
         ].join(" "),
 
         // Neon - Intense neon glow
         neon: [
-          "border-[#8B5CF6]/30",
-          "focus:border-[#8B5CF6]",
-          "focus:shadow-[0_0_10px_#8B5CF6,0_0_20px_rgba(139,92,246,0.3),inset_0_0_10px_rgba(139,92,246,0.1)]",
-          "hover:border-[#8B5CF6]/50",
+          "border-purple-500/30",
+          "focus:border-purple-500",
+          "focus:shadow-[0_0_10px_#a855f7,0_0_20px_rgba(168,85,247,0.3),inset_0_0_10px_rgba(168,85,247,0.1)]",
+          "hover:border-purple-500/50",
         ].join(" "),
 
-        // Neon Magenta
-        "neon-magenta": [
-          "border-[#06B6D4]/30",
-          "focus:border-[#06B6D4]",
-          "focus:shadow-[0_0_10px_#06B6D4,0_0_20px_rgba(6,182,212,0.3),inset_0_0_10px_rgba(6,182,212,0.1)]",
-          "hover:border-[#06B6D4]/50",
+        // Neon Fuchsia
+        "neon-fuchsia": [
+          "border-fuchsia-500/30",
+          "focus:border-fuchsia-500",
+          "focus:shadow-[0_0_10px_#d946ef,0_0_20px_rgba(217,70,239,0.3),inset_0_0_10px_rgba(217,70,239,0.1)]",
+          "hover:border-fuchsia-500/50",
         ].join(" "),
 
-        // Gradient Border
+        // Gradient Border - Purple to Fuchsia
         gradient: [
           "border-transparent",
-          "bg-gradient-to-r from-[#8B5CF6]/20 to-[#06B6D4]/20",
-          "focus:from-[#8B5CF6]/30 focus:to-[#06B6D4]/30",
-          "focus:shadow-[0_0_20px_rgba(139,92,246,0.2)]",
+          "bg-gradient-to-r from-purple-500/20 to-fuchsia-500/20",
+          "focus:from-purple-500/30 focus:to-fuchsia-500/30",
+          "focus:shadow-[0_0_20px_rgba(168,85,247,0.2)]",
         ].join(" "),
 
         // Error state
@@ -183,12 +185,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           <label
             htmlFor={inputId}
             className={cn(
-              "block mb-2 text-sm font-medium text-zinc-300 font-outfit",
+              "block mb-2 text-sm font-medium text-zinc-300 font-inter",
               disabled && "opacity-50"
             )}
           >
             {label}
-            {required && <span className="ml-1 text-[#8B5CF6]">*</span>}
+            {required && <span className="ml-1 text-purple-500">*</span>}
           </label>
         )}
 
@@ -255,9 +257,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                   ? "radial-gradient(circle at center, rgba(239,68,68,0.1) 0%, transparent 70%)"
                   : computedVariant === "success"
                   ? "radial-gradient(circle at center, rgba(16,185,129,0.1) 0%, transparent 70%)"
-                  : computedVariant === "magenta" || computedVariant === "neon-magenta"
-                  ? "radial-gradient(circle at center, rgba(6,182,212,0.1) 0%, transparent 70%)"
-                  : "radial-gradient(circle at center, rgba(139,92,246,0.1) 0%, transparent 70%)",
+                  : computedVariant === "fuchsia" || computedVariant === "neon-fuchsia"
+                  ? "radial-gradient(circle at center, rgba(217,70,239,0.1) 0%, transparent 70%)"
+                  : "radial-gradient(circle at center, rgba(168,85,247,0.1) 0%, transparent 70%)",
             }}
           />
         </div>

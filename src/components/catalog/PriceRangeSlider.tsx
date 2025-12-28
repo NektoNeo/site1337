@@ -57,18 +57,18 @@ export function PriceRangeSlider({
       {/* Price labels */}
       <div className="flex justify-between mb-4">
         <div className="text-center">
-          <span className="text-xs text-white/40 uppercase tracking-wider font-display">От</span>
+          <span className="text-xs text-white/40 uppercase tracking-wider font-inter">От</span>
           <motion.div
             key={localValue[0]}
             initial={{ scale: 1.1 }}
             animate={{ scale: 1 }}
-            className="text-sm font-mono text-neon-magenta-400 font-semibold"
+            className="text-sm font-mono text-neon-purple-400 font-semibold"
           >
             {formatPrice(localValue[0])}
           </motion.div>
         </div>
         <div className="text-center">
-          <span className="text-xs text-white/40 uppercase tracking-wider font-display">До</span>
+          <span className="text-xs text-white/40 uppercase tracking-wider font-inter">До</span>
           <motion.div
             key={localValue[1]}
             initial={{ scale: 1.1 }}
@@ -86,7 +86,7 @@ export function PriceRangeSlider({
         <div className="absolute top-1/2 -translate-y-1/2 w-full h-2 bg-void-400 rounded-full overflow-hidden">
           {/* Active range */}
           <div
-            className="absolute h-full bg-gradient-to-r from-neon-purple-500 via-neon-magenta-500 to-neon-purple-500 rounded-full"
+            className="absolute h-full bg-gradient-to-r from-neon-purple-500 via-neon-purple-500 to-neon-purple-500 rounded-full"
             style={{
               left: `${minPercent}%`,
               width: `${maxPercent - minPercent}%`,
@@ -94,7 +94,7 @@ export function PriceRangeSlider({
           />
           {/* Glow effect */}
           <div
-            className="absolute h-full bg-gradient-to-r from-neon-purple-500 via-neon-magenta-500 to-neon-purple-500 rounded-full blur-sm opacity-60"
+            className="absolute h-full bg-gradient-to-r from-neon-purple-500 via-neon-purple-500 to-neon-purple-500 rounded-full blur-sm opacity-60"
             style={{
               left: `${minPercent}%`,
               width: `${maxPercent - minPercent}%`,
@@ -120,13 +120,13 @@ export function PriceRangeSlider({
             [&::-webkit-slider-thumb]:rounded-full
             [&::-webkit-slider-thumb]:bg-white
             [&::-webkit-slider-thumb]:border-2
-            [&::-webkit-slider-thumb]:border-neon-magenta-400
-            [&::-webkit-slider-thumb]:shadow-[0_0_15px_rgba(6,182,212,0.8)]
+            [&::-webkit-slider-thumb]:border-neon-purple-400
+            [&::-webkit-slider-thumb]:shadow-[0_0_15px_rgba(139,92,246,0.8)]
             [&::-webkit-slider-thumb]:cursor-pointer
             [&::-webkit-slider-thumb]:transition-all
             [&::-webkit-slider-thumb]:duration-200
             [&::-webkit-slider-thumb]:hover:scale-125
-            [&::-webkit-slider-thumb]:hover:shadow-[0_0_25px_rgba(6,182,212,1)]
+            [&::-webkit-slider-thumb]:hover:shadow-[0_0_25px_rgba(139,92,246,1)]
             [&::-moz-range-thumb]:pointer-events-auto
             [&::-moz-range-thumb]:appearance-none
             [&::-moz-range-thumb]:w-5
@@ -134,7 +134,7 @@ export function PriceRangeSlider({
             [&::-moz-range-thumb]:rounded-full
             [&::-moz-range-thumb]:bg-white
             [&::-moz-range-thumb]:border-2
-            [&::-moz-range-thumb]:border-neon-magenta-400
+            [&::-moz-range-thumb]:border-neon-purple-400
             [&::-moz-range-thumb]:cursor-pointer"
         />
 

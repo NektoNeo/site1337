@@ -74,7 +74,7 @@ function ProductCount({ count, isLoading }: { count: number; isLoading: boolean 
       animate={{ opacity: 1 }}
       className="flex items-center gap-2 mb-6"
     >
-      <Package className="w-5 h-5 text-neon-magenta-400" />
+      <Package className="w-5 h-5 text-neon-purple-400" />
       <span className="text-white/70 font-mono text-sm">
         {isLoading ? (
           <span className="inline-flex items-center gap-2">
@@ -83,7 +83,7 @@ function ProductCount({ count, isLoading }: { count: number; isLoading: boolean 
           </span>
         ) : (
           <>
-            Найдено: <span className="text-neon-magenta-400 font-bold">{count}</span>{' '}
+            Найдено: <span className="text-neon-purple-400 font-bold">{count}</span>{' '}
             {getProductsWord(count)}
           </>
         )}
@@ -132,12 +132,12 @@ function EmptyState({
       {/* Icon container with glow */}
       <div className="relative mb-6">
         <div className="absolute inset-0 bg-neon-purple-500/20 blur-xl rounded-full" />
-        <div className="relative w-24 h-24 rounded-full bg-gradient-to-br from-neon-purple-500/10 to-neon-magenta-500/10 border border-neon-purple-500/30 flex items-center justify-center">
+        <div className="relative w-24 h-24 rounded-full bg-gradient-to-br from-neon-purple-500/10 to-neon-purple-500/10 border border-neon-purple-500/30 flex items-center justify-center">
           <SearchX className="w-12 h-12 text-neon-purple-400" />
         </div>
       </div>
       
-      <h3 className="text-xl font-display font-bold text-white mb-2">
+      <h3 className="text-xl font-inter font-bold text-white mb-2">
         {message}
       </h3>
       <p className="text-white/50 text-center max-w-md leading-relaxed">
@@ -185,7 +185,7 @@ function ErrorState({
         </div>
       </div>
       
-      <h3 className="text-xl font-display font-bold text-white mb-2">
+      <h3 className="text-xl font-inter font-bold text-white mb-2">
         Произошла ошибка
       </h3>
       <p className="text-white/50 text-center max-w-md mb-6">
@@ -200,8 +200,8 @@ function ErrorState({
           className={cn(
             'flex items-center gap-2 px-6 py-3 rounded-xl',
             'bg-gradient-to-r from-neon-purple-600 to-neon-purple-500',
-            'text-white font-display font-bold text-sm uppercase tracking-wider',
-            'hover:from-neon-magenta-500 hover:to-neon-purple-500',
+            'text-white font-inter font-bold text-sm uppercase tracking-wider',
+            'hover:from-neon-purple-500 hover:to-neon-purple-500',
             'transition-all duration-300'
           )}
         >

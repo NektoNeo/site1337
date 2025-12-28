@@ -50,52 +50,40 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
       "transition-all duration-300 ease-out",
     ].join(" ");
 
-    // Variant styles
+    // Variant styles (grayscale, no gradients)
     const variantStyles = {
-      default: [
-        "bg-[#0a0a0a]",
-        "border border-zinc-800",
-      ].join(" "),
+      default: ["bg-[#0f0f12]", "border border-white/10"].join(" "),
 
       glass: [
-        "bg-[rgba(10,10,10,0.7)]",
-        "backdrop-blur-xl",
-        "border border-[rgba(139,92,246,0.2)]",
+        "bg-white/[0.02]",
+        "backdrop-blur-md",
+        "border border-white/[0.08]",
       ].join(" "),
 
       "gradient-border": [
-        "bg-[#0a0a0a]",
-        "p-[1px]",
-        "bg-gradient-to-br from-[#8B5CF6] via-[#06B6D4] to-[#8B5CF6]",
+        "bg-[#0f0f12]",
+        "border border-white/12",
       ].join(" "),
 
       neon: [
-        "bg-black",
-        "border-2 border-[#8B5CF6]",
-        "shadow-[0_0_15px_rgba(139,92,246,0.3),inset_0_0_15px_rgba(139,92,246,0.05)]",
+        "bg-[#0f0f12]",
+        "border border-white/12",
       ].join(" "),
 
       solid: [
-        "bg-zinc-900",
-        "border border-zinc-700",
+        "bg-[#0f0f12]",
+        "border border-white/10",
       ].join(" "),
     };
 
-    // Hover effect styles
+    // Hover effect styles (subtle)
     const hoverStyles = {
       none: "",
-      lift: "hover:-translate-y-1 hover:shadow-2xl",
+      lift: "hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(0,0,0,0.55)]",
       glow:
-        glowColor === "magenta"
-          ? "hover:shadow-[0_0_30px_rgba(6,182,212,0.3),0_0_60px_rgba(6,182,212,0.1)]"
-          : glowColor === "multi"
-          ? "hover:shadow-[0_0_30px_rgba(139,92,246,0.3),0_0_60px_rgba(6,182,212,0.2)]"
-          : "hover:shadow-[0_0_30px_rgba(139,92,246,0.3),0_0_60px_rgba(139,92,246,0.1)]",
-      "border-glow": [
-        "hover:border-[#8B5CF6]/50",
-        "hover:shadow-[0_0_20px_rgba(139,92,246,0.2)]",
-      ].join(" "),
-      scale: "hover:scale-[1.02]",
+        "hover:border-white/20 hover:shadow-[0_20px_45px_rgba(0,0,0,0.55)]",
+      "border-glow": "hover:border-white/25",
+      scale: "hover:scale-[1.01]",
     };
 
     // Combine lift and glow for better effect
@@ -117,23 +105,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
         )}
         {...props}
       >
-        {/* Gradient border inner content wrapper */}
-        {variant === "gradient-border" ? (
-          <div className="bg-[#0a0a0a] rounded-[11px] h-full">{children}</div>
-        ) : (
-          children
-        )}
-
-        {/* Gradient overlay for glass variant */}
-        {variant === "glass" && (
-          <div
-            className="absolute inset-0 pointer-events-none opacity-50"
-            style={{
-              background:
-                "linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, transparent 50%, rgba(6, 182, 212, 0.05) 100%)",
-            }}
-          />
-        )}
+        {children}
       </div>
     );
   }
@@ -153,7 +125,7 @@ const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
       className={cn(
         "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 p-6",
         "has-data-[slot=card-action]:grid-cols-[1fr_auto]",
-        withBorder && "border-b border-zinc-800/50 pb-6",
+        withBorder && "border-b border-white/5 pb-6",
         className
       )}
       {...props}
@@ -174,10 +146,8 @@ const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
       ref={ref}
       data-slot="card-title"
       className={cn(
-        "text-xl font-bold tracking-wide font-orbitron",
-        gradient
-          ? "bg-gradient-to-r from-[#8B5CF6] to-[#06B6D4] bg-clip-text text-transparent"
-          : "text-white",
+        "text-xl font-semibold tracking-tight",
+        gradient ? "text-white" : "text-white",
         className
       )}
       {...props}
@@ -196,7 +166,7 @@ const CardDescription = React.forwardRef<
   <p
     ref={ref}
     data-slot="card-description"
-    className={cn("text-sm text-zinc-400 font-outfit", className)}
+    className={cn("text-sm text-white/60", className)}
     {...props}
   />
 ));
@@ -228,7 +198,7 @@ const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
       data-slot="card-footer"
       className={cn(
         "flex items-center p-6 pt-0",
-        withBorder && "border-t border-zinc-800/50 pt-6 mt-auto",
+        withBorder && "border-t border-white/5 pt-6 mt-auto",
         className
       )}
       {...props}
@@ -283,9 +253,8 @@ const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
     return (
       <Card
         ref={ref}
-        variant={featured ? "gradient-border" : "glass"}
+        variant="glass"
         hoverEffect="glow"
-        glowColor={featured ? "multi" : "purple"}
         className={cn("group cursor-pointer", className)}
         {...props}
       >
@@ -297,14 +266,14 @@ const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
               alt={title}
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
-            {/* Gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent" />
+            {/* Subtle overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
 
             {/* Featured badge */}
             {featured && (
               <div className="absolute top-3 left-3">
-                <span className="px-3 py-1 text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-[#8B5CF6] to-[#06B6D4] text-white rounded-full shadow-lg">
-                  Featured
+                <span className="px-3 py-1 text-xs font-semibold uppercase tracking-wider border border-white/20 text-white rounded-full bg-black/50">
+                  Рекомендовано
                 </span>
               </div>
             )}
@@ -329,12 +298,12 @@ const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
 
         {/* Content */}
         <div className="p-5">
-          <h3 className="text-lg font-bold text-white font-orbitron mb-2 line-clamp-2 group-hover:text-[#A855F7] transition-colors">
+          <h3 className="text-lg font-semibold text-white mb-2 line-clamp-2">
             {title}
           </h3>
 
           {description && (
-            <p className="text-sm text-zinc-400 mb-4 line-clamp-2">
+            <p className="text-sm text-white/60 mb-4 line-clamp-2">
               {description}
             </p>
           )}
@@ -342,7 +311,7 @@ const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
           {/* Price */}
           {price && (
             <div className="flex items-baseline gap-3">
-              <span className="text-2xl font-bold text-white font-orbitron">
+              <span className="text-2xl font-semibold text-white">
                 {typeof price === "number"
                   ? new Intl.NumberFormat("ru-RU", {
                       style: "currency",
@@ -352,7 +321,7 @@ const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
                   : price}
               </span>
               {originalPrice && (
-                <span className="text-sm text-zinc-500 line-through">
+                <span className="text-sm text-white/40 line-through">
                   {typeof originalPrice === "number"
                     ? new Intl.NumberFormat("ru-RU", {
                         style: "currency",

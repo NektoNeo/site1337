@@ -108,7 +108,7 @@ const sheetContentVariants = cva(
       },
       glowColor: {
         purple: "shadow-[0_0_40px_rgba(139,92,246,0.15)]",
-        magenta: "shadow-[0_0_40px_rgba(6,182,212,0.15)]",
+        magenta: "shadow-[0_0_40px_rgba(139,92,246,0.15)]",
         none: "",
       },
     },
@@ -152,8 +152,8 @@ function SheetContent({
           style={{
             background:
               side === "right" || side === "left"
-                ? "linear-gradient(180deg, rgba(139, 92, 246, 0.05) 0%, transparent 20%, transparent 80%, rgba(6, 182, 212, 0.05) 100%)"
-                : "linear-gradient(90deg, rgba(139, 92, 246, 0.05) 0%, transparent 20%, transparent 80%, rgba(6, 182, 212, 0.05) 100%)",
+                ? "linear-gradient(180deg, rgba(139, 92, 246, 0.05) 0%, transparent 20%, transparent 80%, rgba(139, 92, 246, 0.05) 100%)"
+                : "linear-gradient(90deg, rgba(139, 92, 246, 0.05) 0%, transparent 20%, transparent 80%, rgba(139, 92, 246, 0.05) 100%)",
           }}
         />
 
@@ -238,7 +238,7 @@ function SheetDescription({
   return (
     <SheetPrimitive.Description
       data-slot="sheet-description"
-      className={cn("text-sm text-zinc-400 font-outfit", className)}
+      className={cn("text-sm text-zinc-400 font-inter", className)}
       {...props}
     />
   );

@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
 // Critical above-fold components loaded immediately
-import { Hero } from '@/components/home/Hero/index';
+import { Hero } from '@/components/home/Hero';
 
 // Lazy load the animated background (heavy CSS animations)
 const AnimatedBackground = dynamic(
@@ -52,6 +52,11 @@ const LazySocials = dynamic(
 
 const LazyCases = dynamic(
   () => import('@/components/home/Cases').then(mod => ({ default: mod.Cases })),
+  { ssr: true }
+);
+
+const LazyWorksGallery = dynamic(
+  () => import('@/components/home/WorksGallery').then(mod => ({ default: mod.WorksGallery })),
   { ssr: true }
 );
 
@@ -106,10 +111,10 @@ const FloatingParticles = memo(function FloatingParticles() {
           style={{
             left: `${particle.left}%`,
             top: `${particle.top}%`,
-            background: particle.isEven ? '#8B5CF6' : '#FF1E8E',
+            background: particle.isEven ? '#8B5CF6' : '#7C3AED',
             boxShadow: particle.isEven
               ? '0 0 10px #8B5CF6, 0 0 20px #8B5CF6'
-              : '0 0 10px #FF1E8E, 0 0 20px #FF1E8E',
+              : '0 0 10px #7C3AED, 0 0 20px #7C3AED',
           }}
           animate={{
             y: [0, -100, 0],
@@ -150,7 +155,7 @@ const SectionDivider = memo(function SectionDivider() {
         viewport={{ once: true, margin: '-50px' }}
         transition={{ duration: 0.5, delay: 0.5 }}
       >
-        <div className="w-full h-full bg-gradient-to-br from-purple-500 to-pink-500 rounded-sm" />
+        <div className="w-full h-full bg-gradient-to-br from-purple-500 to-purple-400 rounded-sm" />
       </motion.div>
     </div>
   );
@@ -165,7 +170,7 @@ const ScrollProgress = memo(function ScrollProgress() {
 
   return (
     <motion.div
-      className="fixed top-20 left-0 right-0 h-[2px] bg-gradient-to-r from-purple-600 via-pink-500 to-purple-600 origin-left z-50 will-change-transform"
+      className="fixed top-20 left-0 right-0 h-[2px] bg-gradient-to-r from-purple-600 via-purple-400 to-purple-600 origin-left z-50 will-change-transform"
       style={{ scaleX: scrollYProgress }}
     />
   );
@@ -222,7 +227,7 @@ export default function HomePage() {
 
       {/* Main content - Section order from original va-pc.ru */}
       <div className="relative z-10">
-        {/* 1. Hero Section - Main headline and featured PC (CRITICAL - loaded immediately) */}
+        {/* 1. Hero Section with Trust Metrics */}
         <Hero />
 
         <SectionDivider />
@@ -283,14 +288,21 @@ export default function HomePage() {
 
         <SectionDivider />
 
-        {/* 10. Live - "LIVE ЛЕНТА" (lazy loaded) */}
+        {/* 10. Works Gallery - "НАШИ РАБОТЫ" (lazy loaded) */}
+        <Suspense fallback={<WorksSkeleton />}>
+          <LazyWorksGallery />
+        </Suspense>
+
+        <SectionDivider />
+
+        {/* 11. Live - "LIVE ЛЕНТА" (lazy loaded) */}
         <Suspense fallback={<SectionSkeleton />}>
           <LazyLive />
         </Suspense>
 
         <SectionDivider />
 
-        {/* 11. Form - Contact / CTA Section (lazy loaded) */}
+        {/* 12. Form - Contact / CTA Section (lazy loaded) */}
         <Suspense fallback={<SectionSkeleton />}>
           <LazyCTASection />
         </Suspense>
@@ -357,6 +369,24 @@ function CasesSkeleton() {
         <div className="grid md:grid-cols-3 gap-6">
           {[...Array(3)].map((_, i) => (
             <div key={i} className="aspect-video bg-white/5 rounded-2xl" />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function WorksSkeleton() {
+  return (
+    <div className="min-h-[600px] w-full animate-pulse">
+      <div className="container mx-auto px-4 py-24">
+        <div className="flex flex-col items-center mb-16">
+          <div className="h-10 w-64 bg-white/5 rounded-lg mb-4" />
+          <div className="h-5 w-96 bg-white/5 rounded-lg" />
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {[...Array(8)].map((_, i) => (
+            <div key={i} className="aspect-square bg-white/5 rounded-xl" />
           ))}
         </div>
       </div>

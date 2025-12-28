@@ -30,7 +30,7 @@ export function AnimatedBackground() {
       <motion.div
         className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full opacity-20"
         style={{
-          background: 'radial-gradient(circle, rgba(255, 30, 142, 0.35) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)',
           filter: 'blur(80px)',
         }}
         animate={{

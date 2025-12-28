@@ -85,7 +85,7 @@ function Skeleton({
           style={{
             background:
               glow === "magenta"
-                ? "linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.1), transparent)"
+                ? "linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent)"
                 : glow === "purple"
                 ? "linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent)"
                 : "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent)",

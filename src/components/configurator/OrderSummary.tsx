@@ -44,7 +44,7 @@ export function OrderSummary({
     <div className="relative h-full flex flex-col">
       {/* Header */}
       <div className="mb-6">
-        <h2 className="text-xl font-display font-bold text-gradient-purple mb-1">
+        <h2 className="text-xl font-inter font-bold text-gradient-purple mb-1">
           Итого
         </h2>
         <p className="text-sm text-white/50">
@@ -64,7 +64,7 @@ export function OrderSummary({
         <div className="absolute bottom-0 right-0 w-4 h-4 border-r-2 border-b-2 border-purple-500/50" />
 
         <div className="text-center">
-          <span className="text-sm text-white/50 font-display tracking-wider">
+          <span className="text-sm text-white/50 font-inter tracking-wider">
             СТОИМОСТЬ СБОРКИ
           </span>
           <motion.div
@@ -74,7 +74,7 @@ export function OrderSummary({
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
           >
-            <span className="text-3xl font-bold font-display text-gradient-shimmer">
+            <span className="text-3xl font-bold font-inter text-gradient-shimmer">
               {formatPrice(totalPrice)}
             </span>
           </motion.div>
@@ -85,10 +85,10 @@ export function OrderSummary({
       <div className="p-4 rounded-lg bg-black/30 border border-white/10 mb-4">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
-            <Zap className={`w-4 h-4 ${powerOk ? 'text-magenta-400' : 'text-red-400'}`} />
+            <Zap className={`w-4 h-4 ${powerOk ? 'text-purple-400' : 'text-red-400'}`} />
             <span className="text-sm text-white/70">Потребление</span>
           </div>
-          <span className={`text-sm font-mono ${powerOk ? 'text-magenta-400' : 'text-red-400'}`}>
+          <span className={`text-sm font-mono ${powerOk ? 'text-purple-400' : 'text-red-400'}`}>
             ~{totalPower}W
           </span>
         </div>
@@ -98,7 +98,7 @@ export function OrderSummary({
           <motion.div
             className={`absolute inset-y-0 left-0 rounded-full ${
               powerOk 
-                ? 'bg-gradient-to-r from-magenta-500 to-purple-500' 
+                ? 'bg-gradient-to-r from-purple-500 to-purple-500' 
                 : 'bg-gradient-to-r from-red-500 to-orange-500'
             }`}
             initial={{ width: 0 }}
@@ -208,11 +208,11 @@ export function OrderSummary({
         disabled={!isComplete || errorWarnings.length > 0}
         className={`
           relative w-full py-4 px-6 rounded-xl
-          font-display font-bold text-lg
+          font-inter font-bold text-lg
           transition-all duration-300
           overflow-hidden
           ${isComplete && errorWarnings.length === 0
-            ? 'bg-gradient-to-r from-purple-600 to-magenta-600 text-white cursor-pointer'
+            ? 'bg-gradient-to-r from-purple-600 to-purple-600 text-white cursor-pointer'
             : 'bg-white/10 text-white/40 cursor-not-allowed'
           }
         `}
@@ -223,7 +223,7 @@ export function OrderSummary({
         {isComplete && errorWarnings.length === 0 && (
           <>
             <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-purple-500 to-magenta-500 opacity-0"
+              className="absolute inset-0 bg-gradient-to-r from-purple-500 to-purple-500 opacity-0"
               animate={{
                 opacity: [0, 0.5, 0],
               }}
@@ -235,7 +235,7 @@ export function OrderSummary({
             <motion.div
               className="absolute inset-[-2px] rounded-xl"
               style={{
-                background: 'linear-gradient(90deg, #8B5CF6, #06B6D4, #8B5CF6)',
+                background: 'linear-gradient(90deg, #8B5CF6, #8B5CF6, #8B5CF6)',
                 backgroundSize: '200% 100%',
               }}
               animate={{
@@ -247,7 +247,7 @@ export function OrderSummary({
                 ease: 'linear',
               }}
             />
-            <div className="absolute inset-[2px] rounded-xl bg-gradient-to-r from-purple-600 to-magenta-600" />
+            <div className="absolute inset-[2px] rounded-xl bg-gradient-to-r from-purple-600 to-purple-600" />
           </>
         )}
         
@@ -274,7 +274,7 @@ export function OrderSummary({
       <div className="mt-4 flex items-center gap-2">
         <div className="flex-1 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
         <span className="text-[10px] text-white/30 font-mono">VA-PC.RU</span>
-        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-magenta-500/30 to-transparent" />
+        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
       </div>
     </div>
   );

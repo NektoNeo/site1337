@@ -42,14 +42,14 @@ export function FilterGroup({
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between py-3 group"
       >
-        <span className="font-display text-sm font-semibold uppercase tracking-wider text-white/90 group-hover:text-neon-magenta-400 transition-colors">
+        <span className="font-inter text-sm font-semibold uppercase tracking-wider text-white/90 group-hover:text-neon-purple-400 transition-colors">
           {title}
         </span>
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.2 }}
         >
-          <ChevronDown className="w-4 h-4 text-neon-purple-400 group-hover:text-neon-magenta-400 transition-colors" />
+          <ChevronDown className="w-4 h-4 text-neon-purple-400 group-hover:text-neon-purple-400 transition-colors" />
         </motion.div>
       </button>
 
@@ -81,7 +81,7 @@ export function FilterGroup({
                       className={cn(
                         'relative w-5 h-5 rounded border-2 transition-all duration-300 flex items-center justify-center',
                         isSelected
-                          ? 'bg-gradient-to-br from-neon-purple-500 to-neon-magenta-500 border-neon-magenta-400 shadow-neon-magenta'
+                          ? 'bg-gradient-to-br from-neon-purple-500 to-neon-purple-500 border-neon-purple-400 shadow-neon-purple'
                           : 'border-neon-purple-500/40 group-hover/option:border-neon-purple-400'
                       )}
                     >

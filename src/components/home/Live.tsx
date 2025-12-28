@@ -1,62 +1,81 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Play, Eye, Clock, ExternalLink } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import type { ShortItem } from '@/lib/youtube';
 
-// Mock data for live feed - in production this would come from VK API
-const liveItems = [
+const FALLBACK_SHORTS: ShortItem[] = [
   {
-    id: 1,
-    type: 'build',
+    id: 'local-1',
     title: 'Сборка VA PHOENIX для стримера',
     description: 'RTX 4080 + i7-14700K, RGB подсветка Corsair iCUE',
     thumbnail: '/images/live/build-1.jpg',
-    views: 1247,
-    date: '2 часа назад',
+    publishedAt: '2025-01-05T10:00:00Z',
+    url: 'https://vk.com/vapcbuild',
+    type: 'build',
   },
   {
-    id: 2,
-    type: 'test',
+    id: 'local-2',
     title: 'Стресс-тест системы охлаждения',
     description: 'Проверяем температуры под нагрузкой, настраиваем кривые вентиляторов',
     thumbnail: '/images/live/test-1.jpg',
-    views: 892,
-    date: '5 часов назад',
+    publishedAt: '2025-01-04T12:00:00Z',
+    url: 'https://vk.com/vapcbuild',
+    type: 'test',
   },
   {
-    id: 3,
-    type: 'unboxing',
+    id: 'local-3',
     title: 'Распаковка RTX 4090 ASUS ROG',
     description: 'Новая топовая видеокарта для проекта Creator',
     thumbnail: '/images/live/unbox-1.jpg',
-    views: 2341,
-    date: '1 день назад',
+    publishedAt: '2025-01-03T09:00:00Z',
+    url: 'https://vk.com/vapcbuild',
+    type: 'unboxing',
   },
   {
-    id: 4,
-    type: 'build',
+    id: 'local-4',
     title: 'Компактный ITX билд',
     description: 'Meshlicious + RTX 4070 Ti, максимум производительности в минимуме объёма',
     thumbnail: '/images/live/build-2.jpg',
-    views: 1563,
-    date: '2 дня назад',
+    publishedAt: '2025-01-02T09:00:00Z',
+    url: 'https://vk.com/vapcbuild',
+    type: 'build',
   },
 ];
 
-const typeLabels: Record<string, { label: string; color: string }> = {
-  build: { label: 'СБОРКА', color: 'bg-purple-500' },
-  test: { label: 'ТЕСТЫ', color: 'bg-magenta-500' },
-  unboxing: { label: 'РАСПАКОВКА', color: 'bg-green-500' },
+const typeLabels: Record<string, { label: string }> = {
+  build: { label: 'СБОРКА' },
+  test: { label: 'ТЕСТЫ' },
+  unboxing: { label: 'РАСПАКОВКА' },
 };
 
 export function Live() {
   const [isLoading, setIsLoading] = useState(true);
+  const [shorts, setShorts] = useState<ShortItem[]>(FALLBACK_SHORTS);
 
   useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => setIsLoading(false), 500);
-    return () => clearTimeout(timer);
+    let cancelled = false;
+    async function loadShorts() {
+      try {
+        const response = await fetch('/api/shorts');
+        if (!response.ok) throw new Error('Failed to load shorts');
+        const data = await response.json();
+        if (!cancelled && Array.isArray(data?.shorts)) {
+          setShorts(data.shorts);
+        }
+      } catch (error) {
+        console.warn('[Live] fallback to local shorts', error);
+      } finally {
+        if (!cancelled) setIsLoading(false);
+      }
+    }
+
+    loadShorts();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (
@@ -78,7 +97,7 @@ export function Live() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-purple-400 to-magenta-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-purple-400 to-purple-300 bg-clip-text text-transparent">
               LIVE ЛЕНТА
             </span>
           </h2>
@@ -100,10 +119,10 @@ export function Live() {
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {liveItems.map((item, index) => (
+            {shorts.map((item, index) => (
               <motion.a
                 key={item.id}
-                href="https://vk.com/vapcbuild"
+                href={item.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 30 }}
@@ -111,12 +130,17 @@ export function Live() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -8 }}
-                className="group relative bg-black/40 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden hover:border-purple-500/50 transition-all duration-300"
+                className="group relative bg-black/40 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden hover:border-white/20 transition-all duration-300"
               >
                 {/* Thumbnail */}
-                <div className="relative aspect-video bg-gradient-to-br from-purple-900/50 to-magenta-900/50">
-                  {/* Placeholder gradient - replace with actual images */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-magenta-600/20" />
+                <div className="relative aspect-video bg-[#111]">
+                  <Image
+                    src={item.thumbnail}
+                    alt={item.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 320px"
+                    className="object-cover"
+                  />
 
                   {/* Play button overlay */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
@@ -126,12 +150,11 @@ export function Live() {
                   </div>
 
                   {/* Type badge */}
-                  <div className={`absolute top-2 left-2 px-2 py-0.5 ${typeLabels[item.type].color} rounded text-xs font-bold text-white`}>
-                    {typeLabels[item.type].label}
+                  <div className="absolute top-2 left-2 px-2 py-0.5 bg-black/60 border border-white/20 rounded text-xs font-medium text-white">
+                    {typeLabels[item.type ?? 'build']?.label ?? 'ВИДЕО'}
                   </div>
 
-                  {/* External link indicator */}
-                  <ExternalLink className="absolute top-2 right-2 w-4 h-4 text-white/50 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <ExternalLink className="absolute top-2 right-2 w-4 h-4 text-white/70 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
 
                 {/* Content */}
@@ -139,17 +162,17 @@ export function Live() {
                   <h3 className="font-bold text-white text-sm mb-1 line-clamp-1 group-hover:text-purple-300 transition-colors">
                     {item.title}
                   </h3>
-                  <p className="text-gray-500 text-xs line-clamp-2 mb-3">{item.description}</p>
+                  <p className="text-white/50 text-xs line-clamp-2 mb-3">{item.description}</p>
 
                   {/* Meta */}
-                  <div className="flex items-center justify-between text-xs text-gray-600">
-                    <div className="flex items-center gap-1">
+                  <div className="flex items-center justify-between text-xs text-white/40">
+                    <div className="flex items-center gap-1 text-white/50">
                       <Eye className="w-3 h-3" />
-                      <span>{item.views}</span>
+                      <span>Shorts</span>
                     </div>
                     <div className="flex items-center gap-1">
                       <Clock className="w-3 h-3" />
-                      <span>{item.date}</span>
+                      <span>{formatPublishedAt(item.publishedAt)}</span>
                     </div>
                   </div>
                 </div>
@@ -167,18 +190,25 @@ export function Live() {
           className="text-center mt-12"
         >
           <a
-            href="https://vk.com/vapcbuild"
+            href="https://www.youtube.com/@vapc"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600/20 border border-blue-500/30 text-blue-400 font-medium rounded-xl hover:bg-blue-600/30 transition-all duration-300"
+            className="inline-flex items-center gap-2 px-6 py-3 border border-white/15 text-white/70 font-medium rounded-xl hover:border-white/40 transition-all duration-300"
           >
             <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
-              <path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 17.123h-1.744c-.66 0-.864-.525-2.05-1.727-1.033-1-1.49-1.135-1.744-1.135-.356 0-.458.102-.458.593v1.575c0 .424-.135.678-1.253.678-1.846 0-3.896-1.118-5.335-3.202C4.624 10.857 4 8.756 4 8.316c0-.254.102-.491.593-.491h1.744c.44 0 .61.203.78.677.847 2.455 2.27 4.607 2.862 4.607.22 0 .322-.102.322-.66V9.721c-.068-1.186-.695-1.287-.695-1.71 0-.203.17-.407.44-.407h2.744c.373 0 .508.203.508.643v3.473c0 .372.17.508.271.508.22 0 .407-.136.813-.542 1.27-1.422 2.18-3.61 2.18-3.61.119-.254.305-.491.745-.491h1.744c.525 0 .644.27.525.643-.22 1.017-2.354 4.031-2.354 4.031-.186.305-.254.44 0 .78.186.254.796.779 1.203 1.253.745.847 1.32 1.558 1.473 2.05.17.49-.085.744-.576.744z"/>
+              <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.8 31.8 0 0 0 0 12a31.8 31.8 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.7 9.4.7 9.4.7s7.5 0 9.4-.7a3 3 0 0 0 2.1-2.1A31.8 31.8 0 0 0 24 12a31.8 31.8 0 0 0-.5-5.8ZM9.75 15.02V8.98L15.5 12z"/>
             </svg>
-            Смотреть все в ВКонтакте
+            Смотреть все на YouTube
           </a>
         </motion.div>
       </div>
     </section>
   );
+}
+
+function formatPublishedAt(dateString: string) {
+  if (!dateString) return 'в эфире';
+  const date = new Date(dateString);
+  if (Number.isNaN(date.getTime())) return dateString;
+  return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
 }

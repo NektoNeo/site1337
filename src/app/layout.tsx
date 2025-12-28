@@ -1,33 +1,21 @@
 import type { Metadata, Viewport } from 'next';
-import { Orbitron, Outfit, JetBrains_Mono } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
+import { MobileContactDock } from '@/components/layout/MobileContactDock';
 import { QueryProvider } from '@/lib/query-client';
+import { OrganizationJsonLd, LocalBusinessJsonLd, WebSiteJsonLd } from '@/components/seo/JsonLd';
+import { UIMonitor } from '@/components/ui/UIMonitor';
 
-// Optimize font loading with next/font - prevents FOUT and improves CLS
-const orbitron = Orbitron({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-orbitron',
-  preload: true,
-  fallback: ['system-ui', 'sans-serif'],
-});
-
-const outfit = Outfit({
-  subsets: ['latin', 'latin-ext'],
-  display: 'swap',
-  variable: '--font-outfit',
-  preload: true,
-  fallback: ['system-ui', 'sans-serif'],
-});
-
-const jetbrainsMono = JetBrains_Mono({
+// Inter font everywhere - Grayscale Pro typography
+const inter = Inter({
   subsets: ['latin', 'cyrillic'],
   display: 'swap',
-  variable: '--font-mono',
+  variable: '--font-inter',
   preload: true,
-  fallback: ['Consolas', 'monospace'],
+  fallback: ['system-ui', '-apple-system', 'sans-serif'],
+  weight: ['400', '500', '600', '700'],
 });
 
 export const metadata: Metadata = {
@@ -69,7 +57,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
-  themeColor: '#FF1E8E',
+  themeColor: '#0A0A0A',
 };
 
 export default function RootLayout({
@@ -80,7 +68,7 @@ export default function RootLayout({
   return (
     <html
       lang="ru"
-      className={`${orbitron.variable} ${outfit.variable} ${jetbrainsMono.variable}`}
+      className={inter.variable}
       suppressHydrationWarning
     >
       <head>
@@ -101,7 +89,7 @@ export default function RootLayout({
         {/* Preload critical hero image for LCP optimization */}
         <link
           rel="preload"
-          href="/gaming-pc-hero.png"
+          href="/images/IMG_7790.JPG"
           as="image"
           type="image/png"
           fetchPriority="high"
@@ -109,20 +97,31 @@ export default function RootLayout({
 
         {/* Prefetch catalog page for faster navigation */}
         <link rel="prefetch" href="/catalog" />
+
+        {/* Structured Data for SEO */}
+        <OrganizationJsonLd />
+        <LocalBusinessJsonLd />
+        <WebSiteJsonLd />
       </head>
-      <body className="antialiased bg-black text-white min-h-screen flex flex-col font-outfit">
+      <body className="antialiased bg-black text-white min-h-screen flex flex-col font-inter">
         {/* React Query Provider for data fetching */}
         <QueryProvider>
+          {/* UI Monitor - Real-time monitoring of images and animations */}
+          <UIMonitor enabled={true} />
+
           {/* Global Header */}
           <Header />
 
-          {/* Main Content */}
-          <main className="flex-1 pt-20">
+          {/* Main Content - pb-20 on mobile for MobileContactDock clearance */}
+          <main className="flex-1 pt-20 pb-20 lg:pb-0">
             {children}
           </main>
 
           {/* Global Footer */}
           <Footer />
+
+          {/* Mobile Contact Dock - Fixed panel for mobile */}
+          <MobileContactDock />
         </QueryProvider>
       </body>
     </html>

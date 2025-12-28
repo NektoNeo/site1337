@@ -108,7 +108,7 @@ function SpecCategory({ category, isOpen, onToggle }: {
         className="w-full flex items-center justify-between p-4 bg-gradient-to-r from-gray-900/80 to-gray-800/50 hover:from-gray-800/80 hover:to-gray-700/50 transition-colors"
       >
         <div className="flex items-center gap-3">
-          <span className="text-magenta-400">
+          <span className="text-purple-400">
             {getCategoryIcon(category.category)}
           </span>
           <span className="font-orbitron font-semibold text-white uppercase tracking-wider text-sm">
@@ -197,7 +197,7 @@ export function SpecificationsTable({ specifications }: SpecificationsTableProps
       {/* Section Header */}
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-4">
-          <div className="w-1 h-8 bg-gradient-to-b from-purple-500 to-magenta-400 rounded-full" />
+          <div className="w-1 h-8 bg-gradient-to-b from-purple-500 to-purple-400 rounded-full" />
           <h2 className="font-orbitron text-2xl md:text-3xl font-bold text-white uppercase tracking-wider">
             Full Specifications
           </h2>
@@ -206,7 +206,7 @@ export function SpecificationsTable({ specifications }: SpecificationsTableProps
         <div className="flex gap-2">
           <button
             onClick={expandAll}
-            className="text-xs text-gray-400 hover:text-magenta-400 transition-colors px-3 py-1.5 rounded-lg border border-gray-700 hover:border-magenta-400/50"
+            className="text-xs text-gray-400 hover:text-purple-400 transition-colors px-3 py-1.5 rounded-lg border border-gray-700 hover:border-purple-400/50"
           >
             Expand All
           </button>

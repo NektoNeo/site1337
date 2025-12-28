@@ -34,10 +34,10 @@ export function CartSummary() {
           <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-purple-500/50" />
         </div>
         <div className="absolute top-0 right-0 w-16 h-16">
-          <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-magenta-500/50" />
+          <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-purple-500/50" />
         </div>
         <div className="absolute bottom-0 left-0 w-16 h-16">
-          <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-magenta-500/50" />
+          <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-purple-500/50" />
         </div>
         <div className="absolute bottom-0 right-0 w-16 h-16">
           <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-purple-500/50" />
@@ -48,7 +48,7 @@ export function CartSummary() {
           <div className="flex items-center gap-3">
             <div className="
               relative p-2 rounded-lg
-              bg-gradient-to-br from-purple-500/20 to-magenta-500/20
+              bg-gradient-to-br from-purple-500/20 to-purple-500/20
               border border-purple-500/30
             ">
               <ShoppingBag className="w-5 h-5 text-purple-400" />
@@ -111,7 +111,7 @@ export function CartSummary() {
                 animate={{ scale: 1, y: 0 }}
                 className="text-2xl font-bold"
               >
-                <span className="bg-gradient-to-r from-purple-400 to-magenta-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-purple-400 to-purple-400 bg-clip-text text-transparent">
                   {formatPrice(totalPrice)}
                 </span>
               </motion.div>
@@ -132,7 +132,7 @@ export function CartSummary() {
                 group
                 ${empty 
                   ? 'bg-white/10 cursor-not-allowed opacity-50' 
-                  : 'bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-magenta-500'
+                  : 'bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-500'
                 }
               `}
               whileHover={!empty ? { scale: 1.02 } : undefined}
@@ -174,7 +174,7 @@ export function CartSummary() {
           <defs>
             <pattern id="circuit" patternUnits="userSpaceOnUse" width="50" height="50">
               <path d="M 25 0 L 25 25 L 50 25" stroke="currentColor" strokeWidth="0.5" fill="none" className="text-purple-500" />
-              <circle cx="25" cy="25" r="2" fill="currentColor" className="text-magenta-500" />
+              <circle cx="25" cy="25" r="2" fill="currentColor" className="text-purple-500" />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#circuit)" />

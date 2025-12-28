@@ -59,7 +59,7 @@ export function ComponentSlot({
         : '0 0 0px rgba(139, 92, 246, 0)',
     },
     hover: {
-      boxShadow: '0 0 30px rgba(6, 182, 212, 0.4), inset 0 0 40px rgba(6, 182, 212, 0.1)',
+      boxShadow: '0 0 30px rgba(139, 92, 246, 0.4), inset 0 0 40px rgba(139, 92, 246, 0.1)',
     },
   };
 
@@ -91,7 +91,7 @@ export function ComponentSlot({
           repeatDelay: 1
         }}
       >
-        <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-magenta-400/50 to-transparent" />
+        <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-purple-400/50 to-transparent" />
       </motion.div>
 
       {/* Corner cuts decoration */}
@@ -105,14 +105,14 @@ export function ComponentSlot({
         <div className={`
           relative p-3 rounded-lg
           ${hasSelection 
-            ? 'bg-gradient-to-br from-purple-500/20 to-magenta-500/20' 
+            ? 'bg-gradient-to-br from-purple-500/20 to-purple-500/20' 
             : 'bg-white/5'}
           border border-white/10
           transition-all duration-300
-          group-hover:border-magenta-500/30
+          group-hover:border-purple-500/30
         `}>
           <motion.div
-            className={hasSelection ? 'text-magenta-400' : 'text-white/50'}
+            className={hasSelection ? 'text-purple-400' : 'text-white/50'}
             animate={hasSelection ? { 
               rotate: [0, 5, -5, 0],
             } : {}}
@@ -140,11 +140,11 @@ export function ComponentSlot({
         {/* Content */}
         <div className="flex-1 text-left min-w-0">
           <div className="flex items-center justify-between mb-1">
-            <span className="text-xs font-medium text-white/50 uppercase tracking-wider font-display">
+            <span className="text-xs font-medium text-white/50 uppercase tracking-wider font-inter">
               {CATEGORY_LABELS[category]}
             </span>
             {category === 'psu' && selected?.specs.wattage && (
-              <span className="text-xs text-magenta-400 font-mono">
+              <span className="text-xs text-purple-400 font-mono">
                 {selected.specs.wattage}W
               </span>
             )}
@@ -162,19 +162,19 @@ export function ComponentSlot({
 
           {hasSelection ? (
             <>
-              <h4 className="text-sm font-medium text-white truncate group-hover:text-magenta-100 transition-colors">
+              <h4 className="text-sm font-medium text-white truncate group-hover:text-purple-100 transition-colors">
                 {selected.name}
               </h4>
               <div className="flex items-center justify-between mt-2">
                 <span className="text-xs text-white/40">{selected.brand}</span>
-                <span className="text-sm font-semibold text-gradient-purple font-display">
+                <span className="text-sm font-semibold text-gradient-purple font-inter">
                   {formatPrice(selected.price)}
                 </span>
               </div>
             </>
           ) : (
             <div className="flex items-center gap-2 py-2">
-              <Plus className="w-4 h-4 text-white/30 group-hover:text-magenta-400 transition-colors" />
+              <Plus className="w-4 h-4 text-white/30 group-hover:text-purple-400 transition-colors" />
               <span className="text-sm text-white/30 group-hover:text-white/60 transition-colors">
                 Выбрать компонент
               </span>
@@ -185,7 +185,7 @@ export function ComponentSlot({
 
       {/* Hover glow effect */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-magenta-500/5 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+        className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-purple-500/5 to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
         initial={false}
       />
     </motion.button>

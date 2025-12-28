@@ -37,8 +37,8 @@ interface GlowImageProps {
 // Pre-computed particle positions for hover effect
 const PARTICLE_POSITIONS = [
   { left: '20%', top: '20%', color: '#8B5CF6', delay: 0 },
-  { left: '80%', top: '20%', color: '#06B6D4', delay: 0.2 },
-  { left: '20%', top: '80%', color: '#06B6D4', delay: 0.4 },
+  { left: '80%', top: '20%', color: '#8B5CF6', delay: 0.2 },
+  { left: '20%', top: '80%', color: '#8B5CF6', delay: 0.4 },
   { left: '80%', top: '80%', color: '#8B5CF6', delay: 0.6 },
 ];
 
@@ -174,7 +174,7 @@ function GlowImageComponent({
           <motion.div
             className="absolute -inset-1 rounded-2xl -z-10 opacity-50 will-change-transform"
             style={{
-              background: 'conic-gradient(from 0deg, #8B5CF6, #06B6D4, #EC4899, #8B5CF6)',
+              background: 'conic-gradient(from 0deg, #8B5CF6, #7C3AED, #8B5CF6, #7C3AED, #8B5CF6)',
               filter: 'blur(20px)',
             }}
             animate={{
@@ -207,7 +207,7 @@ function GlowImageComponent({
                   transparent 0%,
                   rgba(139, 92, 246, 0.1) 25%,
                   transparent 50%,
-                  rgba(6, 182, 212, 0.1) 75%,
+                  rgba(139, 92, 246, 0.1) 75%,
                   transparent 100%
                 )`,
                 backgroundSize: '400% 400%',
@@ -269,7 +269,7 @@ function GlowImageComponent({
           <motion.div
             className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-8 rounded-full blur-xl -z-10 will-change-opacity"
             style={{
-              background: 'linear-gradient(90deg, rgba(139,92,246,0.5), rgba(6,182,212,0.5))',
+              background: 'linear-gradient(90deg, rgba(139,92,246,0.3), rgba(139,92,246,0.5), rgba(139,92,246,0.3))',
             }}
             animate={{
               opacity: [0.3, 0.6, 0.3],

@@ -42,13 +42,13 @@ export function Payment() {
 
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
               Рассрочка{' '}
-              <span className="bg-gradient-to-r from-purple-400 to-magenta-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-purple-400 to-purple-300 bg-clip-text text-transparent">
                 без переплат
               </span>
             </h2>
 
             <p className="text-xl text-gray-300 mb-8 flex items-center gap-2">
-              <Clock className="w-5 h-5 text-magenta-400" />
+              <Clock className="w-5 h-5 text-purple-400" />
               Одобрение за 5–10 минут
             </p>
 
@@ -93,7 +93,7 @@ export function Payment() {
                 className="relative bg-black/40 backdrop-blur-sm border border-white/10 rounded-xl p-6 pl-20"
               >
                 {/* Step number */}
-                <div className="absolute left-6 top-6 text-4xl font-bold bg-gradient-to-r from-purple-400 to-magenta-400 bg-clip-text text-transparent">
+                <div className="absolute left-6 top-6 text-4xl font-bold bg-gradient-to-r from-purple-400 to-purple-300 bg-clip-text text-transparent">
                   {step.number}
                 </div>
 

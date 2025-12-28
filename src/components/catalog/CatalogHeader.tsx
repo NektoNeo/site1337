@@ -26,7 +26,7 @@ export function CatalogHeader({
       <nav className="flex items-center gap-2 mb-6">
         <Link
           href="/"
-          className="flex items-center gap-1.5 text-white/50 hover:text-neon-magenta-400 transition-colors text-sm"
+          className="flex items-center gap-1.5 text-white/50 hover:text-neon-purple-400 transition-colors text-sm"
         >
           <Home className="w-4 h-4" />
           <span>Главная</span>
@@ -43,12 +43,12 @@ export function CatalogHeader({
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="font-display text-4xl md:text-5xl font-black text-white tracking-tight"
+            className="font-inter text-4xl md:text-5xl font-black text-white tracking-tight"
           >
             <span className="text-transparent bg-gradient-to-r from-white via-white to-neon-purple-300 bg-clip-text">
               Каталог
             </span>
-            <span className="text-transparent bg-gradient-to-r from-neon-magenta-400 to-neon-purple-500 bg-clip-text ml-3">
+            <span className="text-transparent bg-gradient-to-r from-neon-purple-400 to-neon-purple-500 bg-clip-text ml-3">
               ПК
             </span>
           </motion.h1>
@@ -64,7 +64,7 @@ export function CatalogHeader({
               key={productCount}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="font-mono text-neon-magenta-400 font-semibold"
+              className="font-mono text-neon-purple-400 font-semibold"
             >
               {productCount}
             </motion.span>{' '}
@@ -74,7 +74,7 @@ export function CatalogHeader({
 
         {/* Decorative line */}
         <div className="hidden md:block flex-1 mx-8">
-          <div className="h-px bg-gradient-to-r from-neon-purple-500/50 via-neon-magenta-500/30 to-transparent" />
+          <div className="h-px bg-gradient-to-r from-neon-purple-500/50 via-neon-purple-500/30 to-transparent" />
         </div>
       </div>
 
@@ -94,7 +94,7 @@ export function CatalogHeader({
           <button
             className={cn(
               'p-2 rounded-md transition-colors',
-              'bg-neon-purple-500/20 text-neon-magenta-400'
+              'bg-neon-purple-500/20 text-neon-purple-400'
             )}
           >
             <Grid3X3 className="w-4 h-4" />

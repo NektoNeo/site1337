@@ -283,7 +283,7 @@ export default function ConfiguratorPage() {
                   <Cpu className="w-5 h-5 text-purple-400" />
                 </motion.div>
                 <div>
-                  <h1 className="text-xl font-display font-bold">
+                  <h1 className="text-xl font-inter font-bold">
                     <span className="bg-gradient-to-r from-purple-400 to-magenta-400 bg-clip-text text-transparent">
                       Конфигуратор PC
                     </span>
@@ -328,7 +328,7 @@ export default function ConfiguratorPage() {
           >
             <div className="sticky top-28">
               <div className="p-6 rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/10">
-                <h2 className="text-lg font-display font-semibold text-white mb-2 flex items-center gap-2">
+                <h2 className="text-lg font-inter font-semibold text-white mb-2 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-500 to-magenta-500" />
                   Комплектующие
                 </h2>

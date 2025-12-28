@@ -114,9 +114,9 @@ function FooterSection({
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
       transition={{ duration: 0.5, delay }}
     >
-      <h3 className="font-display text-lg font-bold text-white uppercase tracking-wider mb-4 relative">
+      <h3 className="font-inter text-lg font-bold text-white uppercase tracking-wider mb-4 relative">
         {title}
-        <span className="absolute -bottom-1 left-0 w-8 h-0.5 bg-gradient-to-r from-neon-purple to-neon-magenta" />
+        <span className="absolute -bottom-1 left-0 w-8 h-0.5 bg-gradient-to-r from-purple-500 to-fuchsia-500" />
       </h3>
       {children}
     </motion.div>
@@ -130,12 +130,12 @@ function FooterLink({ href, label }: { href: string; label: string }) {
       <Link
         href={href}
         className={cn(
-          "text-white/60 hover:text-neon-purple transition-colors duration-300",
+          "text-white/60 hover:text-purple-400 transition-colors duration-300",
           "text-sm font-body",
           "flex items-center gap-1 group"
         )}
       >
-        <span className="w-0 group-hover:w-2 h-px bg-neon-purple transition-all duration-300" />
+        <span className="w-0 group-hover:w-2 h-px bg-purple-500 transition-all duration-300" />
         {label}
       </Link>
     </li>
@@ -161,19 +161,19 @@ function ContactItem({
       target={href.startsWith("http") ? "_blank" : undefined}
       rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
     >
-      <div className="p-2 rounded-lg bg-neon-purple/10 group-hover:bg-neon-purple/20 transition-colors">
-        <Icon className="w-4 h-4 text-neon-purple" />
+      <div className="p-2 rounded-lg bg-purple-500/10 group-hover:bg-purple-500/20 transition-colors">
+        <Icon className="w-4 h-4 text-purple-400" />
       </div>
       <div>
         <p className="text-xs font-mono text-white/40 uppercase tracking-wider">
           {label}
         </p>
-        <p className="text-sm text-white/80 group-hover:text-neon-purple transition-colors">
+        <p className="text-sm text-white/80 group-hover:text-purple-400 transition-colors">
           {value}
         </p>
       </div>
       {href.startsWith("http") && (
-        <ExternalLink className="w-3 h-3 text-white/20 group-hover:text-neon-purple/50 transition-colors ml-auto mt-1" />
+        <ExternalLink className="w-3 h-3 text-white/20 group-hover:text-purple-400/50 transition-colors ml-auto mt-1" />
       )}
     </a>
   );
@@ -201,11 +201,11 @@ export function Footer() {
       <div className="absolute inset-0 grid-lines" />
       
       {/* Decorative glowing orbs */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-neon-purple/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-neon-magenta/5 rounded-full blur-3xl" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-fuchsia-500/5 rounded-full blur-3xl" />
       
       {/* Top gradient border */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-neon-purple/30 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
 
       <div className="container mx-auto px-4 lg:px-8 relative">
         {/* Main footer content */}
@@ -229,9 +229,9 @@ export function Footer() {
                   aria-label={social.name}
                   className={cn(
                     "w-10 h-10 flex items-center justify-center",
-                    "rounded-lg border border-neon-purple/20",
+                    "rounded-lg border border-purple-500/20",
                     "text-white/60",
-                    "hover:bg-neon-purple/10 hover:border-neon-purple/40 hover:text-neon-purple",
+                    "hover:bg-purple-500/10 hover:border-purple-500/40 hover:text-purple-400",
                     "transition-all duration-300"
                   )}
                 >
@@ -268,8 +268,8 @@ export function Footer() {
             </div>
             
             {/* Work hours */}
-            <div className="mt-6 p-4 rounded-lg bg-neon-purple/5 border border-neon-purple/10">
-              <p className="text-xs font-mono text-neon-magenta/60 uppercase tracking-wider mb-1">
+            <div className="mt-6 p-4 rounded-lg bg-purple-500/5 border border-purple-500/10">
+              <p className="text-xs font-mono text-purple-500/60 uppercase tracking-wider mb-1">
                 Режим работы
               </p>
               <p className="text-sm text-white/80">
@@ -283,7 +283,7 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="py-6 border-t border-neon-purple/10">
+        <div className="py-6 border-t border-purple-500/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             {/* Copyright */}
             <p className="text-sm text-white/40 font-mono">
@@ -301,7 +301,7 @@ export function Footer() {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs text-white/40 hover:text-neon-purple transition-colors font-mono"
+                  className="text-xs text-white/40 hover:text-purple-400 transition-colors font-mono"
                 >
                   {link.label}
                 </a>

@@ -48,7 +48,7 @@ interface FilterSectionProps {
 function FilterSection({ title, children, className }: FilterSectionProps) {
   return (
     <div className={cn('space-y-3', className)}>
-      <h3 className="text-sm font-medium text-zinc-300 uppercase tracking-wider font-outfit">
+      <h3 className="text-sm font-medium text-zinc-300 uppercase tracking-wider font-inter">
         {title}
       </h3>
       {children}

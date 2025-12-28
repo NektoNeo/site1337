@@ -110,7 +110,7 @@ export function CartItem({ item, index }: CartItemProps) {
             {/* Corner decoration */}
             <div className="
               absolute -top-1 -right-1 w-3 h-3
-              border-t-2 border-r-2 border-magenta-500/50
+              border-t-2 border-r-2 border-purple-500/50
               opacity-0 group-hover:opacity-100
               transition-opacity duration-300
             " />
@@ -142,7 +142,7 @@ export function CartItem({ item, index }: CartItemProps) {
 
             {/* Mobile Price */}
             <div className="mt-2 md:hidden">
-              <span className="text-magenta-400 font-bold">
+              <span className="text-purple-400 font-bold">
                 {formatPrice(item.price)}
               </span>
             </div>
@@ -164,7 +164,7 @@ export function CartItem({ item, index }: CartItemProps) {
             </span>
             <motion.span 
               key={totalPrice}
-              initial={{ scale: 1.2, color: '#06B6D4' }}
+              initial={{ scale: 1.2, color: '#8B5CF6' }}
               animate={{ scale: 1, color: '#FFFFFF' }}
               className="text-lg font-bold"
             >
@@ -220,7 +220,7 @@ export function CartItem({ item, index }: CartItemProps) {
             <span className="text-xs text-white/40">Итого</span>
             <motion.span 
               key={totalPrice}
-              initial={{ scale: 1.1, color: '#06B6D4' }}
+              initial={{ scale: 1.1, color: '#8B5CF6' }}
               animate={{ scale: 1, color: '#FFFFFF' }}
               className="text-base font-bold"
             >
@@ -233,7 +233,7 @@ export function CartItem({ item, index }: CartItemProps) {
         <motion.div
           className="
             absolute left-0 right-0 h-px
-            bg-gradient-to-r from-transparent via-magenta-500/30 to-transparent
+            bg-gradient-to-r from-transparent via-purple-500/30 to-transparent
             pointer-events-none
           "
           initial={{ top: '0%' }}
@@ -252,7 +252,7 @@ export function CartItem({ item, index }: CartItemProps) {
       <div className="
         absolute -left-2 top-1/2 -translate-y-1/2
         w-1 h-8 rounded-full
-        bg-gradient-to-b from-purple-500 to-magenta-500
+        bg-gradient-to-b from-purple-500 to-purple-500
         opacity-0 group-hover:opacity-100
         transition-opacity duration-300
       " />

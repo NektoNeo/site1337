@@ -2,71 +2,180 @@
 
 import { motion, HTMLMotionProps } from 'framer-motion';
 import { ReactNode } from 'react';
+import { cn } from '@/lib/utils';
 
 interface GlassCardProps extends Omit<HTMLMotionProps<'div'>, 'children'> {
   children: ReactNode;
   className?: string;
-  hoverGlow?: 'purple' | 'magenta' | 'mixed';
+  /** Enable UV glow effect on hover */
+  glow?: boolean;
+  /** Enable hover lift animation */
+  hoverable?: boolean;
+  /** Padding preset */
+  padding?: 'none' | 'sm' | 'md' | 'lg';
+  /** Glass intensity level */
   intensity?: 'light' | 'medium' | 'strong';
+  /** Use fuchsia glow instead of purple */
+  fuchsiaGlow?: boolean;
 }
 
-export function GlassCard({ 
-  children, 
-  className = '', 
-  hoverGlow = 'purple',
+const paddingStyles = {
+  none: '',
+  sm: 'p-4',
+  md: 'p-6',
+  lg: 'p-8',
+};
+
+const intensityStyles = {
+  light: 'bg-[var(--glass-bg)] backdrop-blur-sm border-[var(--glass-border)]',
+  medium: 'bg-[var(--color-bg-card)] backdrop-blur-md border-[var(--glass-border)]',
+  strong: 'bg-[var(--color-bg-elevated)] backdrop-blur-lg border-[var(--color-border-glow)]',
+};
+
+/**
+ * GlassCard Component
+ *
+ * A unified glass-morphism card component with optional UV glow effects.
+ * Uses CSS variables from the design system for consistent theming.
+ *
+ * @example
+ * ```tsx
+ * // Basic card
+ * <GlassCard padding="md">Content</GlassCard>
+ *
+ * // With glow and hover
+ * <GlassCard glow hoverable padding="lg">Premium Content</GlassCard>
+ *
+ * // Fuchsia glow variant
+ * <GlassCard glow fuchsiaGlow padding="md">Special Content</GlassCard>
+ * ```
+ */
+export function GlassCard({
+  children,
+  className = '',
+  glow = false,
+  hoverable = false,
+  padding = 'md',
   intensity = 'medium',
-  ...props 
+  fuchsiaGlow = false,
+  ...props
 }: GlassCardProps) {
-  const intensityStyles = {
-    light: 'bg-white/[0.02] backdrop-blur-sm border-white/[0.05]',
-    medium: 'bg-white/[0.03] backdrop-blur-md border-white/[0.08]',
-    strong: 'bg-white/[0.06] backdrop-blur-xl border-white/[0.12]',
-  };
-  
-  const glowColors = {
-    purple: 'hover:shadow-[0_0_30px_rgba(139,92,246,0.3),0_0_60px_rgba(139,92,246,0.15)]',
-    magenta: 'hover:shadow-[0_0_30px_rgba(6,182,212,0.3),0_0_60px_rgba(6,182,212,0.15)]',
-    mixed: 'hover:shadow-[0_0_30px_rgba(139,92,246,0.25),0_0_60px_rgba(6,182,212,0.15)]',
-  };
-  
-  const borderGlow = {
-    purple: 'hover:border-purple-500/30',
-    magenta: 'hover:border-magenta-400/30',
-    mixed: 'hover:border-purple-400/20',
-  };
+  const glowClass = glow
+    ? fuchsiaGlow
+      ? 'uv-glow-fuchsia'
+      : 'uv-glow'
+    : '';
+
+  const hoverClass = hoverable
+    ? 'hover:border-[var(--color-border-glow)] hover:shadow-[0_18px_40px_rgba(0,0,0,0.45)]'
+    : '';
 
   return (
     <motion.div
-      className={`
-        relative rounded-2xl border overflow-hidden
-        ${intensityStyles[intensity]}
-        ${glowColors[hoverGlow]}
-        ${borderGlow[hoverGlow]}
-        transition-all duration-500
-        ${className}
-      `}
-      whileHover={{ scale: 1.02 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      className={cn(
+        // Base styles
+        'relative rounded-2xl border overflow-hidden',
+        'transition-all duration-300',
+        // Intensity
+        intensityStyles[intensity],
+        // Padding
+        paddingStyles[padding],
+        // Optional effects
+        glowClass,
+        hoverClass,
+        className
+      )}
+      whileHover={hoverable ? { y: -4 } : undefined}
       {...props}
     >
-      {/* Inner glow effect */}
-      <div className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: hoverGlow === 'purple' 
-              ? 'radial-gradient(circle at 50% 0%, rgba(139,92,246,0.1) 0%, transparent 50%)'
-              : hoverGlow === 'magenta'
-              ? 'radial-gradient(circle at 50% 0%, rgba(6,182,212,0.1) 0%, transparent 50%)'
-              : 'radial-gradient(circle at 50% 0%, rgba(139,92,246,0.08) 0%, transparent 40%), radial-gradient(circle at 50% 100%, rgba(6,182,212,0.08) 0%, transparent 40%)',
-          }}
-        />
-      </div>
-      
-      {/* Content */}
       <div className="relative z-10">
         {children}
       </div>
     </motion.div>
+  );
+}
+
+/**
+ * GlassCardHeader - Header section for GlassCard
+ */
+export function GlassCardHeader({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cn('mb-4', className)}>
+      {children}
+    </div>
+  );
+}
+
+/**
+ * GlassCardTitle - Title text for GlassCard
+ */
+export function GlassCardTitle({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <h3 className={cn('text-lg font-semibold text-[var(--color-text-primary)]', className)}>
+      {children}
+    </h3>
+  );
+}
+
+/**
+ * GlassCardDescription - Description text for GlassCard
+ */
+export function GlassCardDescription({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <p className={cn('text-sm text-[var(--color-text-secondary)]', className)}>
+      {children}
+    </p>
+  );
+}
+
+/**
+ * GlassCardContent - Main content area for GlassCard
+ */
+export function GlassCardContent({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cn('', className)}>
+      {children}
+    </div>
+  );
+}
+
+/**
+ * GlassCardFooter - Footer section for GlassCard
+ */
+export function GlassCardFooter({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cn('mt-4 flex items-center', className)}>
+      {children}
+    </div>
   );
 }

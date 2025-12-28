@@ -142,7 +142,7 @@ const ConnectionLines = memo(function ConnectionLines({
       <defs>
         <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0" />
-          <stop offset="50%" stopColor="#06B6D4" stopOpacity="0.3" />
+          <stop offset="50%" stopColor="#8B5CF6" stopOpacity="0.3" />
           <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0" />
         </linearGradient>
       </defs>
@@ -178,7 +178,7 @@ const ConnectionLines = memo(function ConnectionLines({
 function ParticleFieldComponent({
   className,
   particleCount = 15, // Reduced from 30 for performance
-  colors = ['#8B5CF6', '#06B6D4', '#EC4899', '#22D3EE'],
+  colors = ['#8B5CF6', '#8B5CF6', '#EC4899', '#A78BFA'],
   minSize = 2,
   maxSize = 6,
   speed = 1,
@@ -275,7 +275,7 @@ export function HeroParticles() {
   return (
     <ParticleField
       particleCount={20} // Reduced from 40 for performance
-      colors={['#8B5CF6', '#06B6D4', '#A78BFA', '#22D3EE']}
+      colors={['#8B5CF6', '#8B5CF6', '#A78BFA', '#A78BFA']}
       minSize={2}
       maxSize={5}
       speed={0.8}
@@ -289,7 +289,7 @@ export function SectionParticles() {
   return (
     <ParticleField
       particleCount={10} // Reduced from 15 for performance
-      colors={['#8B5CF6', '#06B6D4']}
+      colors={['#8B5CF6', '#8B5CF6']}
       minSize={1}
       maxSize={3}
       speed={0.5}

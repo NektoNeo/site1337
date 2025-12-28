@@ -78,11 +78,11 @@ export function Footer() {
               whileHover={{ scale: 1.02 }}
             >
               <div className="relative">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-magenta-500 flex items-center justify-center">
-                  <span className="font-display font-black text-white text-lg">V</span>
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-purple-500 flex items-center justify-center">
+                  <span className="font-inter font-black text-white text-lg">V</span>
                 </div>
               </div>
-              <div className="font-display font-bold text-xl">
+              <div className="font-inter font-bold text-xl">
                 <span className="text-white">VA</span>
                 <span className="text-gradient-purple">-PC</span>
               </div>
@@ -114,7 +114,7 @@ export function Footer() {
           {/* Link Columns */}
           {Object.entries(footerLinks).map(([key, section]) => (
             <div key={key}>
-              <h4 className="font-display font-semibold text-white mb-4">
+              <h4 className="font-inter font-semibold text-white mb-4">
                 {section.title}
               </h4>
               <ul className="space-y-3">

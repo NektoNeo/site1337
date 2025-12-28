@@ -55,7 +55,7 @@ export function Cases() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-purple-400 to-magenta-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-purple-400 to-purple-300 bg-clip-text text-transparent">
               ОТЗЫВЫ КЛИЕНТОВ
             </span>
           </h2>
