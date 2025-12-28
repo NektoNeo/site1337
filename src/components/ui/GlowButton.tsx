@@ -35,8 +35,8 @@ export function GlowButton({
       hover:shadow-[0_0_30px_rgba(139,92,246,0.6),0_0_60px_rgba(139,92,246,0.3)]
     `,
     secondary: `
-      bg-gradient-to-r from-cyan-600 to-cyan-500
-      hover:from-cyan-500 hover:to-cyan-400
+      bg-gradient-to-r from-magenta-600 to-magenta-500
+      hover:from-magenta-500 hover:to-magenta-400
       text-white font-semibold
       shadow-[0_0_20px_rgba(6,182,212,0.4)]
       hover:shadow-[0_0_30px_rgba(6,182,212,0.6),0_0_60px_rgba(6,182,212,0.3)]

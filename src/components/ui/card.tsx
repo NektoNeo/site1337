@@ -29,7 +29,7 @@ import { cn } from "@/lib/utils";
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: "default" | "glass" | "gradient-border" | "neon" | "solid";
   hoverEffect?: "none" | "lift" | "glow" | "border-glow" | "scale";
-  glowColor?: "purple" | "cyan" | "multi";
+  glowColor?: "purple" | "magenta" | "multi";
 }
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
@@ -86,7 +86,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
       none: "",
       lift: "hover:-translate-y-1 hover:shadow-2xl",
       glow:
-        glowColor === "cyan"
+        glowColor === "magenta"
           ? "hover:shadow-[0_0_30px_rgba(6,182,212,0.3),0_0_60px_rgba(6,182,212,0.1)]"
           : glowColor === "multi"
           ? "hover:shadow-[0_0_30px_rgba(139,92,246,0.3),0_0_60px_rgba(6,182,212,0.2)]"

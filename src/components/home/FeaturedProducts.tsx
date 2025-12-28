@@ -107,7 +107,7 @@ export function FeaturedProducts() {
     <section className="relative py-24 overflow-hidden">
       {/* Background accents */}
       <div className="absolute right-0 top-1/4 w-[500px] h-[500px] rounded-full bg-purple-600/5 blur-3xl pointer-events-none" />
-      <div className="absolute left-0 bottom-1/4 w-[400px] h-[400px] rounded-full bg-cyan-600/5 blur-3xl pointer-events-none" />
+      <div className="absolute left-0 bottom-1/4 w-[400px] h-[400px] rounded-full bg-magenta-600/5 blur-3xl pointer-events-none" />
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}

@@ -85,10 +85,10 @@ export function OrderSummary({
       <div className="p-4 rounded-lg bg-black/30 border border-white/10 mb-4">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
-            <Zap className={`w-4 h-4 ${powerOk ? 'text-cyan-400' : 'text-red-400'}`} />
+            <Zap className={`w-4 h-4 ${powerOk ? 'text-magenta-400' : 'text-red-400'}`} />
             <span className="text-sm text-white/70">Потребление</span>
           </div>
-          <span className={`text-sm font-mono ${powerOk ? 'text-cyan-400' : 'text-red-400'}`}>
+          <span className={`text-sm font-mono ${powerOk ? 'text-magenta-400' : 'text-red-400'}`}>
             ~{totalPower}W
           </span>
         </div>
@@ -98,7 +98,7 @@ export function OrderSummary({
           <motion.div
             className={`absolute inset-y-0 left-0 rounded-full ${
               powerOk 
-                ? 'bg-gradient-to-r from-cyan-500 to-purple-500' 
+                ? 'bg-gradient-to-r from-magenta-500 to-purple-500' 
                 : 'bg-gradient-to-r from-red-500 to-orange-500'
             }`}
             initial={{ width: 0 }}
@@ -212,7 +212,7 @@ export function OrderSummary({
           transition-all duration-300
           overflow-hidden
           ${isComplete && errorWarnings.length === 0
-            ? 'bg-gradient-to-r from-purple-600 to-cyan-600 text-white cursor-pointer'
+            ? 'bg-gradient-to-r from-purple-600 to-magenta-600 text-white cursor-pointer'
             : 'bg-white/10 text-white/40 cursor-not-allowed'
           }
         `}
@@ -223,7 +223,7 @@ export function OrderSummary({
         {isComplete && errorWarnings.length === 0 && (
           <>
             <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-purple-500 to-cyan-500 opacity-0"
+              className="absolute inset-0 bg-gradient-to-r from-purple-500 to-magenta-500 opacity-0"
               animate={{
                 opacity: [0, 0.5, 0],
               }}
@@ -247,7 +247,7 @@ export function OrderSummary({
                 ease: 'linear',
               }}
             />
-            <div className="absolute inset-[2px] rounded-xl bg-gradient-to-r from-purple-600 to-cyan-600" />
+            <div className="absolute inset-[2px] rounded-xl bg-gradient-to-r from-purple-600 to-magenta-600" />
           </>
         )}
         
@@ -274,7 +274,7 @@ export function OrderSummary({
       <div className="mt-4 flex items-center gap-2">
         <div className="flex-1 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
         <span className="text-[10px] text-white/30 font-mono">VA-PC.RU</span>
-        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
+        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-magenta-500/30 to-transparent" />
       </div>
     </div>
   );

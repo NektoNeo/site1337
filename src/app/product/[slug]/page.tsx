@@ -51,9 +51,9 @@ function BackgroundEffects() {
         transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
       />
 
-      {/* Cyan glow bottom-right */}
+      {/* Magenta glow bottom-right */}
       <motion.div
-        className="absolute -bottom-40 -right-40 w-96 h-96 bg-cyan-500/15 rounded-full blur-[120px]"
+        className="absolute -bottom-40 -right-40 w-96 h-96 bg-magenta-500/15 rounded-full blur-[120px]"
         animate={{
           x: [0, -30, 0],
           y: [0, -20, 0],
@@ -182,7 +182,7 @@ function BackToTopButton() {
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: 1 }}
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      className="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-cyan-500 flex items-center justify-center shadow-lg shadow-purple-500/25 z-50 transition-all duration-300"
+      className="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-magenta-500 flex items-center justify-center shadow-lg shadow-purple-500/25 z-50 transition-all duration-300"
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
       aria-label="Наверх"

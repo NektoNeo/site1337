@@ -8,11 +8,11 @@ export function AnimatedBackground() {
       {/* Dark base */}
       <div className="absolute inset-0 bg-[#0a0a0f]" />
       
-      {/* Animated gradient blobs */}
+      {/* Animated gradient blobs - Violet + Magenta palette */}
       <motion.div
-        className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full opacity-30"
+        className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full opacity-25"
         style={{
-          background: 'radial-gradient(circle, rgba(139, 92, 246, 0.4) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(139, 92, 246, 0.35) 0%, transparent 70%)',
           filter: 'blur(80px)',
         }}
         animate={{
@@ -28,9 +28,9 @@ export function AnimatedBackground() {
       />
       
       <motion.div
-        className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full opacity-25"
+        className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full opacity-20"
         style={{
-          background: 'radial-gradient(circle, rgba(6, 182, 212, 0.4) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(255, 30, 142, 0.35) 0%, transparent 70%)',
           filter: 'blur(80px)',
         }}
         animate={{
@@ -46,9 +46,9 @@ export function AnimatedBackground() {
       />
       
       <motion.div
-        className="absolute top-[40%] left-[30%] w-[40%] h-[40%] rounded-full opacity-20"
+        className="absolute top-[40%] left-[30%] w-[40%] h-[40%] rounded-full opacity-15"
         style={{
-          background: 'radial-gradient(circle, rgba(168, 85, 247, 0.3) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, transparent 70%)',
           filter: 'blur(100px)',
         }}
         animate={{

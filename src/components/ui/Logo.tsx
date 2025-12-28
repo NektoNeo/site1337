@@ -72,7 +72,7 @@ export function Logo({
           )}>
             VA-PC
           </span>
-          <span className="text-[10px] font-mono text-neon-cyan/70 tracking-[0.3em] uppercase">
+          <span className="text-[10px] font-mono text-neon-magenta/70 tracking-[0.3em] uppercase">
             Gaming Systems
           </span>
         </div>

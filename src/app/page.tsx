@@ -106,10 +106,10 @@ const FloatingParticles = memo(function FloatingParticles() {
           style={{
             left: `${particle.left}%`,
             top: `${particle.top}%`,
-            background: particle.isEven ? '#8B5CF6' : '#06B6D4',
+            background: particle.isEven ? '#8B5CF6' : '#FF1E8E',
             boxShadow: particle.isEven
               ? '0 0 10px #8B5CF6, 0 0 20px #8B5CF6'
-              : '0 0 10px #06B6D4, 0 0 20px #06B6D4',
+              : '0 0 10px #FF1E8E, 0 0 20px #FF1E8E',
           }}
           animate={{
             y: [0, -100, 0],
@@ -150,7 +150,7 @@ const SectionDivider = memo(function SectionDivider() {
         viewport={{ once: true, margin: '-50px' }}
         transition={{ duration: 0.5, delay: 0.5 }}
       >
-        <div className="w-full h-full bg-gradient-to-br from-purple-500 to-cyan-500 rounded-sm" />
+        <div className="w-full h-full bg-gradient-to-br from-purple-500 to-pink-500 rounded-sm" />
       </motion.div>
     </div>
   );
@@ -165,7 +165,7 @@ const ScrollProgress = memo(function ScrollProgress() {
 
   return (
     <motion.div
-      className="fixed top-20 left-0 right-0 h-[2px] bg-gradient-to-r from-purple-600 via-cyan-500 to-purple-600 origin-left z-50 will-change-transform"
+      className="fixed top-20 left-0 right-0 h-[2px] bg-gradient-to-r from-purple-600 via-pink-500 to-purple-600 origin-left z-50 will-change-transform"
       style={{ scaleX: scrollYProgress }}
     />
   );

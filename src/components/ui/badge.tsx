@@ -33,7 +33,7 @@ const badgeVariants = cva(
           "hover:border-[#8B5CF6]/50",
         ].join(" "),
 
-        // Secondary - Cyan theme
+        // Secondary - Magenta theme
         secondary: [
           "bg-[#06B6D4]/10",
           "border-[#06B6D4]/30",
@@ -182,8 +182,8 @@ const badgeVariants = cva(
           "hover:shadow-[0_0_15px_#8B5CF6,0_0_30px_rgba(139,92,246,0.5)]",
         ].join(" "),
 
-        // Glow Cyan
-        "glow-cyan": [
+        // Glow Magenta
+        "glow-magenta": [
           "bg-[#06B6D4]/20",
           "border-[#06B6D4]",
           "text-white",
@@ -191,7 +191,7 @@ const badgeVariants = cva(
           "hover:shadow-[0_0_15px_#06B6D4,0_0_30px_rgba(6,182,212,0.5)]",
         ].join(" "),
 
-        // Gradient - Purple to Cyan gradient
+        // Gradient - Purple to Magenta gradient
         gradient: [
           "bg-gradient-to-r from-[#8B5CF6] to-[#06B6D4]",
           "border-transparent",
@@ -348,7 +348,7 @@ const SpecBadge = React.forwardRef<HTMLSpanElement, SpecBadgeProps>(
         case "storage":
           return "secondary";
         case "cooling":
-          return "glow-cyan";
+          return "glow-magenta";
         case "psu":
           return "warning";
         case "case":

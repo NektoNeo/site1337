@@ -46,7 +46,7 @@ function GridPattern() {
       
       {/* Glowing orbs */}
       <div className="absolute top-20 -left-20 w-40 h-40 bg-neon-purple/20 rounded-full blur-3xl" />
-      <div className="absolute bottom-40 -right-20 w-60 h-60 bg-neon-cyan/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-40 -right-20 w-60 h-60 bg-neon-magenta/10 rounded-full blur-3xl" />
     </div>
   );
 }
@@ -274,7 +274,7 @@ export function MobileNav({ isOpen, onClose, navLinks }: MobileNavProps) {
               transition={{ delay: 0.6 }}
               className="relative p-4 border-t border-neon-purple/10 bg-void-black/50"
             >
-              <p className="text-xs font-mono text-neon-cyan/50 uppercase tracking-wider mb-3">
+              <p className="text-xs font-mono text-neon-magenta/50 uppercase tracking-wider mb-3">
                 Контакты
               </p>
               <div className="space-y-1">
@@ -318,7 +318,7 @@ export function MobileNav({ isOpen, onClose, navLinks }: MobileNavProps) {
             </motion.div>
 
             {/* Decorative edge glow */}
-            <div className="absolute top-0 left-0 bottom-0 w-px bg-gradient-to-b from-neon-purple/50 via-neon-cyan/30 to-neon-purple/50" />
+            <div className="absolute top-0 left-0 bottom-0 w-px bg-gradient-to-b from-neon-purple/50 via-neon-magenta/30 to-neon-purple/50" />
           </motion.div>
         </>
       )}

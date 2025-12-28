@@ -82,8 +82,8 @@ export function FilterSidebar({
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-neon-purple-500/20 to-neon-cyan-500/20 flex items-center justify-center border border-neon-purple-500/30">
-                  <SlidersHorizontal className="w-5 h-5 text-neon-cyan-400" />
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-neon-purple-500/20 to-neon-magenta-500/20 flex items-center justify-center border border-neon-purple-500/30">
+                  <SlidersHorizontal className="w-5 h-5 text-neon-magenta-400" />
                 </div>
                 <div>
                   <h3 className="font-display text-lg font-bold text-white uppercase tracking-wider">
@@ -176,7 +176,7 @@ export function FilterSidebar({
             {/* Bottom decoration */}
             <div className="mt-6 pt-4 border-t border-neon-purple-500/20">
               <div className="flex items-center gap-2 text-xs text-white/30">
-                <div className="w-2 h-2 rounded-full bg-neon-cyan-500 animate-pulse" />
+                <div className="w-2 h-2 rounded-full bg-neon-magenta-500 animate-pulse" />
                 <span className="font-mono">VA-PC SYSTEMS</span>
               </div>
             </div>

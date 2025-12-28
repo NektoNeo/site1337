@@ -14,7 +14,7 @@ const gifts = [
     icon: Gift,
     title: 'Чек и коробки',
     description: 'Чек и коробки от комплектующих для возможного гарантийного обслуживания.',
-    color: 'cyan',
+    color: 'magenta',
   },
   {
     icon: BookOpen,
@@ -28,7 +28,7 @@ export function Gifts() {
   return (
     <section className="py-24 relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-b from-purple-900/5 via-transparent to-cyan-900/5" />
+      <div className="absolute inset-0 bg-gradient-to-b from-purple-900/5 via-transparent to-magenta-900/5" />
 
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
@@ -37,12 +37,12 @@ export function Gifts() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 border border-purple-500/30 rounded-full text-white text-sm mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500/20 to-magenta-500/20 border border-purple-500/30 rounded-full text-white text-sm mb-6">
             <Gift className="w-4 h-4 text-purple-400" />
             БОНУСЫ ДЛЯ КЛИЕНТОВ
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-purple-400 to-magenta-400 bg-clip-text text-transparent">
               ВМЕСТЕ С ПК ВЫ ПОЛУЧИТЕ
             </span>
           </h2>
@@ -56,7 +56,7 @@ export function Gifts() {
             const Icon = gift.icon;
             const colorClasses = {
               purple: 'from-purple-600 to-purple-400 border-purple-500/30 bg-purple-500/10',
-              cyan: 'from-cyan-600 to-cyan-400 border-cyan-500/30 bg-cyan-500/10',
+              magenta: 'from-magenta-600 to-magenta-400 border-magenta-500/30 bg-magenta-500/10',
               green: 'from-green-600 to-green-400 border-green-500/30 bg-green-500/10',
             };
             const colors = colorClasses[gift.color as keyof typeof colorClasses];
@@ -75,7 +75,7 @@ export function Gifts() {
 
                 <div className="relative z-10">
                   {/* Number badge */}
-                  <div className="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-br from-purple-600 to-cyan-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                  <div className="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-br from-purple-600 to-magenta-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">
                     {index + 1}
                   </div>
 
@@ -101,7 +101,7 @@ export function Gifts() {
         >
           <a
             href="#form"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-cyan-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 hover:scale-105"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-magenta-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 hover:scale-105"
           >
             <Gift className="w-5 h-5" />
             Получить подарки

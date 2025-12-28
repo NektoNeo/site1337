@@ -40,7 +40,7 @@ export function EmptyCart() {
           className="
             absolute inset-0 -m-8
             rounded-full
-            border border-cyan-500/20
+            border border-magenta-500/20
           "
           animate={{ rotate: -360 }}
           transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
@@ -66,8 +66,8 @@ export function EmptyCart() {
 
           {/* Corner accents */}
           <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-purple-500/50" />
-          <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-cyan-500/50" />
-          <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-cyan-500/50" />
+          <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-magenta-500/50" />
+          <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-magenta-500/50" />
           <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-purple-500/50" />
         </div>
 
@@ -80,7 +80,7 @@ export function EmptyCart() {
           <Cpu className="w-6 h-6" />
         </motion.div>
         <motion.div
-          className="absolute -bottom-4 -left-4 text-cyan-500/50"
+          className="absolute -bottom-4 -left-4 text-magenta-500/50"
           animate={{ y: [5, -5, 5], rotate: [0, -10, 0] }}
           transition={{ duration: 3.5, repeat: Infinity }}
         >
@@ -155,7 +155,7 @@ export function EmptyCart() {
           <defs>
             <pattern id="empty-circuit" patternUnits="userSpaceOnUse" width="100" height="100">
               <path d="M 50 0 L 50 40 M 50 60 L 50 100 M 0 50 L 40 50 M 60 50 L 100 50" stroke="currentColor" strokeWidth="1" fill="none" className="text-purple-500" />
-              <circle cx="50" cy="50" r="5" stroke="currentColor" strokeWidth="1" fill="none" className="text-cyan-500" />
+              <circle cx="50" cy="50" r="5" stroke="currentColor" strokeWidth="1" fill="none" className="text-magenta-500" />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#empty-circuit)" />

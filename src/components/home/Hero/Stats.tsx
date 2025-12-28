@@ -45,7 +45,7 @@ export const Stats = memo(function Stats() {
           />
 
           <div className="relative">
-            <div className="font-display font-black text-4xl md:text-5xl bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+            <div className="font-display font-black text-4xl md:text-5xl bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
               <AnimatedCounter value={stat.value} suffix={stat.suffix} duration={2} delay={1 + index * 0.2} />
             </div>
             <div className="text-white/50 text-sm mt-1 font-medium">{stat.label}</div>

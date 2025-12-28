@@ -46,7 +46,7 @@ const liveItems = [
 
 const typeLabels: Record<string, { label: string; color: string }> = {
   build: { label: 'СБОРКА', color: 'bg-purple-500' },
-  test: { label: 'ТЕСТЫ', color: 'bg-cyan-500' },
+  test: { label: 'ТЕСТЫ', color: 'bg-magenta-500' },
   unboxing: { label: 'РАСПАКОВКА', color: 'bg-green-500' },
 };
 
@@ -78,7 +78,7 @@ export function Live() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-purple-400 to-magenta-400 bg-clip-text text-transparent">
               LIVE ЛЕНТА
             </span>
           </h2>
@@ -114,9 +114,9 @@ export function Live() {
                 className="group relative bg-black/40 backdrop-blur-sm border border-white/10 rounded-xl overflow-hidden hover:border-purple-500/50 transition-all duration-300"
               >
                 {/* Thumbnail */}
-                <div className="relative aspect-video bg-gradient-to-br from-purple-900/50 to-cyan-900/50">
+                <div className="relative aspect-video bg-gradient-to-br from-purple-900/50 to-magenta-900/50">
                   {/* Placeholder gradient - replace with actual images */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-cyan-600/20" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-magenta-600/20" />
 
                   {/* Play button overlay */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">

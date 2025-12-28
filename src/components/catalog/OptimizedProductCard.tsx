@@ -45,7 +45,7 @@ const SpecBadge = memo(function SpecBadge({
 }) {
   return (
     <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-white/70 text-xs font-mono">
-      <span className="text-neon-cyan-400">{icon}</span>
+      <span className="text-neon-magenta-400">{icon}</span>
       <span>{label}</span>
     </div>
   );
@@ -111,12 +111,12 @@ function ProductCardComponent({ product, index = 0, priority = false }: ProductC
     >
       {/* RGB Glow effect - only on hover for performance */}
       <div
-        className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-neon-purple-500 via-neon-cyan-500 to-neon-purple-600 opacity-0 group-hover:opacity-60 blur-xl transition-opacity duration-500"
+        className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-neon-purple-500 via-neon-magenta-500 to-neon-purple-600 opacity-0 group-hover:opacity-60 blur-xl transition-opacity duration-500"
         aria-hidden="true"
       />
 
       {/* Card container */}
-      <div className="relative h-full rounded-2xl overflow-hidden bg-void-200 border border-neon-purple-500/20 group-hover:border-neon-cyan-400/40 transition-colors duration-300">
+      <div className="relative h-full rounded-2xl overflow-hidden bg-void-200 border border-neon-purple-500/20 group-hover:border-neon-magenta-400/40 transition-colors duration-300">
         {/* Badges */}
         {product.badges && product.badges.length > 0 && (
           <div className="absolute top-4 left-4 z-20 flex flex-wrap gap-2">
@@ -128,7 +128,7 @@ function ProductCardComponent({ product, index = 0, priority = false }: ProductC
                   badge === 'СКИДКА' || badge === 'SALE'
                     ? 'bg-gradient-to-r from-red-500 to-orange-500 text-white shadow-[0_0_15px_rgba(239,68,68,0.5)]'
                     : badge === 'ТОП' || badge === 'TOP'
-                    ? 'bg-gradient-to-r from-neon-purple-500 to-neon-cyan-500 text-white shadow-neon-mixed'
+                    ? 'bg-gradient-to-r from-neon-purple-500 to-neon-magenta-500 text-white shadow-neon-mixed'
                     : 'bg-white/10 backdrop-blur-sm text-white/90 border border-white/20'
                 )}
               >
@@ -153,8 +153,8 @@ function ProductCardComponent({ product, index = 0, priority = false }: ProductC
         <div className="relative h-56 overflow-hidden bg-gradient-to-b from-void-300 to-void-200">
           {/* Tech frame corners */}
           <div className="absolute inset-4 pointer-events-none z-10" aria-hidden="true">
-            <div className="absolute top-0 left-0 w-6 h-6 border-l-2 border-t-2 border-neon-cyan-400/60" />
-            <div className="absolute top-0 right-0 w-6 h-6 border-r-2 border-t-2 border-neon-cyan-400/60" />
+            <div className="absolute top-0 left-0 w-6 h-6 border-l-2 border-t-2 border-neon-magenta-400/60" />
+            <div className="absolute top-0 right-0 w-6 h-6 border-r-2 border-t-2 border-neon-magenta-400/60" />
             <div className="absolute bottom-0 left-0 w-6 h-6 border-l-2 border-b-2 border-neon-purple-400/60" />
             <div className="absolute bottom-0 right-0 w-6 h-6 border-r-2 border-b-2 border-neon-purple-400/60" />
           </div>
@@ -176,7 +176,7 @@ function ProductCardComponent({ product, index = 0, priority = false }: ProductC
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="relative w-48 h-48 group-hover:scale-105 transition-transform duration-500">
                 <div
-                  className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-8 bg-neon-cyan-500/30 blur-xl rounded-full"
+                  className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-8 bg-neon-magenta-500/30 blur-xl rounded-full"
                   aria-hidden="true"
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -200,7 +200,7 @@ function ProductCardComponent({ product, index = 0, priority = false }: ProductC
         {/* Content section */}
         <div className="relative p-5">
           {/* Name */}
-          <h3 className="font-display text-lg font-bold text-white mb-3 group-hover:text-neon-cyan-300 transition-colors duration-300 line-clamp-1">
+          <h3 className="font-display text-lg font-bold text-white mb-3 group-hover:text-neon-magenta-300 transition-colors duration-300 line-clamp-1">
             {product.name}
           </h3>
 
@@ -232,7 +232,7 @@ function ProductCardComponent({ product, index = 0, priority = false }: ProductC
                 className={cn(
                   'text-2xl font-display font-black',
                   product.salePrice
-                    ? 'text-transparent bg-gradient-to-r from-neon-cyan-400 to-neon-purple-400 bg-clip-text'
+                    ? 'text-transparent bg-gradient-to-r from-neon-magenta-400 to-neon-purple-400 bg-clip-text'
                     : 'text-white'
                 )}
               >
@@ -276,7 +276,7 @@ function ProductCardComponent({ product, index = 0, priority = false }: ProductC
 
               {/* Hover overlay */}
               <div
-                className="absolute inset-0 bg-gradient-to-r from-neon-cyan-500 to-neon-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                className="absolute inset-0 bg-gradient-to-r from-neon-magenta-500 to-neon-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 aria-hidden="true"
               />
 
@@ -288,7 +288,7 @@ function ProductCardComponent({ product, index = 0, priority = false }: ProductC
 
         {/* Bottom glow line */}
         <div
-          className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-neon-purple-500 via-neon-cyan-500 to-neon-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-neon-purple-500 via-neon-magenta-500 to-neon-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           aria-hidden="true"
         />
       </div>

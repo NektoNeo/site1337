@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 /**
  * VA-PC Select Component
  *
- * A cyberpunk-styled select dropdown with dark theme and cyan/purple focus effects.
+ * A cyberpunk-styled select dropdown with dark theme and magenta/purple focus effects.
  *
  * @example
  * ```tsx
@@ -45,7 +45,7 @@ function SelectValue({
 
 interface SelectTriggerProps
   extends React.ComponentProps<typeof SelectPrimitive.Trigger> {
-  variant?: "default" | "cyan" | "glass" | "neon";
+  variant?: "default" | "magenta" | "glass" | "neon";
   size?: "sm" | "default" | "lg";
 }
 
@@ -67,7 +67,7 @@ function SelectTrigger({
       "data-[state=open]:border-[#8B5CF6]",
       "data-[state=open]:ring-2 data-[state=open]:ring-[#8B5CF6]/20",
     ].join(" "),
-    cyan: [
+    magenta: [
       "bg-[#0a0a0a]",
       "border-zinc-800",
       "hover:border-zinc-700",

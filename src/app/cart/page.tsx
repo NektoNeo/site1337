@@ -254,7 +254,7 @@ export default function CartPage() {
             <motion.div
               className="
                 relative p-4 rounded-2xl
-                bg-gradient-to-br from-purple-500/20 via-purple-500/10 to-cyan-500/10
+                bg-gradient-to-br from-purple-500/20 via-purple-500/10 to-magenta-500/10
                 border border-purple-500/30
                 backdrop-blur-sm
               "
@@ -308,7 +308,7 @@ export default function CartPage() {
                     animate={{ scale: 1 }}
                     className="
                       px-3 py-1 rounded-full
-                      bg-gradient-to-r from-purple-500/20 to-cyan-500/20
+                      bg-gradient-to-r from-purple-500/20 to-magenta-500/20
                       border border-purple-500/30
                       text-sm font-mono text-purple-300
                     "
@@ -346,7 +346,7 @@ export default function CartPage() {
                   animate={{ rotate: 360 }}
                   transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
                 >
-                  <Cpu className="w-4 h-4 text-cyan-500" />
+                  <Cpu className="w-4 h-4 text-magenta-500" />
                 </motion.div>
                 <span className="text-xs text-white/40 font-mono tracking-wider">VA-PC.CART.v2</span>
               </div>
@@ -358,10 +358,10 @@ export default function CartPage() {
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ delay: 0.2, duration: 0.6, ease: 'easeOut' }}
-            className="mt-8 h-px bg-gradient-to-r from-purple-500/50 via-cyan-500/30 to-transparent origin-left relative"
+            className="mt-8 h-px bg-gradient-to-r from-purple-500/50 via-magenta-500/30 to-transparent origin-left relative"
           >
             <motion.div
-              className="absolute left-0 top-0 w-20 h-px bg-gradient-to-r from-purple-500 to-cyan-500"
+              className="absolute left-0 top-0 w-20 h-px bg-gradient-to-r from-purple-500 to-magenta-500"
               animate={{ x: ['0%', '500%', '0%'] }}
               transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
             />
@@ -425,7 +425,7 @@ export default function CartPage() {
         />
         {/* Corner accents */}
         <div className="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-purple-500/20 rounded-bl-lg" />
-        <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-cyan-500/20 rounded-br-lg" />
+        <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-magenta-500/20 rounded-br-lg" />
       </div>
     </div>
   );

@@ -76,7 +76,7 @@ export function PCVisualization({ components }: PCVisualizationProps) {
             className="absolute inset-0 overflow-hidden rounded-lg pointer-events-none"
           >
             <motion.div
-              className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent"
+              className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-magenta-400/60 to-transparent"
               initial={{ top: '-2px' }}
               animate={{ top: '100%' }}
               transition={{
@@ -93,7 +93,7 @@ export function PCVisualization({ components }: PCVisualizationProps) {
           {/* Top section - Cooling */}
           <motion.div 
             className={`absolute top-4 left-4 right-4 h-12 rounded border ${
-              components.cooling ? 'border-cyan-500/50 bg-cyan-500/10' : 'border-white/10 bg-white/5'
+              components.cooling ? 'border-magenta-500/50 bg-magenta-500/10' : 'border-white/10 bg-white/5'
             }`}
             animate={components.cooling ? {
               boxShadow: [
@@ -109,11 +109,11 @@ export function PCVisualization({ components }: PCVisualizationProps) {
                 {[0, 1, 2].map((i) => (
                   <motion.div
                     key={i}
-                    className="w-8 h-8 rounded-full border border-cyan-500/50"
+                    className="w-8 h-8 rounded-full border border-magenta-500/50"
                     animate={{ rotate: 360 }}
                     transition={{ duration: 2, repeat: Infinity, ease: 'linear', delay: i * 0.1 }}
                   >
-                    <div className="absolute inset-1 border-t-2 border-cyan-400/60 rounded-full" />
+                    <div className="absolute inset-1 border-t-2 border-magenta-400/60 rounded-full" />
                   </motion.div>
                 ))}
               </div>

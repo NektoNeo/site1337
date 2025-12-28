@@ -4,7 +4,7 @@
  * A collection of cyberpunk-styled React components with:
  * - Glassmorphism effects
  * - Neon glow animations
- * - Purple/Cyan color scheme
+ * - Purple/Magenta color scheme
  * - Framer Motion animations
  *
  * @example

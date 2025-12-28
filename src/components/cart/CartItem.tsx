@@ -110,7 +110,7 @@ export function CartItem({ item, index }: CartItemProps) {
             {/* Corner decoration */}
             <div className="
               absolute -top-1 -right-1 w-3 h-3
-              border-t-2 border-r-2 border-cyan-500/50
+              border-t-2 border-r-2 border-magenta-500/50
               opacity-0 group-hover:opacity-100
               transition-opacity duration-300
             " />
@@ -142,7 +142,7 @@ export function CartItem({ item, index }: CartItemProps) {
 
             {/* Mobile Price */}
             <div className="mt-2 md:hidden">
-              <span className="text-cyan-400 font-bold">
+              <span className="text-magenta-400 font-bold">
                 {formatPrice(item.price)}
               </span>
             </div>
@@ -233,7 +233,7 @@ export function CartItem({ item, index }: CartItemProps) {
         <motion.div
           className="
             absolute left-0 right-0 h-px
-            bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent
+            bg-gradient-to-r from-transparent via-magenta-500/30 to-transparent
             pointer-events-none
           "
           initial={{ top: '0%' }}
@@ -252,7 +252,7 @@ export function CartItem({ item, index }: CartItemProps) {
       <div className="
         absolute -left-2 top-1/2 -translate-y-1/2
         w-1 h-8 rounded-full
-        bg-gradient-to-b from-purple-500 to-cyan-500
+        bg-gradient-to-b from-purple-500 to-magenta-500
         opacity-0 group-hover:opacity-100
         transition-opacity duration-300
       " />

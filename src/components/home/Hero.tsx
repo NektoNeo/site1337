@@ -29,11 +29,11 @@ const AnimatedBadge = memo(function AnimatedBadge() {
 
   if (shouldReduceMotion) {
     return (
-      <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-500/10 to-cyan-500/10 border border-purple-500/30 backdrop-blur-md mb-8">
+      <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-500/10 to-magenta-500/10 border border-purple-500/30 backdrop-blur-md mb-8">
         <span className="relative flex h-3 w-3">
-          <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-400 shadow-[0_0_10px_#22D3EE]" />
+          <span className="relative inline-flex rounded-full h-3 w-3 bg-magenta-400 shadow-[0_0_10px_#22D3EE]" />
         </span>
-        <span className="text-sm font-semibold bg-gradient-to-r from-purple-300 to-cyan-300 bg-clip-text text-transparent">
+        <span className="text-sm font-semibold bg-gradient-to-r from-purple-300 to-magenta-300 bg-clip-text text-transparent">
           Premium Gaming PCs
         </span>
         <span className="px-2 py-0.5 rounded-full bg-purple-500/20 text-xs font-bold text-purple-300">
@@ -48,20 +48,20 @@ const AnimatedBadge = memo(function AnimatedBadge() {
       initial={{ opacity: 0, y: 20, scale: 0.9 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.6, delay: 0.2 }}
-      className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-500/10 to-cyan-500/10 border border-purple-500/30 backdrop-blur-md mb-8"
+      className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-500/10 to-magenta-500/10 border border-purple-500/30 backdrop-blur-md mb-8"
     >
       <motion.span className="relative flex h-3 w-3">
         <motion.span
-          className="absolute inline-flex h-full w-full rounded-full bg-cyan-400"
+          className="absolute inline-flex h-full w-full rounded-full bg-magenta-400"
           animate={{
             scale: [1, 1.5, 1],
             opacity: [1, 0, 1],
           }}
           transition={{ duration: 2, repeat: Infinity }}
         />
-        <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-400 shadow-[0_0_10px_#22D3EE]" />
+        <span className="relative inline-flex rounded-full h-3 w-3 bg-magenta-400 shadow-[0_0_10px_#22D3EE]" />
       </motion.span>
-      <span className="text-sm font-semibold bg-gradient-to-r from-purple-300 to-cyan-300 bg-clip-text text-transparent">
+      <span className="text-sm font-semibold bg-gradient-to-r from-purple-300 to-magenta-300 bg-clip-text text-transparent">
         Premium Gaming PCs
       </span>
       <motion.span
@@ -85,11 +85,11 @@ const AnimatedHeadline = memo(function AnimatedHeadline() {
         <h1 className="font-display font-black text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tight">
           <span className="block text-white mb-2">Собери свой</span>
           <span className="relative block">
-            <span className="bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-purple-400 via-magenta-400 to-purple-400 bg-clip-text text-transparent">
               идеальный PC
             </span>
             <div
-              className="absolute -bottom-2 left-0 h-1 w-full rounded-full bg-gradient-to-r from-purple-500 via-cyan-500 to-purple-500"
+              className="absolute -bottom-2 left-0 h-1 w-full rounded-full bg-gradient-to-r from-purple-500 via-magenta-500 to-purple-500"
               style={{
                 boxShadow: '0 0 20px rgba(139,92,246,0.5), 0 0 40px rgba(6,182,212,0.3)',
               }}
@@ -124,7 +124,7 @@ const AnimatedHeadline = memo(function AnimatedHeadline() {
         >
           {/* Animated gradient text */}
           <motion.span
-            className="bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent bg-[length:200%_auto] will-change-auto"
+            className="bg-gradient-to-r from-purple-400 via-magenta-400 to-purple-400 bg-clip-text text-transparent bg-[length:200%_auto] will-change-auto"
             animate={{
               backgroundPosition: ['0% center', '200% center'],
             }}
@@ -139,7 +139,7 @@ const AnimatedHeadline = memo(function AnimatedHeadline() {
 
           {/* Underline glow effect */}
           <motion.div
-            className="absolute -bottom-2 left-0 h-1 rounded-full bg-gradient-to-r from-purple-500 via-cyan-500 to-purple-500"
+            className="absolute -bottom-2 left-0 h-1 rounded-full bg-gradient-to-r from-purple-500 via-magenta-500 to-purple-500"
             initial={{ width: 0 }}
             animate={{ width: '100%' }}
             transition={{ duration: 1, delay: 1 }}
@@ -161,11 +161,11 @@ const SubHeadline = memo(function SubHeadline() {
     return (
       <p className="text-lg md:text-xl lg:text-2xl text-white/60 mb-10 max-w-2xl leading-relaxed">
         Мощные игровые компьютеры с видеокартами{' '}
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-400 font-bold">
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-magenta-400 font-bold">
           RTX 4070/4080/4090
         </span>
         .{' '}
-        <span className="inline-flex items-center gap-1 text-cyan-400 font-semibold">
+        <span className="inline-flex items-center gap-1 text-magenta-400 font-semibold">
           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
           </svg>
@@ -184,12 +184,12 @@ const SubHeadline = memo(function SubHeadline() {
       className="text-lg md:text-xl lg:text-2xl text-white/60 mb-10 max-w-2xl leading-relaxed"
     >
       Мощные игровые компьютеры с видеокартами{' '}
-      <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-400 font-bold">
+      <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-magenta-400 font-bold">
         RTX 4070/4080/4090
       </span>
       .{' '}
       <motion.span
-        className="inline-flex items-center gap-1 text-cyan-400 font-semibold"
+        className="inline-flex items-center gap-1 text-magenta-400 font-semibold"
         whileHover={{ scale: 1.05 }}
       >
         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -270,7 +270,7 @@ const Stats = memo(function Stats() {
         {stats.map((stat, index) => (
           <div key={index} className="relative group">
             <div className="relative">
-              <div className="font-display font-black text-4xl md:text-5xl bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+              <div className="font-display font-black text-4xl md:text-5xl bg-gradient-to-r from-purple-400 to-magenta-400 bg-clip-text text-transparent">
                 {stat.value}{stat.suffix}
               </div>
               <div className="text-white/50 text-sm mt-1 font-medium">{stat.label}</div>
@@ -305,7 +305,7 @@ const Stats = memo(function Stats() {
           />
 
           <div className="relative">
-            <div className="font-display font-black text-4xl md:text-5xl bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+            <div className="font-display font-black text-4xl md:text-5xl bg-gradient-to-r from-purple-400 to-magenta-400 bg-clip-text text-transparent">
               <AnimatedCounter value={stat.value} suffix={stat.suffix} duration={2} delay={1 + index * 0.2} />
             </div>
             <div className="text-white/50 text-sm mt-1 font-medium">{stat.label}</div>
@@ -484,7 +484,7 @@ const HeroPCImage = memo(function HeroPCImage() {
               transition={{ duration: 3, repeat: Infinity }}
             >
               <div className="px-4 py-2 rounded-xl bg-black/80 backdrop-blur-md border border-purple-500/50 shadow-lg shadow-purple-500/20">
-                <span className="text-sm font-bold bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
+                <span className="text-sm font-bold bg-gradient-to-r from-green-400 to-magenta-400 bg-clip-text text-transparent">
                   RTX 4090
                 </span>
               </div>
@@ -495,8 +495,8 @@ const HeroPCImage = memo(function HeroPCImage() {
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 3.5, repeat: Infinity }}
             >
-              <div className="px-4 py-2 rounded-xl bg-black/80 backdrop-blur-md border border-cyan-500/50 shadow-lg shadow-cyan-500/20">
-                <span className="text-sm font-bold text-cyan-400">Intel i9-14900K</span>
+              <div className="px-4 py-2 rounded-xl bg-black/80 backdrop-blur-md border border-magenta-500/50 shadow-lg shadow-magenta-500/20">
+                <span className="text-sm font-bold text-magenta-400">Intel i9-14900K</span>
               </div>
             </motion.div>
 
@@ -547,7 +547,7 @@ const ScrollIndicator = memo(function ScrollIndicator() {
             Scroll
           </span>
           <div className="w-6 h-10 rounded-full border-2 border-white/20 flex justify-center pt-2 group-hover:border-purple-500/50 transition-colors">
-            <div className="w-1.5 h-3 rounded-full bg-gradient-to-b from-purple-400 to-cyan-400" />
+            <div className="w-1.5 h-3 rounded-full bg-gradient-to-b from-purple-400 to-magenta-400" />
           </div>
         </div>
       </div>
@@ -572,7 +572,7 @@ const ScrollIndicator = memo(function ScrollIndicator() {
         </span>
         <div className="w-6 h-10 rounded-full border-2 border-white/20 flex justify-center pt-2 group-hover:border-purple-500/50 transition-colors">
           <motion.div
-            className="w-1.5 h-3 rounded-full bg-gradient-to-b from-purple-400 to-cyan-400"
+            className="w-1.5 h-3 rounded-full bg-gradient-to-b from-purple-400 to-magenta-400"
             animate={{ y: [0, 8, 0], opacity: [1, 0.3, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           />

@@ -16,12 +16,12 @@ export const SubHeadline = memo(function SubHeadline() {
       className="text-lg md:text-xl lg:text-2xl text-white/60 mb-10 max-w-2xl leading-relaxed"
     >
       Мощные игровые компьютеры с видеокартами{' '}
-      <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-400 font-bold">
+      <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-pink-400 font-bold">
         RTX 4070/4080/4090
       </span>
       .{' '}
       <motion.span
-        className="inline-flex items-center gap-1 text-cyan-400 font-semibold"
+        className="inline-flex items-center gap-1 text-pink-400 font-semibold"
         whileHover={{ scale: 1.05 }}
       >
         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">

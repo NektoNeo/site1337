@@ -49,7 +49,7 @@ const skeletonVariants = cva(
       },
       glow: {
         purple: "",
-        cyan: "",
+        magenta: "",
         none: "",
       },
     },
@@ -84,7 +84,7 @@ function Skeleton({
           className="absolute inset-0"
           style={{
             background:
-              glow === "cyan"
+              glow === "magenta"
                 ? "linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.1), transparent)"
                 : glow === "purple"
                 ? "linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent)"
@@ -219,7 +219,7 @@ function CardSkeleton({ className, ...props }: SkeletonProps) {
 
         {/* Footer */}
         <div className="flex items-center justify-between pt-2">
-          <Skeleton className="h-8 w-24" glow="cyan" />
+          <Skeleton className="h-8 w-24" glow="magenta" />
           <Skeleton className="h-10 w-28" />
         </div>
       </div>
@@ -245,7 +245,7 @@ function ProductCardSkeleton({ className, ...props }: SkeletonProps) {
 
         {/* Badges area */}
         <div className="absolute bottom-3 left-3 right-3 flex gap-2">
-          <Skeleton className="h-6 w-20 rounded-full" glow="cyan" />
+          <Skeleton className="h-6 w-20 rounded-full" glow="magenta" />
           <Skeleton className="h-6 w-16 rounded-full" />
         </div>
       </div>
@@ -264,7 +264,7 @@ function ProductCardSkeleton({ className, ...props }: SkeletonProps) {
 
         {/* Price */}
         <div className="flex items-center justify-between pt-2">
-          <Skeleton className="h-8 w-28" glow="cyan" />
+          <Skeleton className="h-8 w-28" glow="magenta" />
           <Skeleton className="h-10 w-32 rounded-lg" />
         </div>
       </div>

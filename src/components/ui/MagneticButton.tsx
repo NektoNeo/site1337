@@ -94,7 +94,7 @@ function MagneticButtonComponent({
 
   const variantStyles = {
     primary: `
-      bg-gradient-to-r from-purple-600 via-purple-500 to-cyan-500
+      bg-gradient-to-r from-purple-600 via-purple-500 to-magenta-500
       text-white font-bold
       shadow-[0_0_20px_rgba(139,92,246,0.4)]
       hover:shadow-[0_0_40px_rgba(139,92,246,0.6),0_0_60px_rgba(6,182,212,0.3)]
@@ -198,7 +198,7 @@ function MagneticButtonComponent({
           {particlePositions.map((pos, i) => (
             <motion.div
               key={i}
-              className="absolute w-1 h-1 rounded-full bg-cyan-400 will-change-transform"
+              className="absolute w-1 h-1 rounded-full bg-magenta-400 will-change-transform"
               initial={{
                 x: 0,
                 y: 0,

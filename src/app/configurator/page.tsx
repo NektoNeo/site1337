@@ -140,7 +140,7 @@ function ConfiguratorBackground() {
         transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div 
-        className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[150px]"
+        className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-magenta-500/10 rounded-full blur-[150px]"
         animate={{
           x: [0, -50, 0],
           y: [0, -30, 0],
@@ -179,7 +179,7 @@ function BuildProgress({ components }: { components: SelectedComponents }) {
       </div>
       <div className="h-2 bg-white/5 rounded-full overflow-hidden">
         <motion.div
-          className="h-full bg-gradient-to-r from-purple-500 to-cyan-500"
+          className="h-full bg-gradient-to-r from-purple-500 to-magenta-500"
           initial={{ width: 0 }}
           animate={{ width: `${progress}%` }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
@@ -274,7 +274,7 @@ export default function ConfiguratorPage() {
             <div>
               <div className="flex items-center gap-3">
                 <motion.div
-                  className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-cyan-500/10 border border-purple-500/30 flex items-center justify-center"
+                  className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-magenta-500/10 border border-purple-500/30 flex items-center justify-center"
                   animate={{
                     boxShadow: ['0 0 20px rgba(139,92,246,0.3)', '0 0 30px rgba(6,182,212,0.3)', '0 0 20px rgba(139,92,246,0.3)'],
                   }}
@@ -284,7 +284,7 @@ export default function ConfiguratorPage() {
                 </motion.div>
                 <div>
                   <h1 className="text-xl font-display font-bold">
-                    <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-purple-400 to-magenta-400 bg-clip-text text-transparent">
                       Конфигуратор PC
                     </span>
                   </h1>
@@ -329,7 +329,7 @@ export default function ConfiguratorPage() {
             <div className="sticky top-28">
               <div className="p-6 rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/10">
                 <h2 className="text-lg font-display font-semibold text-white mb-2 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500" />
+                  <span className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-500 to-magenta-500" />
                   Комплектующие
                 </h2>
                 
@@ -400,8 +400,8 @@ export default function ConfiguratorPage() {
       {/* Decorative corner elements */}
       <div className="fixed top-20 left-0 w-32 h-32 border-l border-t border-purple-500/10 pointer-events-none" />
       <div className="fixed top-20 right-0 w-32 h-32 border-r border-t border-purple-500/10 pointer-events-none" />
-      <div className="fixed bottom-0 left-0 w-32 h-32 border-l border-b border-cyan-500/10 pointer-events-none" />
-      <div className="fixed bottom-0 right-0 w-32 h-32 border-r border-b border-cyan-500/10 pointer-events-none" />
+      <div className="fixed bottom-0 left-0 w-32 h-32 border-l border-b border-magenta-500/10 pointer-events-none" />
+      <div className="fixed bottom-0 right-0 w-32 h-32 border-r border-b border-magenta-500/10 pointer-events-none" />
     </div>
   );
 }

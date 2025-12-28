@@ -62,7 +62,7 @@ export function PriceRangeSlider({
             key={localValue[0]}
             initial={{ scale: 1.1 }}
             animate={{ scale: 1 }}
-            className="text-sm font-mono text-neon-cyan-400 font-semibold"
+            className="text-sm font-mono text-neon-magenta-400 font-semibold"
           >
             {formatPrice(localValue[0])}
           </motion.div>
@@ -86,7 +86,7 @@ export function PriceRangeSlider({
         <div className="absolute top-1/2 -translate-y-1/2 w-full h-2 bg-void-400 rounded-full overflow-hidden">
           {/* Active range */}
           <div
-            className="absolute h-full bg-gradient-to-r from-neon-purple-500 via-neon-cyan-500 to-neon-purple-500 rounded-full"
+            className="absolute h-full bg-gradient-to-r from-neon-purple-500 via-neon-magenta-500 to-neon-purple-500 rounded-full"
             style={{
               left: `${minPercent}%`,
               width: `${maxPercent - minPercent}%`,
@@ -94,7 +94,7 @@ export function PriceRangeSlider({
           />
           {/* Glow effect */}
           <div
-            className="absolute h-full bg-gradient-to-r from-neon-purple-500 via-neon-cyan-500 to-neon-purple-500 rounded-full blur-sm opacity-60"
+            className="absolute h-full bg-gradient-to-r from-neon-purple-500 via-neon-magenta-500 to-neon-purple-500 rounded-full blur-sm opacity-60"
             style={{
               left: `${minPercent}%`,
               width: `${maxPercent - minPercent}%`,
@@ -120,7 +120,7 @@ export function PriceRangeSlider({
             [&::-webkit-slider-thumb]:rounded-full
             [&::-webkit-slider-thumb]:bg-white
             [&::-webkit-slider-thumb]:border-2
-            [&::-webkit-slider-thumb]:border-neon-cyan-400
+            [&::-webkit-slider-thumb]:border-neon-magenta-400
             [&::-webkit-slider-thumb]:shadow-[0_0_15px_rgba(6,182,212,0.8)]
             [&::-webkit-slider-thumb]:cursor-pointer
             [&::-webkit-slider-thumb]:transition-all
@@ -134,7 +134,7 @@ export function PriceRangeSlider({
             [&::-moz-range-thumb]:rounded-full
             [&::-moz-range-thumb]:bg-white
             [&::-moz-range-thumb]:border-2
-            [&::-moz-range-thumb]:border-neon-cyan-400
+            [&::-moz-range-thumb]:border-neon-magenta-400
             [&::-moz-range-thumb]:cursor-pointer"
         />
 

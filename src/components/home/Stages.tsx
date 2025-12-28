@@ -16,7 +16,7 @@ const stages = [
     number: '02',
     title: 'Обсуждение сборки',
     description: 'Подробно обсудим ход выполнения сборки и подберем необходимые комплектующие под ваш запрос.',
-    color: 'from-cyan-600 to-cyan-400',
+    color: 'from-magenta-600 to-magenta-400',
   },
   {
     icon: Truck,
@@ -44,7 +44,7 @@ export function Stages() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-purple-400 to-magenta-400 bg-clip-text text-transparent">
               ЭТАПЫ РАБОТЫ
             </span>
           </h2>

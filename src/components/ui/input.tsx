@@ -33,8 +33,8 @@ const inputVariants = cva(
           "hover:border-zinc-700",
         ].join(" "),
 
-        // Cyan - Cyan glow on focus
-        cyan: [
+        // Magenta - Magenta glow on focus
+        magenta: [
           "focus:border-[#06B6D4]",
           "focus:ring-2 focus:ring-[#06B6D4]/20",
           "focus:shadow-[0_0_20px_rgba(6,182,212,0.15)]",
@@ -60,8 +60,8 @@ const inputVariants = cva(
           "hover:border-[#8B5CF6]/50",
         ].join(" "),
 
-        // Neon Cyan
-        "neon-cyan": [
+        // Neon Magenta
+        "neon-magenta": [
           "border-[#06B6D4]/30",
           "focus:border-[#06B6D4]",
           "focus:shadow-[0_0_10px_#06B6D4,0_0_20px_rgba(6,182,212,0.3),inset_0_0_10px_rgba(6,182,212,0.1)]",
@@ -133,8 +133,8 @@ export interface InputProps
  * // Default input with purple glow
  * <Input placeholder="Enter your email" />
  *
- * // Cyan variant
- * <Input variant="cyan" placeholder="Search..." />
+ * // Magenta variant
+ * <Input variant="magenta" placeholder="Search..." />
  *
  * // With label and icon
  * <Input
@@ -255,7 +255,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                   ? "radial-gradient(circle at center, rgba(239,68,68,0.1) 0%, transparent 70%)"
                   : computedVariant === "success"
                   ? "radial-gradient(circle at center, rgba(16,185,129,0.1) 0%, transparent 70%)"
-                  : computedVariant === "cyan" || computedVariant === "neon-cyan"
+                  : computedVariant === "magenta" || computedVariant === "neon-magenta"
                   ? "radial-gradient(circle at center, rgba(6,182,212,0.1) 0%, transparent 70%)"
                   : "radial-gradient(circle at center, rgba(139,92,246,0.1) 0%, transparent 70%)",
             }}

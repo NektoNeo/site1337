@@ -119,7 +119,7 @@ export function Features() {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="inline-block px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-sm font-medium mb-6"
+            className="inline-block px-4 py-1.5 rounded-full bg-magenta-500/10 border border-magenta-500/20 text-magenta-400 text-sm font-medium mb-6"
           >
             Почему мы
           </motion.span>

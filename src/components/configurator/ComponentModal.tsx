@@ -94,7 +94,7 @@ function ComponentCard({
         relative p-4 rounded-xl text-left w-full
         transition-all duration-300
         ${isSelected 
-          ? 'bg-gradient-to-br from-purple-500/20 to-cyan-500/20 border-2 border-purple-500/50' 
+          ? 'bg-gradient-to-br from-purple-500/20 to-magenta-500/20 border-2 border-purple-500/50' 
           : isIncompatible
             ? 'bg-red-500/5 border border-red-500/20 opacity-60 cursor-not-allowed'
             : 'bg-black/40 border border-white/10 hover:border-purple-500/30'
@@ -107,7 +107,7 @@ function ComponentCard({
       {/* Selected indicator */}
       {isSelected && (
         <motion.div
-          className="absolute top-3 right-3 w-6 h-6 rounded-full bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center"
+          className="absolute top-3 right-3 w-6 h-6 rounded-full bg-gradient-to-br from-purple-500 to-magenta-500 flex items-center justify-center"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: 'spring', stiffness: 500, damping: 25 }}
@@ -135,7 +135,7 @@ function ComponentCard({
         <div className={`
           p-2 rounded-lg 
           ${isSelected 
-            ? 'bg-purple-500/20 text-cyan-400' 
+            ? 'bg-purple-500/20 text-magenta-400' 
             : 'bg-white/5 text-white/40'
           }
         `}>
@@ -291,14 +291,14 @@ export function ComponentModal({
           >
             <div className="relative w-full h-full rounded-2xl overflow-hidden glass-strong">
               {/* Background effects */}
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-cyan-500/5" />
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-magenta-500/5" />
               
               {/* Scan line */}
               <motion.div
                 className="absolute inset-0 pointer-events-none overflow-hidden"
               >
                 <motion.div
-                  className="absolute left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent"
+                  className="absolute left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-magenta-400/30 to-transparent"
                   initial={{ top: 0 }}
                   animate={{ top: '100%' }}
                   transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
@@ -308,7 +308,7 @@ export function ComponentModal({
               {/* Header */}
               <div className="relative flex items-center justify-between p-6 border-b border-white/10">
                 <div className="flex items-center gap-4">
-                  <div className="p-3 rounded-xl bg-gradient-to-br from-purple-500/20 to-cyan-500/20 text-cyan-400">
+                  <div className="p-3 rounded-xl bg-gradient-to-br from-purple-500/20 to-magenta-500/20 text-magenta-400">
                     {CATEGORY_ICONS[category]}
                   </div>
                   <div>
@@ -359,8 +359,8 @@ export function ComponentModal({
               {/* Corner decorations */}
               <div className="absolute top-0 left-0 w-8 h-8 border-l-2 border-t-2 border-purple-500/50" />
               <div className="absolute top-0 right-0 w-8 h-8 border-r-2 border-t-2 border-purple-500/50" />
-              <div className="absolute bottom-0 left-0 w-8 h-8 border-l-2 border-b-2 border-cyan-500/50" />
-              <div className="absolute bottom-0 right-0 w-8 h-8 border-r-2 border-b-2 border-cyan-500/50" />
+              <div className="absolute bottom-0 left-0 w-8 h-8 border-l-2 border-b-2 border-magenta-500/50" />
+              <div className="absolute bottom-0 right-0 w-8 h-8 border-r-2 border-b-2 border-magenta-500/50" />
             </div>
           </motion.div>
         </>

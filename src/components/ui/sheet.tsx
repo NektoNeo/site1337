@@ -108,7 +108,7 @@ const sheetContentVariants = cva(
       },
       glowColor: {
         purple: "shadow-[0_0_40px_rgba(139,92,246,0.15)]",
-        cyan: "shadow-[0_0_40px_rgba(6,182,212,0.15)]",
+        magenta: "shadow-[0_0_40px_rgba(6,182,212,0.15)]",
         none: "",
       },
     },
@@ -265,7 +265,7 @@ function CartSheetContent({
   return (
     <SheetContent
       side="right"
-      glowColor="cyan"
+      glowColor="magenta"
       className={cn("w-full sm:max-w-lg", className)}
       {...props}
     >

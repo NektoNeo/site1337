@@ -81,7 +81,7 @@ function PlatformBadgeComponent({ platform }: { platform: PlatformBadge }) {
 
   const colors = {
     AMD: 'from-red-500 to-orange-500 shadow-[0_0_15px_rgba(239,68,68,0.5)]',
-    Intel: 'from-blue-500 to-cyan-500 shadow-[0_0_15px_rgba(59,130,246,0.5)]',
+    Intel: 'from-blue-500 to-magenta-500 shadow-[0_0_15px_rgba(59,130,246,0.5)]',
     NVIDIA: 'from-green-500 to-lime-500 shadow-[0_0_15px_rgba(34,197,94,0.5)]',
   };
 
@@ -124,7 +124,7 @@ function SpecBadge({
           : 'bg-white/5 border-white/10 text-white/70'
       )}
     >
-      <span className="text-neon-cyan-400">{icon}</span>
+      <span className="text-neon-magenta-400">{icon}</span>
       <span className="truncate max-w-[80px]">{label}</span>
     </div>
   );
@@ -206,7 +206,7 @@ function VKProductCardComponent({
         variants={glowVariants}
         initial="rest"
         animate={isHovered ? "hover" : "rest"}
-        className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-neon-purple-500 via-neon-cyan-500 to-neon-purple-600 blur-xl"
+        className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-neon-purple-500 via-neon-magenta-500 to-neon-purple-600 blur-xl"
       />
       
       {/* Glass Card container */}
@@ -214,11 +214,11 @@ function VKProductCardComponent({
         'relative h-full rounded-2xl overflow-hidden',
         'bg-void-200/80 backdrop-blur-md',
         'border border-neon-purple-500/20',
-        'group-hover:border-neon-cyan-400/40',
+        'group-hover:border-neon-magenta-400/40',
         'transition-all duration-300'
       )}>
         {/* Top gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-neon-purple-500/5 via-transparent to-neon-cyan-500/5 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-neon-purple-500/5 via-transparent to-neon-magenta-500/5 pointer-events-none" />
         
         {/* Badges container */}
         <div className="absolute top-4 left-4 z-20 flex flex-wrap gap-2">
@@ -238,7 +238,7 @@ function VKProductCardComponent({
                 badge === 'SALE' || badge === 'DISCOUNT'
                   ? 'bg-gradient-to-r from-red-500 to-orange-500 text-white shadow-[0_0_15px_rgba(239,68,68,0.5)]'
                   : badge === 'TOP' || badge === 'HIT'
-                  ? 'bg-gradient-to-r from-neon-purple-500 to-neon-cyan-500 text-white shadow-neon-mixed'
+                  ? 'bg-gradient-to-r from-neon-purple-500 to-neon-magenta-500 text-white shadow-neon-mixed'
                   : badge === 'NEW'
                   ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-[0_0_15px_rgba(34,197,94,0.5)]'
                   : 'bg-white/10 backdrop-blur-sm text-white/90 border border-white/20'
@@ -291,8 +291,8 @@ function VKProductCardComponent({
           <div className="relative h-56 overflow-hidden bg-gradient-to-b from-void-300 to-void-200 cursor-pointer">
             {/* Tech frame corners */}
             <div className="absolute inset-4 pointer-events-none z-10">
-              <div className="absolute top-0 left-0 w-6 h-6 border-l-2 border-t-2 border-neon-cyan-400/60" />
-              <div className="absolute top-0 right-0 w-6 h-6 border-r-2 border-t-2 border-neon-cyan-400/60" />
+              <div className="absolute top-0 left-0 w-6 h-6 border-l-2 border-t-2 border-neon-magenta-400/60" />
+              <div className="absolute top-0 right-0 w-6 h-6 border-r-2 border-t-2 border-neon-magenta-400/60" />
               <div className="absolute bottom-0 left-0 w-6 h-6 border-l-2 border-b-2 border-neon-purple-400/60" />
               <div className="absolute bottom-0 right-0 w-6 h-6 border-r-2 border-b-2 border-neon-purple-400/60" />
             </div>
@@ -305,7 +305,7 @@ function VKProductCardComponent({
               className="absolute inset-0 flex items-center justify-center p-8"
             >
               {/* Glow under image */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-32 h-8 bg-neon-cyan-500/30 blur-xl rounded-full" />
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-32 h-8 bg-neon-magenta-500/30 blur-xl rounded-full" />
               
               {product.thumbnailUrl ? (
                 <Image
@@ -338,7 +338,7 @@ function VKProductCardComponent({
                     repeat: Infinity, 
                     ease: 'linear' 
                   }}
-                  className="absolute inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-neon-cyan-400 to-transparent"
+                  className="absolute inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-neon-magenta-400 to-transparent"
                 />
               )}
             </AnimatePresence>
@@ -351,13 +351,13 @@ function VKProductCardComponent({
         {/* Content section */}
         <div className="relative p-5">
           {/* Category */}
-          <div className="text-xs text-neon-cyan-400/70 font-mono mb-2 uppercase tracking-wider">
+          <div className="text-xs text-neon-magenta-400/70 font-mono mb-2 uppercase tracking-wider">
             {product.categoryName || product.category?.name || ''}
           </div>
 
           {/* Name */}
           <Link href={product.productUrl || `/product/${product.slug}`}>
-            <h3 className="font-display text-lg font-bold text-white mb-3 group-hover:text-neon-cyan-300 transition-colors duration-300 line-clamp-1 cursor-pointer">
+            <h3 className="font-display text-lg font-bold text-white mb-3 group-hover:text-neon-magenta-300 transition-colors duration-300 line-clamp-1 cursor-pointer">
               {product.title}
             </h3>
           </Link>
@@ -391,7 +391,7 @@ function VKProductCardComponent({
                   <div className="text-sm text-white/40 line-through font-mono">
                     {product.formattedOriginalPrice || product.displayOriginalPrice}
                   </div>
-                  <div className="text-2xl font-display font-black text-transparent bg-gradient-to-r from-neon-cyan-400 to-neon-purple-400 bg-clip-text">
+                  <div className="text-2xl font-display font-black text-transparent bg-gradient-to-r from-neon-magenta-400 to-neon-purple-400 bg-clip-text">
                     {product.formattedPrice || product.displayPrice}
                   </div>
                 </>
@@ -419,7 +419,7 @@ function VKProductCardComponent({
                 <div className="absolute inset-0 bg-gradient-to-r from-neon-purple-600 to-neon-purple-500" />
                 
                 {/* Hover overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-neon-cyan-500 to-neon-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-r from-neon-magenta-500 to-neon-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 
                 {/* Shine effect */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -444,13 +444,13 @@ function VKProductCardComponent({
                 className={cn(
                   'relative w-14 h-14 rounded-xl overflow-hidden',
                   'flex items-center justify-center',
-                  'bg-neon-cyan-500/20 border border-neon-cyan-500/40',
-                  'hover:bg-neon-cyan-500/30 hover:border-neon-cyan-400',
+                  'bg-neon-magenta-500/20 border border-neon-magenta-500/40',
+                  'hover:bg-neon-magenta-500/30 hover:border-neon-magenta-400',
                   'transition-all duration-300'
                 )}
                 aria-label="Add to cart"
               >
-                <ShoppingCart className="w-5 h-5 text-neon-cyan-400" />
+                <ShoppingCart className="w-5 h-5 text-neon-magenta-400" />
               </motion.button>
             )}
           </div>
@@ -460,7 +460,7 @@ function VKProductCardComponent({
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: isHovered ? 1 : 0 }}
-          className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-neon-purple-500 via-neon-cyan-500 to-neon-purple-500"
+          className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-neon-purple-500 via-neon-magenta-500 to-neon-purple-500"
         />
       </div>
     </motion.article>

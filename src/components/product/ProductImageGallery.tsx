@@ -44,8 +44,8 @@ export function ProductImageGallery({ images, productName }: ProductImageGallery
           className="relative group"
         >
           {/* RGB Animated Border */}
-          <div className="absolute -inset-[2px] rounded-2xl bg-gradient-conic from-purple-500 via-cyan-400 via-pink-500 to-purple-500 opacity-75 blur-sm group-hover:opacity-100 transition-opacity duration-500 animate-rgb-spin" />
-          <div className="absolute -inset-[2px] rounded-2xl bg-gradient-conic from-purple-500 via-cyan-400 via-pink-500 to-purple-500 opacity-50 animate-rgb-spin" />
+          <div className="absolute -inset-[2px] rounded-2xl bg-gradient-conic from-purple-500 via-magenta-400 via-pink-500 to-purple-500 opacity-75 blur-sm group-hover:opacity-100 transition-opacity duration-500 animate-rgb-spin" />
+          <div className="absolute -inset-[2px] rounded-2xl bg-gradient-conic from-purple-500 via-magenta-400 via-pink-500 to-purple-500 opacity-50 animate-rgb-spin" />
 
           {/* Main Image */}
           <div
@@ -72,7 +72,7 @@ export function ProductImageGallery({ images, productName }: ProductImageGallery
 
             {/* Zoom Indicator */}
             <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-lg flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-              <svg className="w-4 h-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-4 h-4 text-magenta-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
               </svg>
               <span className="text-xs text-gray-300 font-medium">Click to expand</span>
@@ -119,7 +119,7 @@ export function ProductImageGallery({ images, productName }: ProductImageGallery
                 className={`relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden transition-all duration-300 ${
                   index === selectedIndex
                     ? 'ring-2 ring-purple-500 ring-offset-2 ring-offset-black scale-105'
-                    : 'opacity-60 hover:opacity-100 hover:ring-1 hover:ring-cyan-400/50'
+                    : 'opacity-60 hover:opacity-100 hover:ring-1 hover:ring-magenta-400/50'
                 }`}
               >
                 <img
@@ -173,7 +173,7 @@ export function ProductImageGallery({ images, productName }: ProductImageGallery
               onClick={(e) => e.stopPropagation()}
             >
               {/* RGB Glow behind image */}
-              <div className="absolute -inset-8 bg-gradient-to-r from-purple-500/20 via-cyan-400/20 to-purple-500/20 blur-3xl" />
+              <div className="absolute -inset-8 bg-gradient-to-r from-purple-500/20 via-magenta-400/20 to-purple-500/20 blur-3xl" />
 
               <img
                 src={selectedImage.url}
@@ -221,7 +221,7 @@ export function ProductImageGallery({ images, productName }: ProductImageGallery
                   onClick={(e) => { e.stopPropagation(); setSelectedIndex(index); }}
                   className={`w-12 h-12 rounded-lg overflow-hidden transition-all ${
                     index === selectedIndex
-                      ? 'ring-2 ring-cyan-400 scale-110'
+                      ? 'ring-2 ring-magenta-400 scale-110'
                       : 'opacity-50 hover:opacity-100'
                   }`}
                 >

@@ -40,7 +40,7 @@ export function SortDropdown({ value, onChange }: SortDropdownProps) {
           'bg-void-300 border border-neon-purple-500/20',
           'hover:border-neon-purple-500/40 hover:bg-void-400',
           'transition-all duration-200',
-          isOpen && 'border-neon-cyan-400/50 bg-void-400'
+          isOpen && 'border-neon-magenta-400/50 bg-void-400'
         )}
       >
         <span className="text-sm text-white/60">Сортировка:</span>
@@ -78,7 +78,7 @@ export function SortDropdown({ value, onChange }: SortDropdownProps) {
                       'w-full flex items-center justify-between px-4 py-2.5',
                       'text-sm transition-colors duration-150',
                       isSelected
-                        ? 'bg-neon-purple-500/20 text-neon-cyan-300'
+                        ? 'bg-neon-purple-500/20 text-neon-magenta-300'
                         : 'text-white/70 hover:bg-white/5 hover:text-white'
                     )}
                   >
@@ -89,7 +89,7 @@ export function SortDropdown({ value, onChange }: SortDropdownProps) {
                         animate={{ scale: 1 }}
                         transition={{ type: 'spring', stiffness: 500 }}
                       >
-                        <Check className="w-4 h-4 text-neon-cyan-400" />
+                        <Check className="w-4 h-4 text-neon-magenta-400" />
                       </motion.div>
                     )}
                   </button>

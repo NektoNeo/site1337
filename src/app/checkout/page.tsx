@@ -117,7 +117,7 @@ function CheckoutBackground() {
 
       {/* Animated scan line */}
       <motion.div
-        className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent"
+        className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-magenta-500/20 to-transparent"
         animate={{
           top: ['-5%', '105%'],
         }}
@@ -291,7 +291,7 @@ export default function CheckoutPage() {
             animate={{ rotate: 360 }}
             transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
           >
-            <div className="relative w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-500/20 to-cyan-500/10 border border-purple-500/30 flex items-center justify-center">
+            <div className="relative w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-500/20 to-magenta-500/10 border border-purple-500/30 flex items-center justify-center">
               <Package className="w-10 h-10 text-purple-400" />
               <motion.div
                 className="absolute inset-0 rounded-2xl"
@@ -309,7 +309,7 @@ export default function CheckoutPage() {
               {[0, 1, 2, 3].map((i) => (
                 <motion.div
                   key={i}
-                  className="w-2 h-2 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full"
+                  className="w-2 h-2 bg-gradient-to-r from-purple-500 to-magenta-500 rounded-full"
                   animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.2, 0.8] }}
                   transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.15 }}
                 />
@@ -361,7 +361,7 @@ export default function CheckoutPage() {
             <motion.div
               className="
                 relative p-4 rounded-2xl
-                bg-gradient-to-br from-purple-500/20 via-purple-500/10 to-cyan-500/10
+                bg-gradient-to-br from-purple-500/20 via-purple-500/10 to-magenta-500/10
                 border border-purple-500/30
                 backdrop-blur-sm
               "
@@ -427,7 +427,7 @@ export default function CheckoutPage() {
                   animate={{ rotate: 360 }}
                   transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
                 >
-                  <Cpu className="w-4 h-4 text-cyan-500" />
+                  <Cpu className="w-4 h-4 text-magenta-500" />
                 </motion.div>
                 <span className="text-xs text-white/40 font-mono tracking-wider">VA-PC.CHECKOUT.v2</span>
               </div>
@@ -439,10 +439,10 @@ export default function CheckoutPage() {
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ delay: 0.2, duration: 0.6, ease: 'easeOut' }}
-            className="mt-8 h-px bg-gradient-to-r from-purple-500/50 via-cyan-500/30 to-transparent origin-left relative"
+            className="mt-8 h-px bg-gradient-to-r from-purple-500/50 via-magenta-500/30 to-transparent origin-left relative"
           >
             <motion.div
-              className="absolute left-0 top-0 w-20 h-px bg-gradient-to-r from-purple-500 to-cyan-500"
+              className="absolute left-0 top-0 w-20 h-px bg-gradient-to-r from-purple-500 to-magenta-500"
               animate={{ x: ['0%', '500%', '0%'] }}
               transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
             />
@@ -469,7 +469,7 @@ export default function CheckoutPage() {
               ">
                 {/* Corner decorations */}
                 <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-purple-500/50" />
-                <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-cyan-500/50" />
+                <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-magenta-500/50" />
 
                 <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
                   <User className="w-5 h-5 text-purple-400" />
@@ -658,16 +658,16 @@ export default function CheckoutPage() {
                 transition={{ delay: 0.4 }}
                 className="
                   relative rounded-xl p-5
-                  bg-gradient-to-br from-cyan-500/10 to-purple-500/10
-                  border border-cyan-500/20
+                  bg-gradient-to-br from-magenta-500/10 to-purple-500/10
+                  border border-magenta-500/20
                 "
               >
                 <div className="flex items-start gap-4">
                   <div className="
                     flex-shrink-0 p-2 rounded-lg
-                    bg-cyan-500/20 border border-cyan-500/30
+                    bg-magenta-500/20 border border-magenta-500/30
                   ">
-                    <ShieldCheck className="w-5 h-5 text-cyan-400" />
+                    <ShieldCheck className="w-5 h-5 text-magenta-400" />
                   </div>
                   <div>
                     <p className="text-white/80 text-sm leading-relaxed">
@@ -692,7 +692,7 @@ export default function CheckoutPage() {
                   group
                   ${isSubmitting 
                     ? 'bg-purple-600/50 cursor-not-allowed' 
-                    : 'bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-cyan-500'
+                    : 'bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-magenta-500'
                   }
                 `}
                 whileHover={!isSubmitting ? { scale: 1.01 } : undefined}
@@ -833,7 +833,7 @@ export default function CheckoutPage() {
                 <div className="flex justify-between items-end">
                   <span className="text-white/60">Итого к оплате</span>
                   <span className="text-2xl font-bold">
-                    <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-purple-400 to-magenta-400 bg-clip-text text-transparent">
                       {formatPrice(totalPrice)}
                     </span>
                   </span>
@@ -855,7 +855,7 @@ export default function CheckoutPage() {
         />
         {/* Corner accents */}
         <div className="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-purple-500/20 rounded-bl-lg" />
-        <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-cyan-500/20 rounded-br-lg" />
+        <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-magenta-500/20 rounded-br-lg" />
       </div>
     </div>
   );
@@ -876,7 +876,7 @@ function OrderSuccess({ orderNumber }: { orderNumber: string }) {
           transition={{ duration: 4, repeat: Infinity }}
         />
         <motion.div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-600/20 rounded-full blur-[128px]"
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-magenta-600/20 rounded-full blur-[128px]"
           animate={{ scale: [1.2, 1, 1.2], opacity: [0.3, 0.15, 0.3] }}
           transition={{ duration: 5, repeat: Infinity }}
         />
@@ -949,7 +949,7 @@ function OrderSuccess({ orderNumber }: { orderNumber: string }) {
             transition={{ duration: 2, repeat: Infinity }}
           />
           <motion.div
-            className="absolute inset-0 rounded-full border-2 border-cyan-500/30"
+            className="absolute inset-0 rounded-full border-2 border-magenta-500/30"
             animate={{ scale: [1, 1.5, 1], opacity: [0.4, 0, 0.4] }}
             transition={{ duration: 2, repeat: Infinity, delay: 0.3 }}
           />
@@ -963,7 +963,7 @@ function OrderSuccess({ orderNumber }: { orderNumber: string }) {
           <motion.div
             className="
               absolute inset-0 rounded-full
-              bg-gradient-to-br from-green-500/20 via-cyan-500/10 to-purple-500/10
+              bg-gradient-to-br from-green-500/20 via-magenta-500/10 to-purple-500/10
               border-2 border-green-500/40
               flex items-center justify-center
               backdrop-blur-sm
@@ -992,7 +992,7 @@ function OrderSuccess({ orderNumber }: { orderNumber: string }) {
             animate={{ rotate: 360, scale: [1, 1.3, 1] }}
             transition={{ duration: 3, repeat: Infinity }}
           >
-            <Sparkles className="w-8 h-8 text-cyan-400" />
+            <Sparkles className="w-8 h-8 text-magenta-400" />
           </motion.div>
           <motion.div
             className="absolute -bottom-3 -left-3"
@@ -1017,7 +1017,7 @@ function OrderSuccess({ orderNumber }: { orderNumber: string }) {
           transition={{ delay: 0.6 }}
         >
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-green-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-green-400 via-magenta-400 to-purple-400 bg-clip-text text-transparent">
               Заявка отправлена!
             </span>
           </h1>
@@ -1025,7 +1025,7 @@ function OrderSuccess({ orderNumber }: { orderNumber: string }) {
           <motion.div
             className="
               inline-block px-8 py-4 mb-6 rounded-2xl
-              bg-gradient-to-r from-green-500/10 via-purple-500/10 to-cyan-500/10
+              bg-gradient-to-r from-green-500/10 via-purple-500/10 to-magenta-500/10
               border border-green-500/30
               backdrop-blur-sm
             "
@@ -1034,7 +1034,7 @@ function OrderSuccess({ orderNumber }: { orderNumber: string }) {
             transition={{ delay: 0.8 }}
           >
             <span className="text-white/60 text-sm block mb-1">Номер заказа</span>
-            <p className="text-2xl font-mono font-bold bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
+            <p className="text-2xl font-mono font-bold bg-gradient-to-r from-green-400 to-magenta-400 bg-clip-text text-transparent">
               {orderNumber}
             </p>
           </motion.div>
@@ -1058,7 +1058,7 @@ function OrderSuccess({ orderNumber }: { orderNumber: string }) {
               <motion.button
                 className="
                   relative inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl
-                  bg-gradient-to-r from-purple-600 to-cyan-600
+                  bg-gradient-to-r from-purple-600 to-magenta-600
                   font-semibold text-white
                   overflow-hidden
                   group

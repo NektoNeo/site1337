@@ -68,7 +68,7 @@ export const HeroPCImage = memo(function HeroPCImage() {
       <motion.div
         className="absolute inset-0 rounded-3xl will-change-transform"
         style={{
-          background: 'conic-gradient(from 0deg, #8B5CF6, #06B6D4, #EC4899, #8B5CF6)',
+          background: 'conic-gradient(from 0deg, #8B5CF6, #FF1E8E, #EC4899, #8B5CF6)',
           filter: 'blur(30px)',
           opacity: 0.3,
         }}
@@ -107,7 +107,7 @@ export const HeroPCImage = memo(function HeroPCImage() {
               transparent 0%,
               rgba(139,92,246,0.1) 25%,
               transparent 50%,
-              rgba(6,182,212,0.1) 75%,
+              rgba(255,30,142,0.1) 75%,
               transparent 100%
             )`,
             backgroundSize: '400% 400%',
@@ -137,7 +137,7 @@ export const HeroPCImage = memo(function HeroPCImage() {
         borderColor="border-purple-500/50"
         shadowColor="shadow-purple-500/20"
       >
-        <span className="text-sm font-bold bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
+        <span className="text-sm font-bold bg-gradient-to-r from-green-400 to-pink-400 bg-clip-text text-transparent">
           RTX 4090
         </span>
       </FloatingBadge>
@@ -145,10 +145,10 @@ export const HeroPCImage = memo(function HeroPCImage() {
       <FloatingBadge
         position="top-1/3 -left-8"
         delay={0.6}
-        borderColor="border-cyan-500/50"
-        shadowColor="shadow-cyan-500/20"
+        borderColor="border-pink-500/50"
+        shadowColor="shadow-pink-500/20"
       >
-        <span className="text-sm font-bold text-cyan-400">Intel i9-14900K</span>
+        <span className="text-sm font-bold text-pink-400">Intel i9-14900K</span>
       </FloatingBadge>
 
       <FloatingBadge
@@ -164,7 +164,7 @@ export const HeroPCImage = memo(function HeroPCImage() {
       <motion.div
         className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-3/4 h-16 rounded-full -z-10"
         style={{
-          background: 'linear-gradient(90deg, rgba(139,92,246,0.5), rgba(6,182,212,0.5))',
+          background: 'linear-gradient(90deg, rgba(139,92,246,0.5), rgba(255,30,142,0.5))',
           filter: 'blur(30px)',
         }}
         animate={{

@@ -32,7 +32,7 @@ export const AnimatedHeadline = memo(function AnimatedHeadline() {
         >
           {/* Animated gradient text */}
           <motion.span
-            className="bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent bg-[length:200%_auto] will-change-transform"
+            className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent bg-[length:200%_auto] will-change-transform"
             animate={{
               backgroundPosition: ['0% center', '200% center'],
             }}
@@ -42,17 +42,17 @@ export const AnimatedHeadline = memo(function AnimatedHeadline() {
               ease: 'linear',
             }}
           >
-            идеальный PC
+            идеальный ПК
           </motion.span>
 
           {/* Underline glow effect */}
           <motion.div
-            className="absolute -bottom-2 left-0 h-1 rounded-full bg-gradient-to-r from-purple-500 via-cyan-500 to-purple-500"
+            className="absolute -bottom-2 left-0 h-1 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500"
             initial={{ width: 0 }}
             animate={{ width: '100%' }}
             transition={{ duration: 1, delay: 1 }}
             style={{
-              boxShadow: '0 0 20px rgba(139,92,246,0.5), 0 0 40px rgba(6,182,212,0.3)',
+              boxShadow: '0 0 20px rgba(139,92,246,0.5), 0 0 40px rgba(255,30,142,0.3)',
             }}
           />
         </motion.span>

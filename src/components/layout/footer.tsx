@@ -116,7 +116,7 @@ function FooterSection({
     >
       <h3 className="font-display text-lg font-bold text-white uppercase tracking-wider mb-4 relative">
         {title}
-        <span className="absolute -bottom-1 left-0 w-8 h-0.5 bg-gradient-to-r from-neon-purple to-neon-cyan" />
+        <span className="absolute -bottom-1 left-0 w-8 h-0.5 bg-gradient-to-r from-neon-purple to-neon-magenta" />
       </h3>
       {children}
     </motion.div>
@@ -202,7 +202,7 @@ export function Footer() {
       
       {/* Decorative glowing orbs */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-neon-purple/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-neon-cyan/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-neon-magenta/5 rounded-full blur-3xl" />
       
       {/* Top gradient border */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-neon-purple/30 to-transparent" />
@@ -269,7 +269,7 @@ export function Footer() {
             
             {/* Work hours */}
             <div className="mt-6 p-4 rounded-lg bg-neon-purple/5 border border-neon-purple/10">
-              <p className="text-xs font-mono text-neon-cyan/60 uppercase tracking-wider mb-1">
+              <p className="text-xs font-mono text-neon-magenta/60 uppercase tracking-wider mb-1">
                 Режим работы
               </p>
               <p className="text-sm text-white/80">

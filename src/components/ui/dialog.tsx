@@ -110,7 +110,7 @@ const dialogContentVariants = cva(
           "border-[#8B5CF6]/50",
           "shadow-[0_0_30px_rgba(139,92,246,0.3),inset_0_0_20px_rgba(139,92,246,0.05)]",
         ].join(" "),
-        cyan: [
+        magenta: [
           "border-[#06B6D4]/30",
           "shadow-[0_0_30px_rgba(6,182,212,0.2)]",
         ].join(" "),

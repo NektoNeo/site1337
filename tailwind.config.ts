@@ -23,18 +23,18 @@ const config: Config = {
   				'900': '#581c87',
   				'950': '#3b0764'
   			},
-  			'va-cyan': {
-  				'50': '#ecfeff',
-  				'100': '#cffafe',
-  				'200': '#a5f3fc',
-  				'300': '#67e8f9',
-  				'400': '#22D3EE',
-  				'500': '#06B6D4',
-  				'600': '#0891b2',
-  				'700': '#0e7490',
-  				'800': '#155e75',
-  				'900': '#164e63',
-  				'950': '#083344'
+  			'va-magenta': {
+  				'50': '#fff0f7',
+  				'100': '#ffe3f0',
+  				'200': '#ffc6e1',
+  				'300': '#ff9ac9',
+  				'400': '#ff5fa8',
+  				'500': '#FF1E8E',
+  				'600': '#D91A7A',
+  				'700': '#b01466',
+  				'800': '#8f1255',
+  				'900': '#721047',
+  				'950': '#4a0a2e'
   			},
   			'va-dark': {
   				'50': '#f8fafc',
@@ -53,9 +53,9 @@ const config: Config = {
   				purple: '#8B5CF6',
   				'purple-dark': '#7C3AED',
   				'purple-light': '#A78BFA',
-  				cyan: '#06B6D4',
-  				'cyan-dark': '#0891B2',
-  				'cyan-light': '#22D3EE'
+  				magenta: '#FF1E8E',
+  				'magenta-dark': '#D91A7A',
+  				'magenta-light': '#FF4DA6'
   			},
   			void: {
   				black: '#0A0A0F',
@@ -130,10 +130,10 @@ const config: Config = {
   			'neon-purple': '0 0 20px rgba(139, 92, 246, 0.5), 0 0 40px rgba(139, 92, 246, 0.3)',
   			'neon-purple-sm': '0 0 10px rgba(139, 92, 246, 0.4), 0 0 20px rgba(139, 92, 246, 0.2)',
   			'neon-purple-lg': '0 0 30px rgba(139, 92, 246, 0.6), 0 0 60px rgba(139, 92, 246, 0.4)',
-  			'neon-cyan': '0 0 20px rgba(6, 182, 212, 0.5), 0 0 40px rgba(6, 182, 212, 0.3)',
-  			'neon-cyan-sm': '0 0 10px rgba(6, 182, 212, 0.4), 0 0 20px rgba(6, 182, 212, 0.2)',
-  			'neon-cyan-lg': '0 0 30px rgba(6, 182, 212, 0.6), 0 0 60px rgba(6, 182, 212, 0.4)',
-  			'neon-multi': '0 0 20px rgba(139, 92, 246, 0.4), 0 0 40px rgba(6, 182, 212, 0.3)',
+  			'neon-magenta': '0 0 20px rgba(255, 30, 142, 0.5), 0 0 40px rgba(255, 30, 142, 0.3)',
+  			'neon-magenta-sm': '0 0 10px rgba(255, 30, 142, 0.4), 0 0 20px rgba(255, 30, 142, 0.2)',
+  			'neon-magenta-lg': '0 0 30px rgba(255, 30, 142, 0.6), 0 0 60px rgba(255, 30, 142, 0.4)',
+  			'neon-multi': '0 0 20px rgba(139, 92, 246, 0.4), 0 0 40px rgba(255, 30, 142, 0.3)',
   			glass: '0 8px 32px rgba(0, 0, 0, 0.4)',
   			'glass-lg': '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
   			'glow-sm': '0 0 10px rgba(139, 92, 246, 0.3)',
@@ -144,10 +144,10 @@ const config: Config = {
   			'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
   			'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
   			'circuit-pattern': "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238B5CF6' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
-  			'va-gradient': 'linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%)',
-  			'va-gradient-reverse': 'linear-gradient(135deg, #06B6D4 0%, #8B5CF6 100%)',
-  			'va-gradient-vertical': 'linear-gradient(180deg, #8B5CF6 0%, #06B6D4 100%)',
-  			'mesh-gradient': 'radial-gradient(at 40% 20%, rgba(139, 92, 246, 0.3) 0px, transparent 50%), radial-gradient(at 80% 0%, rgba(6, 182, 212, 0.2) 0px, transparent 50%), radial-gradient(at 0% 50%, rgba(139, 92, 246, 0.2) 0px, transparent 50%), radial-gradient(at 80% 50%, rgba(6, 182, 212, 0.15) 0px, transparent 50%)',
+  			'va-gradient': 'linear-gradient(135deg, #8B5CF6 0%, #FF1E8E 100%)',
+  			'va-gradient-reverse': 'linear-gradient(135deg, #FF1E8E 0%, #8B5CF6 100%)',
+  			'va-gradient-vertical': 'linear-gradient(180deg, #8B5CF6 0%, #FF1E8E 100%)',
+  			'mesh-gradient': 'radial-gradient(at 40% 20%, rgba(139, 92, 246, 0.3) 0px, transparent 50%), radial-gradient(at 80% 0%, rgba(255, 30, 142, 0.2) 0px, transparent 50%), radial-gradient(at 0% 50%, rgba(139, 92, 246, 0.2) 0px, transparent 50%), radial-gradient(at 80% 50%, rgba(255, 30, 142, 0.15) 0px, transparent 50%)',
   			'grid-pattern': 'linear-gradient(to right, rgba(139, 92, 246, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(139, 92, 246, 0.1) 1px, transparent 1px)'
   		},
   		animation: {

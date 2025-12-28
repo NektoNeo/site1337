@@ -90,7 +90,7 @@ export function QuantitySelector({
           flex items-center justify-center
           transition-all duration-300
           ${canIncrease
-            ? 'bg-white/5 hover:bg-cyan-500/20 text-white hover:text-cyan-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.3)]'
+            ? 'bg-white/5 hover:bg-magenta-500/20 text-white hover:text-magenta-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.3)]'
             : 'bg-white/5 text-white/20 cursor-not-allowed'
           }
           border border-white/10

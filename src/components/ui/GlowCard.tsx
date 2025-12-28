@@ -87,14 +87,14 @@ export function GlowCard({
       borderGradient: 'rgba(139, 92, 246, 0.5), rgba(6, 182, 212, 0.5), rgba(139, 92, 246, 0.5)',
     },
     premium: {
-      base: 'bg-gradient-to-br from-purple-900/20 via-black/40 to-cyan-900/20 border-purple-500/20',
+      base: 'bg-gradient-to-br from-purple-900/20 via-black/40 to-magenta-900/20 border-purple-500/20',
       glow: 'rgba(139, 92, 246, 0.6)',
       glowDim: 'rgba(139, 92, 246, 0.15)',
       glowBright: 'rgba(139, 92, 246, 0.8)',
       borderGradient: 'rgba(139, 92, 246, 1), rgba(236, 72, 153, 1), rgba(6, 182, 212, 1)',
     },
     cyber: {
-      base: 'bg-black/60 border-cyan-500/30',
+      base: 'bg-black/60 border-magenta-500/30',
       glow: 'rgba(6, 182, 212, 0.5)',
       glowDim: 'rgba(6, 182, 212, 0.15)',
       glowBright: 'rgba(6, 182, 212, 0.8)',
@@ -242,12 +242,12 @@ export function GlowCard({
         <div className="absolute top-0 left-0 w-[2px] h-full bg-gradient-to-b from-purple-500 to-transparent" />
       </div>
       <div className="absolute top-0 right-0 w-8 h-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-        <div className="absolute top-0 right-0 w-full h-[2px] bg-gradient-to-l from-cyan-500 to-transparent" />
-        <div className="absolute top-0 right-0 w-[2px] h-full bg-gradient-to-b from-cyan-500 to-transparent" />
+        <div className="absolute top-0 right-0 w-full h-[2px] bg-gradient-to-l from-magenta-500 to-transparent" />
+        <div className="absolute top-0 right-0 w-[2px] h-full bg-gradient-to-b from-magenta-500 to-transparent" />
       </div>
       <div className="absolute bottom-0 left-0 w-8 h-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-        <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-cyan-500 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-[2px] h-full bg-gradient-to-t from-cyan-500 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-magenta-500 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-[2px] h-full bg-gradient-to-t from-magenta-500 to-transparent" />
       </div>
       <div className="absolute bottom-0 right-0 w-8 h-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
         <div className="absolute bottom-0 right-0 w-full h-[2px] bg-gradient-to-l from-purple-500 to-transparent" />

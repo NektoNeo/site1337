@@ -54,7 +54,7 @@ function BackgroundEffects() {
         transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
-        className="absolute bottom-1/4 -right-32 w-96 h-96 bg-cyan-600/15 rounded-full blur-[120px]"
+        className="absolute bottom-1/4 -right-32 w-96 h-96 bg-magenta-600/15 rounded-full blur-[120px]"
         animate={{
           x: [0, -50, 0],
           y: [0, -30, 0],
@@ -95,7 +95,7 @@ function PageTitle({ totalCount }: { totalCount: number }) {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.2 }}
       >
-        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+        <span className="w-1.5 h-1.5 rounded-full bg-magenta-400 animate-pulse" />
         <span className="text-xs font-mono text-purple-300 uppercase tracking-wider">
           {totalCount > 0 ? `${totalCount} конфигураций` : 'VA-PC Collection'}
         </span>
@@ -103,7 +103,7 @@ function PageTitle({ totalCount }: { totalCount: number }) {
 
       <h1 className="font-display font-black text-4xl md:text-5xl lg:text-6xl">
         <span className="text-white">Каталог </span>
-        <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+        <span className="bg-gradient-to-r from-purple-400 to-magenta-400 bg-clip-text text-transparent">
           игровых ПК
         </span>
       </h1>

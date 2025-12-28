@@ -296,7 +296,7 @@ function TextRevealComponent({
         ref={ref as React.RefObject<HTMLSpanElement>}
         className={cn(
           'inline-block',
-          gradient && 'bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent',
+          gradient && 'bg-gradient-to-r from-purple-400 via-magenta-400 to-purple-400 bg-clip-text text-transparent',
           className
         )}
       >
@@ -310,7 +310,7 @@ function TextRevealComponent({
       ref={ref}
       className={cn(
         'inline-block',
-        gradient && 'bg-gradient-to-r from-purple-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent bg-[length:200%_auto]',
+        gradient && 'bg-gradient-to-r from-purple-400 via-magenta-400 to-purple-400 bg-clip-text text-transparent bg-[length:200%_auto]',
         glowOnReveal && isInView && 'animate-text-glow',
         className
       )}

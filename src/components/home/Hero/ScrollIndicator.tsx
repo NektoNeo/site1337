@@ -30,7 +30,7 @@ export const ScrollIndicator = memo(function ScrollIndicator() {
         </span>
         <div className="w-6 h-10 rounded-full border-2 border-white/20 flex justify-center pt-2 group-hover:border-purple-500/50 transition-colors">
           <motion.div
-            className="w-1.5 h-3 rounded-full bg-gradient-to-b from-purple-400 to-cyan-400"
+            className="w-1.5 h-3 rounded-full bg-gradient-to-b from-purple-400 to-pink-400"
             animate={{ y: [0, 8, 0], opacity: [1, 0.3, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           />

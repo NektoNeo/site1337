@@ -6,7 +6,7 @@ import { ReactNode } from 'react';
 interface GlassCardProps extends Omit<HTMLMotionProps<'div'>, 'children'> {
   children: ReactNode;
   className?: string;
-  hoverGlow?: 'purple' | 'cyan' | 'mixed';
+  hoverGlow?: 'purple' | 'magenta' | 'mixed';
   intensity?: 'light' | 'medium' | 'strong';
 }
 
@@ -25,13 +25,13 @@ export function GlassCard({
   
   const glowColors = {
     purple: 'hover:shadow-[0_0_30px_rgba(139,92,246,0.3),0_0_60px_rgba(139,92,246,0.15)]',
-    cyan: 'hover:shadow-[0_0_30px_rgba(6,182,212,0.3),0_0_60px_rgba(6,182,212,0.15)]',
+    magenta: 'hover:shadow-[0_0_30px_rgba(6,182,212,0.3),0_0_60px_rgba(6,182,212,0.15)]',
     mixed: 'hover:shadow-[0_0_30px_rgba(139,92,246,0.25),0_0_60px_rgba(6,182,212,0.15)]',
   };
   
   const borderGlow = {
     purple: 'hover:border-purple-500/30',
-    cyan: 'hover:border-cyan-400/30',
+    magenta: 'hover:border-magenta-400/30',
     mixed: 'hover:border-purple-400/20',
   };
 
@@ -56,7 +56,7 @@ export function GlassCard({
           style={{
             background: hoverGlow === 'purple' 
               ? 'radial-gradient(circle at 50% 0%, rgba(139,92,246,0.1) 0%, transparent 50%)'
-              : hoverGlow === 'cyan'
+              : hoverGlow === 'magenta'
               ? 'radial-gradient(circle at 50% 0%, rgba(6,182,212,0.1) 0%, transparent 50%)'
               : 'radial-gradient(circle at 50% 0%, rgba(139,92,246,0.08) 0%, transparent 40%), radial-gradient(circle at 50% 100%, rgba(6,182,212,0.08) 0%, transparent 40%)',
           }}

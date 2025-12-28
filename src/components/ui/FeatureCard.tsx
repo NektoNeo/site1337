@@ -32,7 +32,7 @@ export function FeatureCard({ icon, title, description, index = 0 }: FeatureCard
         {/* Icon container with pulse effect */}
         <div className="relative mb-4">
           <motion.div
-            className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-600/20 to-cyan-600/20 border border-purple-500/20
+            className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-600/20 to-magenta-600/20 border border-purple-500/20
               flex items-center justify-center text-purple-400 group-hover:text-purple-300 transition-colors duration-300"
             whileHover={{ scale: 1.1, rotate: 5 }}
             transition={{ type: 'spring', stiffness: 300, damping: 15 }}
