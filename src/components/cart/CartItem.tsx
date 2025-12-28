@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { Trash2, Cpu } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';

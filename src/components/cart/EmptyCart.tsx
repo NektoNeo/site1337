@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { ShoppingCart, ArrowRight, Cpu, Gamepad2, Monitor } from 'lucide-react';
 import Link from 'next/link';
 

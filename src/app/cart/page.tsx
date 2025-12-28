@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useMemo } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { ShoppingCart, ArrowLeft, Loader2, Zap, Cpu, CircuitBoard } from 'lucide-react';
 import Link from 'next/link';
 import { useCartStore } from '@/store/cart.store';

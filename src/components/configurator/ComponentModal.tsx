@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { X, Check, AlertTriangle, Cpu, CircuitBoard, Monitor, MemoryStick, HardDrive, Zap, Box, Fan } from 'lucide-react';
 import { ComponentCategory, PCComponent, CATEGORY_LABELS, SelectedComponents } from './types';
 import { COMPONENTS_DATA, formatPrice } from './data';

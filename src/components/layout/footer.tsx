@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useInView } from "motion/react";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Phone, Mail, MapPin, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";

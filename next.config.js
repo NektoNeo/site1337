@@ -55,7 +55,6 @@ const nextConfig = {
     optimizePackageImports: [
       'lucide-react',
       'framer-motion',
-      'motion/react',
       '@radix-ui/react-slot',
       'class-variance-authority',
       'clsx',

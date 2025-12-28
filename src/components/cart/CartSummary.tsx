@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { ShoppingBag, ArrowRight, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { useCartStore, formatPrice } from '@/store/cart.store';
