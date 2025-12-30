@@ -324,18 +324,6 @@ export function CTASection() {
       {/* Deep lab background */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#030306] via-[#050510] to-[#030306]" />
 
-      {/* Grid pattern - lab floor feel */}
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(0, 220, 255, 0.5) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 220, 255, 0.5) 1px, transparent 1px)
-          `,
-          backgroundSize: '50px 50px',
-        }}
-      />
-
       {/* GATES */}
       <GatePanel side="left" isOpen={isOpen} />
       <GatePanel side="right" isOpen={isOpen} />
@@ -542,14 +530,14 @@ export function CTASection() {
               )}
             >
               <Image
-                src="/1d0306c1-69a4-4cc0-a340-d9598dfc3509.png"
-                alt="Игровой компьютер VA-PC"
+                src="/Blue.png"
+                alt="Игровой компьютер VA‑PC"
                 width={520}
                 height={650}
                 className="object-contain"
                 style={{
                   filter: isFullyOpen
-                    ? 'drop-shadow(0 0 60px rgba(0, 220, 255, 0.5)) drop-shadow(0 0 100px rgba(139, 92, 246, 0.3)) drop-shadow(0 30px 50px rgba(0, 0, 0, 0.8))'
+                    ? 'drop-shadow(0 0 60px rgba(0, 220, 255, 0.35)) drop-shadow(0 0 100px rgba(139, 92, 246, 0.25)) drop-shadow(0 30px 50px rgba(0, 0, 0, 0.8))'
                     : 'none',
                   transition: 'filter 1s ease-out',
                 }}
@@ -707,7 +695,7 @@ export function CTASection() {
                 )}
               >
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-slow" />
+                  <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse-slow" />
                   <span>Онлайн 24/7</span>
                 </div>
                 <div className="flex items-center gap-2">

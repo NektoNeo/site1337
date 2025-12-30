@@ -1,15 +1,46 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { SelectedComponents } from './types';
+/**
+ * PCVisualization - Animated PC assembly visualization
+ *
+ * Shows a visual representation of the PC being built with:
+ * - Component slots that light up when selected
+ * - Water cooling loop visualization
+ * - Progress indicator
+ * - Product line branding
+ */
+
+import { motion, AnimatePresence } from 'framer-motion';
+import { Droplets, Fan } from 'lucide-react';
+import { SelectedComponents, ProductLine, WaterCoolingConfig, ComponentCategory } from './types';
+import { cn } from '@/lib/utils';
 
 interface PCVisualizationProps {
   components: SelectedComponents;
+  /** Selected product line (determines case visual) */
+  productLine?: ProductLine | null;
+  /** Water cooling configuration */
+  waterCooling?: WaterCoolingConfig;
+  /** Currently active/highlighted component */
+  activeComponent?: ComponentCategory | null;
+  /** Compact mode for smaller screens */
+  compact?: boolean;
 }
 
-export function PCVisualization({ components }: PCVisualizationProps) {
+export function PCVisualization({
+  components,
+  productLine,
+  waterCooling,
+  activeComponent,
+  compact = false,
+}: PCVisualizationProps) {
   const selectedCount = Object.values(components).filter(Boolean).length;
   const completionPercentage = (selectedCount / 8) * 100;
+  const hasWaterCooling = waterCooling?.enabled && (
+    waterCooling.components.waterblock ||
+    waterCooling.components.pump ||
+    waterCooling.components.radiators.length > 0
+  );
 
   return (
     <div className="relative w-full h-full min-h-[500px] flex items-center justify-center">
@@ -276,6 +307,142 @@ export function PCVisualization({ components }: PCVisualizationProps) {
             <span className="absolute bottom-1 left-2 text-[10px] text-white/30 font-mono">PSU</span>
           </motion.div>
 
+          {/* Water Cooling Visualization */}
+          <AnimatePresence>
+            {hasWaterCooling && (
+              <motion.div
+                className="absolute inset-0 pointer-events-none"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                {/* Water loop tubes */}
+                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 280 380">
+                  {/* Tube from CPU to top radiator */}
+                  {waterCooling?.components.waterblock && waterCooling?.components.radiators.length > 0 && (
+                    <motion.path
+                      d="M 140 85 Q 140 40 200 40 Q 250 40 250 60"
+                      fill="none"
+                      stroke="url(#waterGradient)"
+                      strokeWidth="4"
+                      strokeLinecap="round"
+                      initial={{ pathLength: 0 }}
+                      animate={{ pathLength: 1 }}
+                      transition={{ duration: 1.5, ease: 'easeInOut' }}
+                    />
+                  )}
+                  {/* Tube from radiator to pump */}
+                  {waterCooling?.components.pump && waterCooling?.components.radiators.length > 0 && (
+                    <motion.path
+                      d="M 250 75 Q 260 200 220 275"
+                      fill="none"
+                      stroke="url(#waterGradient)"
+                      strokeWidth="4"
+                      strokeLinecap="round"
+                      initial={{ pathLength: 0 }}
+                      animate={{ pathLength: 1 }}
+                      transition={{ duration: 1.5, delay: 0.5, ease: 'easeInOut' }}
+                    />
+                  )}
+                  {/* Tube from pump back to CPU */}
+                  {waterCooling?.components.pump && waterCooling?.components.waterblock && (
+                    <motion.path
+                      d="M 200 280 Q 80 280 80 180 Q 80 100 140 85"
+                      fill="none"
+                      stroke="url(#waterGradient)"
+                      strokeWidth="4"
+                      strokeLinecap="round"
+                      initial={{ pathLength: 0 }}
+                      animate={{ pathLength: 1 }}
+                      transition={{ duration: 1.5, delay: 1, ease: 'easeInOut' }}
+                    />
+                  )}
+                  <defs>
+                    <linearGradient id="waterGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="rgba(34, 211, 238, 0.6)" />
+                      <stop offset="50%" stopColor="rgba(168, 85, 247, 0.6)" />
+                      <stop offset="100%" stopColor="rgba(34, 211, 238, 0.6)" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+
+                {/* Water block indicator on CPU */}
+                {waterCooling?.components.waterblock && (
+                  <motion.div
+                    className="absolute top-[72px] left-1/2 -translate-x-1/2 w-20 h-20 flex items-center justify-center"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.3, type: 'spring' }}
+                  >
+                    <div className="w-8 h-8 rounded-full bg-cyan-500/20 border border-cyan-500/50 flex items-center justify-center">
+                      <Droplets className="w-4 h-4 text-cyan-400" />
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* Pump/reservoir indicator */}
+                {waterCooling?.components.pump && (
+                  <motion.div
+                    className="absolute top-[265px] right-[50px] w-12 h-12 flex items-center justify-center"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.6, type: 'spring' }}
+                  >
+                    <div className="w-10 h-10 rounded-full bg-cyan-500/20 border border-cyan-500/50 flex items-center justify-center">
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+                      >
+                        <Fan className="w-5 h-5 text-cyan-400" />
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* Radiator indicators */}
+                {waterCooling?.components.radiators.map((rad, index) => (
+                  <motion.div
+                    key={rad.id}
+                    className="absolute bg-cyan-500/10 border border-cyan-500/30 rounded"
+                    style={{
+                      top: `${16 + index * 20}px`,
+                      right: '16px',
+                      width: '30px',
+                      height: '50px',
+                    }}
+                    initial={{ x: 30, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.2 * index, type: 'spring' }}
+                  >
+                    <span className="absolute inset-0 flex items-center justify-center text-[8px] text-cyan-400 font-mono">
+                      {rad.specs.size?.replace('mm', '')}
+                    </span>
+                  </motion.div>
+                ))}
+
+                {/* Flowing coolant animation */}
+                <motion.div
+                  className="absolute w-3 h-3 rounded-full bg-cyan-400/80 shadow-lg shadow-cyan-400/50"
+                  style={{
+                    filter: 'blur(1px)',
+                  }}
+                  animate={{
+                    offsetDistance: ['0%', '100%'],
+                  }}
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: 'linear',
+                  }}
+                  // @ts-ignore - offsetPath is valid CSS
+                  css={{
+                    offsetPath: 'path("M 140 85 Q 140 40 200 40 Q 250 40 250 60 Q 260 200 220 275 Q 80 280 80 180 Q 80 100 140 85")',
+                  }}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           {/* Case indicator */}
           {components.case && (
             <motion.div
@@ -285,6 +452,31 @@ export function PCVisualization({ components }: PCVisualizationProps) {
               }}
               transition={{ duration: 4, repeat: Infinity }}
             />
+          )}
+
+          {/* Product line label */}
+          {productLine && (
+            <motion.div
+              className="absolute bottom-[85px] left-4 px-2 py-1 rounded bg-gradient-to-r from-purple-500/20 to-fuchsia-500/20 border border-purple-500/30"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              <span className="text-xs font-mono text-purple-300 tracking-wider">
+                {productLine.name}
+              </span>
+            </motion.div>
+          )}
+
+          {/* Active component highlight */}
+          {activeComponent && activeComponent !== 'case' && (
+            <motion.div
+              className="absolute inset-0 pointer-events-none"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+            >
+              <div className="absolute inset-0 bg-purple-500/5 rounded-lg" />
+            </motion.div>
           )}
         </motion.div>
 

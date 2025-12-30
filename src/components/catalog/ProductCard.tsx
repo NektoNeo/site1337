@@ -37,15 +37,12 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
       whileHover={{ y: -8 }}
       className="group relative"
     >
-      {/* RGB Glow effect */}
-      <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-neon-purple-500 via-neon-purple-500 to-neon-purple-600 opacity-0 group-hover:opacity-60 blur-xl transition-all duration-500 animate-glow-pulse" />
-      
       {/* Card container */}
       <div className="relative h-full rounded-2xl overflow-hidden bg-void-200 border border-neon-purple-500/20 group-hover:border-neon-purple-400/40 transition-all duration-300">
         {/* Badges */}
         {product.badges && product.badges.length > 0 && (
           <div className="absolute top-4 left-4 z-20 flex flex-wrap gap-2">
-            {product.badges.map((badge, i) => (
+            {product.badges.slice(0, 2).map((badge, i) => (
               <motion.span
                 key={badge}
                 initial={{ opacity: 0, scale: 0.8, x: -20 }}
@@ -81,18 +78,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
         )}
 
         {/* Image section */}
-        <div className="relative h-56 overflow-hidden bg-gradient-to-b from-void-300 to-void-200">
-          {/* Tech frame corners */}
-          <div className="absolute inset-4 pointer-events-none z-10">
-            {/* Top left corner */}
-            <div className="absolute top-0 left-0 w-6 h-6 border-l-2 border-t-2 border-neon-purple-400/60" />
-            {/* Top right corner */}
-            <div className="absolute top-0 right-0 w-6 h-6 border-r-2 border-t-2 border-neon-purple-400/60" />
-            {/* Bottom left corner */}
-            <div className="absolute bottom-0 left-0 w-6 h-6 border-l-2 border-b-2 border-neon-purple-400/60" />
-            {/* Bottom right corner */}
-            <div className="absolute bottom-0 right-0 w-6 h-6 border-r-2 border-b-2 border-neon-purple-400/60" />
-          </div>
+        <div className="relative h-56 overflow-hidden bg-black">
 
           {/* Placeholder for PC image */}
           <div className="absolute inset-0 flex items-center justify-center">
@@ -115,8 +101,8 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
             </div>
           </div>
 
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-void-200 via-transparent to-transparent" />
+          {/* Bottom fade overlay */}
+          <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/70 to-transparent" />
         </div>
 
         {/* Content section */}

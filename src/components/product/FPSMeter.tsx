@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Gauge } from 'lucide-react';
 import { cn } from '@/lib/cn';
 
@@ -41,7 +41,7 @@ function Bar({ value, max }: { value: number; max: number }) {
   return (
     <div className="h-2 rounded-full bg-white/10 overflow-hidden">
       <div
-        className="h-full rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500"
+        className="h-full rounded-full bg-gradient-to-r from-purple-600 to-purple-400"
         style={{ width: `${pct}%` }}
       />
     </div>
@@ -56,6 +56,7 @@ export default function FPSMeter({
   className?: string;
 }) {
   const preset = useMemo(() => detectGpuPreset(gpuLabel), [gpuLabel]);
+  const [resolution, setResolution] = useState<'1080p' | '1440p'>('1080p');
 
   if (!preset) {
     return (
@@ -82,7 +83,22 @@ export default function FPSMeter({
     );
   }
 
-  const max = Math.max(preset.fps1080, preset.fps1440, preset.fps4k, 240);
+  // Build per-game FPS from preset baselines
+  const games = [
+    { name: 'CS2', factor1080: 1.4, factor1440: 1.3 },
+    { name: 'Valorant', factor1080: 1.5, factor1440: 1.35 },
+    { name: 'Fortnite', factor1080: 1.1, factor1440: 1.0 },
+    { name: 'Warzone', factor1080: 0.9, factor1440: 0.8 },
+    { name: 'Cyberpunk 2077 (RT off)', factor1080: 0.7, factor1440: 0.6 },
+    { name: 'GTA V', factor1080: 1.2, factor1440: 1.1 },
+  ] as const;
+  const base1080 = preset.fps1080;
+  const base1440 = preset.fps1440;
+  const data = games.map(g => ({
+    name: g.name,
+    fps: Math.round((resolution === '1080p' ? base1080 * g.factor1080 : base1440 * g.factor1440)),
+  }));
+  const max = Math.max(...data.map(d => d.fps), 240);
 
   return (
     <div
@@ -103,33 +119,40 @@ export default function FPSMeter({
             <p className="text-sm text-white/80">{preset.label}</p>
           </div>
         </div>
-        <span className="text-xs text-white/40">Ultra · RT off</span>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setResolution('1080p')}
+            className={`px-2 py-1 rounded text-xs border ${
+              resolution === '1080p'
+                ? 'bg-purple-500/20 border-purple-400 text-white'
+                : 'bg-transparent border-white/10 text-white/70 hover:border-purple-400/40'
+            }`}
+          >
+            1080p
+          </button>
+          <button
+            onClick={() => setResolution('1440p')}
+            className={`px-2 py-1 rounded text-xs border ${
+              resolution === '1440p'
+                ? 'bg-purple-500/20 border-purple-400 text-white'
+                : 'bg-transparent border-white/10 text-white/70 hover:border-purple-400/40'
+            }`}
+          >
+            1440p
+          </button>
+        </div>
       </div>
 
       <div className="space-y-3">
-        <div className="space-y-1">
-          <div className="flex items-center justify-between text-xs">
-            <span className="text-white/60">1080p</span>
-            <span className="text-white/80 font-semibold">{preset.fps1080} FPS</span>
+        {data.map((g) => (
+          <div key={g.name} className="space-y-1">
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-white/60">{g.name}</span>
+              <span className="text-white/80 font-semibold">{g.fps} FPS</span>
+            </div>
+            <Bar value={g.fps} max={max} />
           </div>
-          <Bar value={preset.fps1080} max={max} />
-        </div>
-
-        <div className="space-y-1">
-          <div className="flex items-center justify-between text-xs">
-            <span className="text-white/60">1440p</span>
-            <span className="text-white/80 font-semibold">{preset.fps1440} FPS</span>
-          </div>
-          <Bar value={preset.fps1440} max={max} />
-        </div>
-
-        <div className="space-y-1">
-          <div className="flex items-center justify-between text-xs">
-            <span className="text-white/60">4K</span>
-            <span className="text-white/80 font-semibold">{preset.fps4k} FPS</span>
-          </div>
-          <Bar value={preset.fps4k} max={max} />
-        </div>
+        ))}
       </div>
     </div>
   );

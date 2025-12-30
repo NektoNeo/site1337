@@ -97,7 +97,7 @@ function ProductCard({ product, index }: { product: RelatedProduct; index: numbe
             {/* Quick View Button - appears on hover */}
             <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <span className="block w-full py-2.5 text-center text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-purple-500 rounded-lg hover:from-purple-500 hover:to-purple-500 transition-all">
-                Quick View
+                Подробнее
               </span>
             </div>
           </div>
@@ -107,7 +107,7 @@ function ProductCard({ product, index }: { product: RelatedProduct; index: numbe
   );
 }
 
-export function RelatedProducts({ products, title = "You May Also Like" }: RelatedProductsProps) {
+export function RelatedProducts({ products, title = "Вам может понравиться" }: RelatedProductsProps) {
   const carouselRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: 'left' | 'right') => {
@@ -194,7 +194,7 @@ export function RelatedProducts({ products, title = "You May Also Like" }: Relat
           href="/catalog"
           className="group flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
         >
-          <span className="text-sm font-medium">View All Products</span>
+          <span className="text-sm font-medium">Смотреть все сборки</span>
           <svg
             className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
             fill="none"

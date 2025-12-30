@@ -10,9 +10,11 @@ import { Logo } from "@/components/ui/Logo";
 
 // Simplified navigation configuration per plan
 const navLinks = [
-  { href: "/catalog", label: "Каталог" },
-  { href: "/#works", label: "Работы" },
-  { href: "/#payment", label: "Рассрочка" },
+  { href: "/about", label: "О нас" },
+  { href: "/services", label: "Услуги" },
+  { href: "/catalog", label: "Сборки" },
+  { href: "/configurator", label: "Конфигуратор" },
+  { href: "/reviews", label: "Отзывы" },
 ];
 
 // Environment variables for CTA links
@@ -87,7 +89,7 @@ function NavLink({ href, label, isActive }: { href: string; label: string; isAct
 
         {/* Animated underline */}
         <motion.span
-          className="absolute bottom-0 left-1/2 h-0.5 bg-gradient-to-r from-purple-500 via-fuchsia-500 to-purple-500"
+          className="absolute bottom-0 left-1/2 h-0.5 bg-gradient-to-r from-purple-500 via-purple-400 to-purple-500"
           initial={{ width: isActive ? "80%" : "0%", x: "-50%" }}
           whileHover={{ width: "80%", x: "-50%" }}
           transition={{ duration: 0.3, ease: "easeOut" }}
@@ -263,8 +265,8 @@ export function Header() {
   const [cartItemCount] = useState(0); // Hidden by default
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Scroll-based header shrink effect
-  const { scrollY } = useScroll();
+  // Scroll-based header shrink effect + page progress
+  const { scrollY, scrollYProgress } = useScroll();
   const headerHeight = useTransform(scrollY, [0, 100], [80, 64]);
   const headerBg = useTransform(
     scrollY,
@@ -272,6 +274,7 @@ export function Header() {
     ["rgba(10, 10, 15, 0.7)", "rgba(10, 10, 15, 0.95)"]
   );
   const borderOpacity = useTransform(scrollY, [0, 100], [0.3, 0.8]);
+  const progressWidth = useTransform(scrollYProgress, (v) => `${Math.min(Math.max(v, 0), 1) * 100}%`);
 
   // Track scroll position for glass effect
   useEffect(() => {
@@ -312,7 +315,7 @@ export function Header() {
           className="absolute inset-0 rounded-none pointer-events-none"
           style={{
             background: isScrolled
-              ? "linear-gradient(90deg, transparent, rgba(168,85,247,0.08) 20%, rgba(217,70,239,0.06) 80%, transparent)"
+              ? "linear-gradient(90deg, transparent, rgba(168,85,247,0.08) 20%, rgba(168,85,247,0.06) 80%, transparent)"
               : "transparent",
           }}
           animate={{
@@ -402,26 +405,11 @@ export function Header() {
           </div>
         </div>
 
-        {/* Animated bottom border */}
+        {/* Bottom-border progress (header-integrated) */}
         <motion.div
-          className="absolute bottom-0 left-0 right-0 h-[2px] overflow-hidden"
-          style={{ opacity: borderOpacity }}
-        >
-          <motion.div
-            className="h-full w-[200%]"
-            style={{
-              background: "linear-gradient(90deg, transparent, #a855f7, #d946ef, #a855f7, transparent)",
-            }}
-            animate={{
-              x: ["-50%", "0%"],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          />
-        </motion.div>
+          className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-purple-600 via-purple-400 to-purple-600 origin-left"
+          style={{ width: progressWidth, opacity: borderOpacity }}
+        />
 
         {/* Glow effect beneath header */}
         <motion.div

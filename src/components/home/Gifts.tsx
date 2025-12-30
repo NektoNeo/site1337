@@ -1,7 +1,8 @@
 'use client';
 
 import { memo, useRef, useEffect, useState } from 'react';
-import { Shield, BookOpen, Gift } from 'lucide-react';
+import Image from 'next/image';
+import { Gift as GiftIcon } from 'lucide-react';
 import { cn } from '@/lib/cn';
 
 // ============================================
@@ -16,37 +17,21 @@ import { cn } from '@/lib/cn';
 
 const gifts = [
   {
-    icon: Shield,
     title: 'Фирменная гарантия',
-    description: 'Фирменную гарантию на компьютер от VA-PC. Вы сможете обратиться к нам по гарантии в течение года.',
-    color: 'purple',
+    description: 'Документы и гарантийная поддержка — всегда на связи.',
+    img: '/IMG_4649.JPG',
   },
   {
-    icon: Gift,
-    title: 'Чек и коробки',
-    description: 'Чек и коробки от комплектующих для возможного гарантийного обслуживания.',
-    color: 'purple',
+    title: 'Чеки и коробки',
+    description: 'Полный комплект чеков и коробок от комплектующих.',
+    img: '/IMG_4605.JPG',
   },
   {
-    icon: BookOpen,
-    title: 'Личное письмо',
-    description: 'Личное письмо от всей команды VA-PC с благодарностью и инструкциями по использованию.',
-    color: 'green',
+    title: 'Гайды и пресеты',
+    description: 'Готовые пресеты, чек-листы и рекомендации по настройке.',
+    img: '/images/gifts/screen.png',
   },
 ];
-
-const colorClasses = {
-  purple: {
-    gradient: 'from-purple-600 to-purple-400',
-    border: 'border-purple-500/30',
-    glow: 'bg-purple-500/10',
-  },
-  green: {
-    gradient: 'from-green-600 to-green-400',
-    border: 'border-green-500/30',
-    glow: 'bg-green-500/10',
-  },
-};
 
 const GiftCard = memo(function GiftCard({
   gift,
@@ -57,53 +42,31 @@ const GiftCard = memo(function GiftCard({
   index: number;
   isVisible: boolean;
 }) {
-  const Icon = gift.icon;
-  const colors = colorClasses[gift.color as keyof typeof colorClasses];
-
   return (
-    <div
+    <article
       className={cn(
-        "relative group bg-black/40 backdrop-blur-sm rounded-2xl p-8 text-center",
-        colors.border,
-        "border",
-        "hover:scale-105",
+        "relative group bg-black/40 backdrop-blur-sm rounded-2xl overflow-hidden text-left",
+        "border border-white/10 hover:border-purple-500/30",
         "transition-[opacity,transform] duration-500 ease-out",
-        isVisible
-          ? "opacity-100 translate-y-0 scale-100"
-          : "opacity-0 translate-y-8 scale-95"
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       )}
       style={{ transitionDelay: `${150 + index * 100}ms` }}
     >
-      {/* Glow effect on hover */}
-      <div
-        className={cn(
-          "absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100",
-          "transition-opacity duration-300",
-          colors.glow
-        )}
-      />
-
-      <div className="relative z-10">
-        {/* Number badge */}
-        <div className="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-br from-purple-600 to-purple-500 rounded-lg flex items-center justify-center text-white font-bold text-sm">
-          {index + 1}
-        </div>
-
-        {/* Icon */}
-        <div
-          className={cn(
-            "w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6",
-            "bg-gradient-to-br",
-            colors.gradient
-          )}
-        >
-          <Icon className="w-10 h-10 text-white" />
-        </div>
-
-        <h3 className="text-xl font-bold text-white mb-3">{gift.title}</h3>
+      <div className="relative h-48">
+        <Image
+          src={gift.img}
+          alt={gift.title}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        {/* Top gradient for subtle readability */}
+        <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-black/40 to-transparent" />
+      </div>
+      <div className="p-6">
+        <h3 className="text-lg font-bold text-white mb-2">{gift.title}</h3>
         <p className="text-gray-400">{gift.description}</p>
       </div>
-    </div>
+    </article>
   );
 });
 
@@ -144,7 +107,7 @@ export function Gifts() {
           )}
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500/20 to-purple-600/20 border border-purple-500/30 rounded-full text-white text-sm mb-6">
-            <Gift className="w-4 h-4 text-purple-400" />
+            <GiftIcon className="w-4 h-4 text-purple-400" />
             БОНУСЫ ДЛЯ КЛИЕНТОВ
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -187,7 +150,7 @@ export function Gifts() {
               "transition-[box-shadow,transform] duration-300"
             )}
           >
-            <Gift className="w-5 h-5" />
+            <GiftIcon className="w-5 h-5" />
             Получить подарки
           </a>
         </div>

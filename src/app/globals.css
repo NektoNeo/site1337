@@ -42,8 +42,8 @@
   /* ===== ACCENT COLORS (Purple/Fuchsia) ===== */
   --color-accent-primary: #a855f7;      /* purple-500 */
   --color-accent-secondary: #c084fc;    /* purple-400 */
-  --color-accent-glow: #d946ef;         /* fuchsia-500 */
-  --color-accent-bright: #e879f9;       /* fuchsia-400 */
+  --color-accent-glow: #a855f7;         /* unified to purple-500 */
+  --color-accent-bright: #c084fc;       /* unified to purple-400 */
 
   /* ===== BORDER COLORS ===== */
   --color-border-subtle: rgba(168, 85, 247, 0.15);
@@ -95,7 +95,7 @@
   --secondary-foreground: 210 40% 98%;
   --muted: 240 10% 20%;
   --muted-foreground: 215 20% 55%;
-  --accent: 292 84% 61%;                /* fuchsia-500 */
+  --accent: 270 91% 65%;                /* unify accent with primary (purple-500) */
   --accent-foreground: 210 40% 98%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 210 40% 98%;
@@ -850,6 +850,51 @@
 
 .animate-fade-in {
   animation: fade-in 200ms ease-out forwards;
+}
+
+/* Float slow animation for configurator CTA */
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(3deg);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 4s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* RGB flow animation for strips */
+@keyframes rgb-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.animate-rgb-flow {
+  animation: rgb-flow 3s linear infinite;
+}
+
+/* Fade in up animation */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 500ms ease-out forwards;
 }
 
 .animate-slide-down {

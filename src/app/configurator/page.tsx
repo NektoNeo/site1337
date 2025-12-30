@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Copy, RefreshCcw, ShoppingCart, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Copy, RefreshCcw, ShoppingCart, ExternalLink, Wrench, Droplets } from 'lucide-react';
 
 import { OptionGroups, PreviewCanvas } from '@/components/configurator';
 import { resolveSelection, getDefaultSelectionForVariant } from '@/lib/configurator/engine';
@@ -378,6 +378,33 @@ export default function ConfiguratorPage() {
                   Конфигуратор ограничивает выбор: итог всегда соответствует одной из заранее подготовленных сборок.
                 </p>
               </div>
+
+              {/* Advanced configurator link */}
+              <Link
+                href="/configurator/custom"
+                className="mt-6 block p-4 rounded-2xl bg-gradient-to-r from-purple-500/10 to-fuchsia-500/10 border border-purple-500/20 hover:border-purple-500/40 transition-all group"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="p-3 rounded-xl bg-purple-500/20">
+                    <Wrench className="w-5 h-5 text-purple-400" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-white font-semibold group-hover:text-purple-300 transition-colors">
+                      Расширенный конфигуратор
+                    </h3>
+                    <p className="text-sm text-white/50 mt-1">
+                      Полная кастомизация: выбор компонентов, водяное охлаждение, винил и фотопечать
+                    </p>
+                    <div className="flex items-center gap-4 mt-3 text-xs">
+                      <span className="flex items-center gap-1 text-cyan-400">
+                        <Droplets className="w-3 h-3" /> Водянка
+                      </span>
+                      <span className="text-fuchsia-400">Кастомизация</span>
+                      <span className="text-emerald-400">8 шагов</span>
+                    </div>
+                  </div>
+                </div>
+              </Link>
             </div>
           </motion.div>
         </div>

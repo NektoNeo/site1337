@@ -52,6 +52,11 @@ const LazyStages = dynamic(
   { ssr: true }
 );
 
+const LazyConfiguratorCTA = dynamic(
+  () => import('@/components/home/ConfiguratorCTA').then(mod => ({ default: mod.ConfiguratorCTA })),
+  { ssr: true }
+);
+
 const LazyGifts = dynamic(
   () => import('@/components/home/Gifts').then(mod => ({ default: mod.Gifts })),
   { ssr: true }
@@ -262,6 +267,14 @@ export default function HomePage() {
         {/* 5. Stages - "ЭТАПЫ РАБОТЫ" (lazy loaded) */}
         <Suspense fallback={<SectionSkeleton />}>
           <LazyStages />
+        </Suspense>
+
+        <SectionDivider variant="glow" intensity="medium" />
+
+        {/* 5.5. Configurator CTA - "ПОПРОБУЙ СОБРАТЬ САМ" (lazy loaded) */}
+        <div id="configurator" />
+        <Suspense fallback={<SectionSkeleton />}>
+          <LazyConfiguratorCTA />
         </Suspense>
 
         <SectionDivider variant="orb" intensity="subtle" />

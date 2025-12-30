@@ -23,55 +23,12 @@ import FPSMeter from '@/components/product/FPSMeter';
 import { useVKProduct } from '@/hooks/use-vk-product';
 import { Button } from '@/components/ui/button';
 
-// Background effects component
-function BackgroundEffects() {
-  return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
-      {/* Base dark gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-[#0a0a0f] to-black" />
-
-      {/* Grid pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(139, 92, 246, 0.3) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(139, 92, 246, 0.3) 1px, transparent 1px)
-          `,
-          backgroundSize: '60px 60px',
-        }}
-      />
-
-      {/* Purple glow top-left */}
-      <motion.div
-        className="absolute -top-40 -left-40 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px]"
-        animate={{
-          x: [0, 30, 0],
-          y: [0, 20, 0],
-          scale: [1, 1.1, 1],
-        }}
-        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-      />
-
-      {/* Magenta glow bottom-right */}
-      <motion.div
-        className="absolute -bottom-40 -right-40 w-96 h-96 bg-magenta-500/15 rounded-full blur-[120px]"
-        animate={{
-          x: [0, -30, 0],
-          y: [0, -20, 0],
-          scale: [1, 1.2, 1],
-        }}
-        transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
-      />
-    </div>
-  );
-}
+// Background effects removed for cleaner layout
 
 // Loading skeleton
 function ProductSkeleton() {
   return (
     <div className="min-h-screen bg-black relative">
-      <BackgroundEffects />
       <div className="relative z-10">
         {/* Breadcrumb skeleton */}
         <div className="container mx-auto px-4 py-6">
@@ -114,7 +71,6 @@ function ProductSkeleton() {
 function ErrorState({ error, onRetry }: { error: Error; onRetry: () => void }) {
   return (
     <div className="min-h-screen bg-black relative flex items-center justify-center">
-      <BackgroundEffects />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -184,7 +140,7 @@ function BackToTopButton() {
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: 1 }}
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      className="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-magenta-500 flex items-center justify-center shadow-lg shadow-purple-500/25 z-50 transition-all duration-300"
+      className="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-600 hover:to-purple-400 flex items-center justify-center shadow-lg shadow-purple-500/25 z-50 transition-all duration-300"
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
       aria-label="Наверх"
@@ -231,8 +187,6 @@ export default function ProductPage() {
 
   return (
     <div className="min-h-screen bg-black relative">
-      {/* Ambient Background Effects */}
-      <BackgroundEffects />
 
       {/* Main Content */}
       <div className="relative z-10">
@@ -287,17 +241,7 @@ export default function ProductPage() {
             </motion.div>
           </div>
 
-          {/* Specifications Section */}
-          {product.specifications && product.specifications.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <SpecificationsTable specifications={product.specifications} />
-            </motion.div>
-          )}
+          {/* Detailed specifications removed in favor of concise summary */}
 
           {/* Related Products */}
           {relatedProducts && relatedProducts.length > 0 && (
