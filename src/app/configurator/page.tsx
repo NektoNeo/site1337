@@ -1,407 +1,387 @@
 'use client';
 
-import { useState, useMemo, useCallback } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowLeft, RotateCcw, Share2, Zap, Cpu, HardDrive, Monitor } from 'lucide-react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
-import { 
-  ComponentSlot, 
-  PCVisualization, 
-  OrderSummary, 
-  ComponentModal,
-  ComponentCategory,
-  PCComponent,
-  SelectedComponents,
-  CompatibilityWarning,
-  calculateTotalPower
-} from '@/components/configurator';
+import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
+import { ArrowLeft, Copy, RefreshCcw, ShoppingCart, ExternalLink } from 'lucide-react';
 
-const COMPONENT_ORDER: ComponentCategory[] = [
-  'cpu',
-  'motherboard',
-  'gpu',
-  'ram',
-  'storage',
-  'psu',
-  'case',
-  'cooling',
-];
+import { OptionGroups, PreviewCanvas } from '@/components/configurator';
+import { resolveSelection, getDefaultSelectionForVariant } from '@/lib/configurator/engine';
+import type { ConfiguratorSelection, ResolveResponseBody } from '@/types/configurator';
+import { formatPrice, useCartStore } from '@/store/cart.store';
 
-// Check compatibility between components
-function checkCompatibility(components: SelectedComponents): CompatibilityWarning[] {
-  const warnings: CompatibilityWarning[] = [];
+const DEFAULT_VARIANT_ID = 'rog-x-rtx4080';
 
-  // CPU-Motherboard socket check
-  if (components.cpu && components.motherboard) {
-    if (components.cpu.specs.socket !== components.motherboard.specs.socket) {
-      warnings.push({
-        type: 'error',
-        message: `Сокет процессора (${components.cpu.specs.socket}) не совместим с материнской платой (${components.motherboard.specs.socket})`,
-        components: ['cpu', 'motherboard'],
-      });
-    }
-  }
+// Valid option sets for URL validation
+const VALID_TIERS: ConfiguratorSelection['tier'][] = ['rtx4070', 'rtx4080', 'rtx4090'];
+const VALID_CASE_MODELS: ConfiguratorSelection['caseModel'][] = ['rog-x', 'neo-white', 'compact-pro', 'darkline'];
+const VALID_CASE_COLORS: ConfiguratorSelection['caseColor'][] = ['black', 'white', 'gray'];
+const VALID_SIDE_PANELS: ConfiguratorSelection['sidePanel'][] = ['glass', 'mesh'];
+const VALID_RGB_PROFILES: ConfiguratorSelection['rgb'][] = ['off', 'purple', 'fuchsia', 'rainbow'];
 
-  // RAM-Motherboard type check
-  if (components.ram && components.motherboard) {
-    if (components.ram.specs.type !== components.motherboard.specs.memoryType) {
-      warnings.push({
-        type: 'error',
-        message: `Тип памяти (${components.ram.specs.type}) не совместим с материнской платой (${components.motherboard.specs.memoryType})`,
-        components: ['ram', 'motherboard'],
-      });
-    }
-  }
-
-  // PSU wattage check
-  if (components.psu && (components.cpu || components.gpu)) {
-    const totalPower = calculateTotalPower(components);
-    if (totalPower > (components.psu.specs.wattage || 0)) {
-      warnings.push({
-        type: 'error',
-        message: `Мощности блока питания (${components.psu.specs.wattage}W) недостаточно для системы (~${totalPower}W)`,
-        components: ['psu'],
-      });
-    } else if (totalPower > (components.psu.specs.wattage || 0) * 0.8) {
-      warnings.push({
-        type: 'warning',
-        message: `Блок питания работает на пределе мощности. Рекомендуется запас 20%`,
-        components: ['psu'],
-      });
-    }
-  }
-
-  // GPU length check
-  if (components.gpu && components.case) {
-    if ((components.gpu.specs.length || 0) > (components.case.specs.maxGpuLength || 999)) {
-      warnings.push({
-        type: 'error',
-        message: `Видеокарта (${components.gpu.specs.length}мм) не поместится в корпус (макс. ${components.case.specs.maxGpuLength}мм)`,
-        components: ['gpu', 'case'],
-      });
-    }
-  }
-
-  // Cooler height check
-  if (components.cooling && components.case) {
-    if (
-      components.cooling.specs.coolerType === 'Air' &&
-      (components.cooling.specs.coolerHeight || 0) > (components.case.specs.maxCoolerHeight || 999)
-    ) {
-      warnings.push({
-        type: 'error',
-        message: `Кулер (${components.cooling.specs.coolerHeight}мм) не поместится в корпус (макс. ${components.case.specs.maxCoolerHeight}мм)`,
-        components: ['cooling', 'case'],
-      });
-    }
-  }
-
-  // CPU TDP and Cooler check
-  if (components.cpu && components.cooling) {
-    if ((components.cpu.specs.tdp || 0) > (components.cooling.specs.coolerTdp || 0)) {
-      warnings.push({
-        type: 'warning',
-        message: `TDP процессора (${components.cpu.specs.tdp}W) превышает возможности охлаждения (${components.cooling.specs.coolerTdp}W)`,
-        components: ['cpu', 'cooling'],
-      });
-    }
-  }
-
-  return warnings;
-}
-
-// Animated background component
-function ConfiguratorBackground() {
-  return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden">
-      {/* Base gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f] via-black to-[#0a0a0f]" />
-      
-      {/* Grid pattern */}
-      <div 
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(139, 92, 246, 0.4) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(139, 92, 246, 0.4) 1px, transparent 1px)
-          `,
-          backgroundSize: '60px 60px',
-        }}
-      />
-
-      {/* Gradient orbs */}
-      <motion.div 
-        className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-[150px]"
-        animate={{
-          x: [0, 50, 0],
-          y: [0, 30, 0],
-          scale: [1, 1.2, 1],
-        }}
-        transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div 
-        className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-magenta-500/10 rounded-full blur-[150px]"
-        animate={{
-          x: [0, -50, 0],
-          y: [0, -30, 0],
-          scale: [1, 1.3, 1],
-        }}
-        transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      
-      {/* Circuit lines decoration */}
-      <svg className="absolute top-0 left-0 w-full h-full opacity-[0.02]" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="circuit" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
-            <path d="M10 10 H 50 V 50 H 90 M 50 50 V 90" stroke="#8B5CF6" fill="none" strokeWidth="1"/>
-            <circle cx="50" cy="50" r="3" fill="#06B6D4"/>
-            <circle cx="10" cy="10" r="2" fill="#8B5CF6"/>
-            <circle cx="90" cy="50" r="2" fill="#8B5CF6"/>
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#circuit)"/>
-      </svg>
-    </div>
-  );
-}
-
-// Progress indicator showing build completion
-function BuildProgress({ components }: { components: SelectedComponents }) {
-  const totalSlots = Object.keys(components).length;
-  const filledSlots = Object.values(components).filter(Boolean).length;
-  const progress = (filledSlots / totalSlots) * 100;
+function parseSelectionFromSearch(search: string): Partial<ConfiguratorSelection> {
+  const params = new URLSearchParams(search);
   
+  // Validate and parse each parameter
+  const tierRaw = params.get('tier');
+  const tier = tierRaw && VALID_TIERS.includes(tierRaw as ConfiguratorSelection['tier'])
+    ? (tierRaw as ConfiguratorSelection['tier'])
+    : null;
+
+  const caseModelRaw = params.get('caseModel');
+  const caseModel = caseModelRaw && VALID_CASE_MODELS.includes(caseModelRaw as ConfiguratorSelection['caseModel'])
+    ? (caseModelRaw as ConfiguratorSelection['caseModel'])
+    : null;
+
+  const caseColorRaw = params.get('caseColor');
+  const caseColor = caseColorRaw && VALID_CASE_COLORS.includes(caseColorRaw as ConfiguratorSelection['caseColor'])
+    ? (caseColorRaw as ConfiguratorSelection['caseColor'])
+    : null;
+
+  const sidePanelRaw = params.get('sidePanel');
+  const sidePanel = sidePanelRaw && VALID_SIDE_PANELS.includes(sidePanelRaw as ConfiguratorSelection['sidePanel'])
+    ? (sidePanelRaw as ConfiguratorSelection['sidePanel'])
+    : null;
+
+  const rgbRaw = params.get('rgb');
+  const rgb = rgbRaw && VALID_RGB_PROFILES.includes(rgbRaw as ConfiguratorSelection['rgb'])
+    ? (rgbRaw as ConfiguratorSelection['rgb'])
+    : null;
+
+  return {
+    ...(tier ? { tier } : {}),
+    ...(caseModel ? { caseModel } : {}),
+    ...(caseColor ? { caseColor } : {}),
+    ...(sidePanel ? { sidePanel } : {}),
+    ...(rgb ? { rgb } : {}),
+  };
+}
+
+function selectionToSearchParams(selection: ConfiguratorSelection): string {
+  const params = new URLSearchParams();
+  params.set('tier', selection.tier);
+  params.set('caseModel', selection.caseModel);
+  params.set('caseColor', selection.caseColor);
+  params.set('sidePanel', selection.sidePanel);
+  params.set('rgb', selection.rgb);
+  return params.toString();
+}
+
+function selectionsEqual(a: ConfiguratorSelection, b: ConfiguratorSelection): boolean {
   return (
-    <div className="mb-6">
-      <div className="flex items-center justify-between text-sm mb-2">
-        <span className="text-white/60 font-mono">Прогресс сборки</span>
-        <span className="text-purple-400 font-bold">{filledSlots}/{totalSlots}</span>
-      </div>
-      <div className="h-2 bg-white/5 rounded-full overflow-hidden">
-        <motion.div
-          className="h-full bg-gradient-to-r from-purple-500 to-magenta-500"
-          initial={{ width: 0 }}
-          animate={{ width: `${progress}%` }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
-        />
-      </div>
-    </div>
+    a.tier === b.tier &&
+    a.caseModel === b.caseModel &&
+    a.caseColor === b.caseColor &&
+    a.sidePanel === b.sidePanel &&
+    a.rgb === b.rgb
   );
 }
 
 export default function ConfiguratorPage() {
-  const [selectedComponents, setSelectedComponents] = useState<SelectedComponents>({
-    cpu: null,
-    motherboard: null,
-    gpu: null,
-    ram: null,
-    storage: null,
-    psu: null,
-    case: null,
-    cooling: null,
+  const router = useRouter();
+  const { addConfiguredItem } = useCartStore();
+
+  const [selection, setSelection] = useState<ConfiguratorSelection>(() => getDefaultSelectionForVariant(DEFAULT_VARIANT_ID));
+  const [data, setData] = useState<ResolveResponseBody>(() => {
+    const initialResolved = resolveSelection(getDefaultSelectionForVariant(DEFAULT_VARIANT_ID));
+    return {
+      resolved: initialResolved,
+      vk: { priceRub: null, availability: 'unknown' },
+    };
   });
 
-  const [modalOpen, setModalOpen] = useState(false);
-  const [activeCategory, setActiveCategory] = useState<ComponentCategory | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
 
-  const compatibilityWarnings = useMemo(
-    () => checkCompatibility(selectedComponents),
-    [selectedComponents]
-  );
+  const initializedRef = useRef(false);
+  const lastFetchKeyRef = useRef<string>('');
 
-  const getSlotStatus = useCallback((category: ComponentCategory): 'compatible' | 'warning' | 'error' | 'none' => {
-    const hasWarning = compatibilityWarnings.some(
-      w => w.components.includes(category) && w.type === 'warning'
-    );
-    const hasError = compatibilityWarnings.some(
-      w => w.components.includes(category) && w.type === 'error'
-    );
-    
-    if (hasError) return 'error';
-    if (hasWarning) return 'warning';
-    if (selectedComponents[category]) return 'compatible';
-    return 'none';
-  }, [compatibilityWarnings, selectedComponents]);
+  // Init from URL once
+  useEffect(() => {
+    if (initializedRef.current) return;
+    initializedRef.current = true;
 
-  const handleSelectComponent = (component: PCComponent) => {
-    setSelectedComponents(prev => ({
-      ...prev,
-      [component.category]: component,
-    }));
-  };
+    try {
+      const patch = parseSelectionFromSearch(window.location.search);
+      if (Object.keys(patch).length === 0) return;
 
-  const handleReset = () => {
-    setSelectedComponents({
-      cpu: null,
-      motherboard: null,
-      gpu: null,
-      ram: null,
-      storage: null,
-      psu: null,
-      case: null,
-      cooling: null,
+      const base = getDefaultSelectionForVariant(DEFAULT_VARIANT_ID);
+      const merged: ConfiguratorSelection = { ...base, ...patch };
+      setSelection(merged);
+    } catch (err) {
+      // Silently fall back to default if URL parsing fails
+      console.warn('Failed to parse configurator URL parameters:', err);
+    }
+  }, []);
+
+  // Keep URL in sync (deeplink)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const qs = selectionToSearchParams(selection);
+    const url = new URL(window.location.href);
+    url.search = qs;
+    window.history.replaceState(null, '', url.toString());
+  }, [selection]);
+
+  // Resolve via API (prices/availability) when selection changes
+  useEffect(() => {
+    const key = selectionToSearchParams(selection);
+    if (lastFetchKeyRef.current === key) return;
+    lastFetchKeyRef.current = key;
+
+    const controller = new AbortController();
+
+    async function run() {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch('/api/configurator/resolve', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ selection }),
+          signal: controller.signal,
+        });
+
+        if (!res.ok) {
+          const text = await res.text().catch(() => '');
+          throw new Error(text || `HTTP ${res.status}`);
+        }
+
+        const json = (await res.json()) as ResolveResponseBody;
+        setData(json);
+
+        // If server normalized selection, adopt it (avoid loops)
+        if (!selectionsEqual(selection, json.resolved.selection)) {
+          setSelection(json.resolved.selection);
+        }
+      } catch (e) {
+        if ((e as any)?.name === 'AbortError') return;
+        setError(e instanceof Error ? e.message : 'Resolve failed');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    run();
+    return () => controller.abort();
+  }, [selection]);
+
+  const resolved = data.resolved;
+  const variant = resolved.variant;
+
+  const handlePatch = useCallback((patch: Partial<ConfiguratorSelection>) => {
+    setSelection((prev) => ({ ...prev, ...patch }));
+  }, []);
+
+  const handleReset = useCallback(() => {
+    const next = getDefaultSelectionForVariant(DEFAULT_VARIANT_ID);
+    setSelection(next);
+    // also clear resolve key to force refetch
+    lastFetchKeyRef.current = '';
+  }, []);
+
+  const handleCopyLink = useCallback(async () => {
+    try {
+      const url = new URL(window.location.href);
+      url.search = selectionToSearchParams(selection);
+      await navigator.clipboard.writeText(url.toString());
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.warn('Failed to copy link:', err);
+      setCopied(false);
+    }
+  }, [selection]);
+
+  const handleAddToCart = useCallback(() => {
+    addConfiguredItem({
+      variantId: variant.id,
+      variantName: variant.name,
+      vkProductId: String(variant.vkProductId),
+      selection: resolved.selection,
+      price: data.vk.priceRub ?? 0,
+      image: variant.preview.baseSrc,
+      vkUrl: data.vk.vkUrl ?? undefined,
+      specs: data.vk.priceRub
+        ? undefined
+        : `Цена уточняется. Корпус: ${resolved.selection.caseModel}, цвет: ${resolved.selection.caseColor}, панель: ${resolved.selection.sidePanel}, RGB: ${resolved.selection.rgb}`,
     });
-  };
+    router.push('/cart');
+  }, [
+    addConfiguredItem,
+    data.vk.priceRub,
+    data.vk.vkUrl,
+    resolved.selection,
+    router,
+    variant.id,
+    variant.name,
+    variant.preview.baseSrc,
+    variant.vkProductId,
+  ]);
 
-  const handleOrder = () => {
-    console.log('Order placed:', selectedComponents);
-    alert('Заказ оформлен! Мы свяжемся с вами для подтверждения.');
-  };
-
-  const openModal = (category: ComponentCategory) => {
-    setActiveCategory(category);
-    setModalOpen(true);
-  };
+  const vkPriceLabel = useMemo(() => {
+    if (!data.vk.priceRub) return 'Цена уточняется';
+    return formatPrice(data.vk.priceRub);
+  }, [data.vk.priceRub]);
 
   return (
-    <div className="min-h-screen relative">
-      {/* Background effects */}
-      <ConfiguratorBackground />
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Background */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute inset-0 mesh-background" />
+        <div className="absolute inset-0 opacity-[0.03] cyber-grid" />
+        <div className="absolute -top-40 -left-40 w-[520px] h-[520px] bg-purple-600/20 rounded-full blur-[140px]" />
+        <div className="absolute -bottom-40 -right-40 w-[520px] h-[520px] bg-fuchsia-600/15 rounded-full blur-[140px]" />
+      </div>
 
-      {/* Page Header */}
-      <div className="relative z-10 px-6 py-6 border-b border-white/5">
-        <div className="max-w-[1800px] mx-auto flex items-center justify-between">
+      {/* Header */}
+      <div className="relative z-10 border-b border-white/5">
+        <div className="container mx-auto px-4 py-6 flex items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <Link href="/">
-              <motion.button
-                className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/50 hover:text-white transition-colors border border-white/10"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <ArrowLeft className="w-5 h-5" />
-              </motion.button>
+            <Link
+              href="/"
+              className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
+              aria-label="Back"
+            >
+              <ArrowLeft className="w-5 h-5 text-white/70" />
             </Link>
+
             <div>
-              <div className="flex items-center gap-3">
-                <motion.div
-                  className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-magenta-500/10 border border-purple-500/30 flex items-center justify-center"
-                  animate={{
-                    boxShadow: ['0 0 20px rgba(139,92,246,0.3)', '0 0 30px rgba(6,182,212,0.3)', '0 0 20px rgba(139,92,246,0.3)'],
-                  }}
-                  transition={{ duration: 3, repeat: Infinity }}
-                >
-                  <Cpu className="w-5 h-5 text-purple-400" />
-                </motion.div>
-                <div>
-                  <h1 className="text-xl font-inter font-bold">
-                    <span className="bg-gradient-to-r from-purple-400 to-magenta-400 bg-clip-text text-transparent">
-                      Конфигуратор PC
-                    </span>
-                  </h1>
-                  <p className="text-sm text-white/40">Соберите свой идеальный компьютер</p>
-                </div>
-              </div>
+              <p className="text-xs uppercase tracking-[0.3em] text-white/40">configurator</p>
+              <h1 className="text-xl md:text-2xl font-semibold text-white">Соберите свой VA‑PC</h1>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <motion.button
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
               onClick={handleReset}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/50 hover:text-white transition-colors text-sm border border-white/10"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white/70 transition-colors"
             >
-              <RotateCcw className="w-4 h-4" />
-              <span className="hidden sm:inline">Сбросить</span>
-            </motion.button>
-            <motion.button
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 transition-colors text-sm border border-purple-500/30"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              <RefreshCcw className="w-4 h-4" />
+              <span className="hidden sm:inline">Сброс</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handleCopyLink}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-purple-500/15 border border-purple-500/30 hover:bg-purple-500/25 text-purple-200 transition-colors"
             >
-              <Share2 className="w-4 h-4" />
-              <span className="hidden sm:inline">Поделиться</span>
-            </motion.button>
+              <Copy className="w-4 h-4" />
+              <span className="hidden sm:inline">{copied ? 'Скопировано' : 'Ссылка'}</span>
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Main content */}
-      <div className="relative z-10 max-w-[1800px] mx-auto px-6 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 min-h-[calc(100vh-250px)]">
-          {/* Left Panel - Component Slots */}
-          <motion.div 
-            className="lg:col-span-4 xl:col-span-3"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+      {/* Content */}
+      <div className="relative z-10 container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* Preview */}
+          <motion.div
+            className="lg:col-span-7"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35 }}
           >
-            <div className="sticky top-28">
-              <div className="p-6 rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/10">
-                <h2 className="text-lg font-inter font-semibold text-white mb-2 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-500 to-magenta-500" />
-                  Комплектующие
-                </h2>
-                
-                <BuildProgress components={selectedComponents} />
-                
-                <div className="space-y-3">
-                  {COMPONENT_ORDER.map((category, index) => (
-                    <motion.div
-                      key={category}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.05 }}
-                    >
-                      <ComponentSlot
-                        category={category}
-                        selected={selectedComponents[category]}
-                        onSelect={() => openModal(category)}
-                        compatibilityStatus={getSlotStatus(category)}
-                      />
-                    </motion.div>
-                  ))}
-                </div>
+            <PreviewCanvas variant={variant} selection={resolved.selection} />
+
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div className="sm:col-span-2 rounded-2xl bg-white/[0.03] border border-white/10 p-4">
+                <p className="text-xs font-mono text-white/40">RESOLVED BUILD</p>
+                <p className="text-lg font-semibold text-white leading-tight">{variant.name}</p>
+                <p className="text-sm text-white/50 mt-1">
+                  {data.vk.availability === 'in_stock'
+                    ? 'В наличии'
+                    : data.vk.availability === 'out_of_stock'
+                      ? 'Нет в наличии'
+                      : data.vk.availability === 'removed'
+                        ? 'Снято с продажи'
+                        : 'Статус уточняется'}
+                  {loading ? ' · обновляем…' : ''}
+                </p>
+              </div>
+
+              <div className="rounded-2xl bg-white/[0.03] border border-white/10 p-4">
+                <p className="text-xs font-mono text-white/40">PRICE</p>
+                <p className="text-2xl font-bold bg-gradient-to-r from-purple-300 to-fuchsia-300 bg-clip-text text-transparent">
+                  {vkPriceLabel}
+                </p>
+                {data.vk.vkUrl && (
+                  <a
+                    href={data.vk.vkUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2 inline-flex items-center gap-2 text-xs text-white/50 hover:text-white transition-colors"
+                  >
+                    Открыть в VK <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                )}
               </div>
             </div>
+
+            {error && (
+              <div className="mt-4 rounded-2xl border border-red-500/20 bg-red-500/5 p-4 text-sm text-red-200">
+                Ошибка: {error}
+              </div>
+            )}
           </motion.div>
 
-          {/* Center - PC Visualization */}
-          <motion.div 
-            className="lg:col-span-5 xl:col-span-6 flex items-center justify-center"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+          {/* Options */}
+          <motion.div
+            className="lg:col-span-5"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, delay: 0.05 }}
           >
-            <div className="w-full h-full min-h-[500px] p-6 rounded-2xl bg-white/[0.02] backdrop-blur-sm border border-white/10">
-              <PCVisualization components={selectedComponents} />
-            </div>
-          </motion.div>
+            <div className="rounded-3xl bg-white/[0.03] border border-white/10 p-6">
+              <OptionGroups selection={selection} variant={variant} onChange={handlePatch} />
 
-          {/* Right Panel - Order Summary */}
-          <motion.div 
-            className="lg:col-span-3"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <div className="sticky top-28">
-              <div className="p-6 rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/10">
-                <OrderSummary
-                  components={selectedComponents}
-                  compatibilityWarnings={compatibilityWarnings}
-                  onOrder={handleOrder}
-                />
+              <div className="mt-8 rounded-2xl bg-black/30 border border-white/10 p-5">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-mono text-white/40">SUMMARY</p>
+                    <p className="text-sm text-white/70 mt-1">
+                      Корпус: <span className="text-white">{resolved.selection.caseModel}</span> · Цвет:{' '}
+                      <span className="text-white">{resolved.selection.caseColor}</span> · RGB:{' '}
+                      <span className="text-white">{resolved.selection.rgb}</span>
+                    </p>
+                  </div>
+                  {loading && (
+                    <span className="text-xs text-white/40">sync…</span>
+                  )}
+                </div>
+
+                <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onClick={handleAddToCart}
+                    className="inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 bg-white/5 border border-white/10 hover:bg-white/10 text-white font-semibold transition-colors"
+                  >
+                    <ShoppingCart className="w-4 h-4" />
+                    В корзину
+                  </button>
+
+                  <a
+                    href={data.vk.vkUrl || 'https://vk.com/vapcbuild'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 bg-purple-500/20 border border-purple-500/30 hover:bg-purple-500/30 text-purple-100 font-semibold transition-colors"
+                  >
+                    Открыть VK <ExternalLink className="w-4 h-4" />
+                  </a>
+                </div>
+
+                <p className="mt-4 text-xs text-white/40">
+                  Конфигуратор ограничивает выбор: итог всегда соответствует одной из заранее подготовленных сборок.
+                </p>
               </div>
             </div>
           </motion.div>
         </div>
       </div>
-
-      {/* Component Selection Modal */}
-      <ComponentModal
-        isOpen={modalOpen}
-        category={activeCategory}
-        selectedComponents={selectedComponents}
-        onClose={() => setModalOpen(false)}
-        onSelect={handleSelectComponent}
-      />
-
-      {/* Decorative corner elements */}
-      <div className="fixed top-20 left-0 w-32 h-32 border-l border-t border-purple-500/10 pointer-events-none" />
-      <div className="fixed top-20 right-0 w-32 h-32 border-r border-t border-purple-500/10 pointer-events-none" />
-      <div className="fixed bottom-0 left-0 w-32 h-32 border-l border-b border-magenta-500/10 pointer-events-none" />
-      <div className="fixed bottom-0 right-0 w-32 h-32 border-r border-b border-magenta-500/10 pointer-events-none" />
     </div>
   );
 }

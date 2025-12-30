@@ -58,7 +58,7 @@ const ASPECT_RATIO_CLASSES = {
   wide: 'aspect-video',
 } as const;
 
-const DEFAULT_FALLBACK = '/images/placeholder-product.png';
+const DEFAULT_FALLBACK = '/images/placeholder-product.svg';
 
 // ============================================================================
 // COMPONENT
@@ -116,8 +116,6 @@ export const OptimizedImage = memo(function OptimizedImage({
     trackImageLoadSuccess(
       imageSrc,
       alt,
-      img.naturalWidth,
-      img.naturalHeight,
       'OptimizedImage'
     );
     // #endregion agent log

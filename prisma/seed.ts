@@ -6,7 +6,7 @@
  * This script populates the database with sample data for development.
  */
 
-import { PrismaClient, UserRole, OrderStatus, ComponentType } from '@prisma/client'
+import { PrismaClient, UserRole, OrderStatus, ComponentType, ConfiguratorTier, ConfiguratorCaseModel, ConfiguratorOptionKey } from '@prisma/client'
 import { hash } from 'bcryptjs'
 
 const prisma = new PrismaClient()
@@ -720,6 +720,208 @@ async function main() {
     skipDuplicates: true,
   })
 
+  // ============================================================================
+  // CONFIGURATOR BUILDS (LIMITED-CHOICE, MAPPED-TO-BUILDS)
+  // ============================================================================
+  console.log('Creating configurator build families/variants...')
+
+  const toTierEnum = (tier: 'rtx4070' | 'rtx4080' | 'rtx4090') => {
+    switch (tier) {
+      case 'rtx4070': return ConfiguratorTier.RTX4070
+      case 'rtx4080': return ConfiguratorTier.RTX4080
+      case 'rtx4090': return ConfiguratorTier.RTX4090
+    }
+  }
+
+  const toCaseModelEnum = (caseModel: 'rog-x' | 'neo-white' | 'compact-pro' | 'darkline') => {
+    switch (caseModel) {
+      case 'rog-x': return ConfiguratorCaseModel.ROG_X
+      case 'neo-white': return ConfiguratorCaseModel.NEO_WHITE
+      case 'compact-pro': return ConfiguratorCaseModel.COMPACT_PRO
+      case 'darkline': return ConfiguratorCaseModel.DARKLINE
+    }
+  }
+
+  const configuratorFamilies = [
+    {
+      slug: 'rog-x',
+      name: 'ROG-X',
+      description: 'Флагманский корпус с акцентом на RGB и airflow',
+      variants: [
+        { slug: 'rog-x-rtx4070', name: 'ROG-X RTX 4070', tier: 'rtx4070', caseModel: 'rog-x' },
+        { slug: 'rog-x-rtx4080', name: 'ROG-X RTX 4080', tier: 'rtx4080', caseModel: 'rog-x' },
+        { slug: 'rog-x-rtx4090', name: 'ROG-X RTX 4090', tier: 'rtx4090', caseModel: 'rog-x' },
+      ],
+    },
+    {
+      slug: 'neo-white',
+      name: 'NEO WHITE',
+      description: 'Белая сборка в стиле clean build',
+      variants: [
+        { slug: 'neo-white-rtx4070', name: 'NEO WHITE RTX 4070', tier: 'rtx4070', caseModel: 'neo-white' },
+        { slug: 'neo-white-rtx4080', name: 'NEO WHITE RTX 4080', tier: 'rtx4080', caseModel: 'neo-white' },
+        { slug: 'neo-white-rtx4090', name: 'NEO WHITE RTX 4090', tier: 'rtx4090', caseModel: 'neo-white' },
+      ],
+    },
+    {
+      slug: 'compact-pro',
+      name: 'COMPACT PRO',
+      description: 'Компактная сборка без компромиссов',
+      variants: [
+        { slug: 'compact-pro-rtx4070', name: 'COMPACT PRO RTX 4070', tier: 'rtx4070', caseModel: 'compact-pro' },
+        { slug: 'compact-pro-rtx4080', name: 'COMPACT PRO RTX 4080', tier: 'rtx4080', caseModel: 'compact-pro' },
+        { slug: 'compact-pro-rtx4090', name: 'COMPACT PRO RTX 4090', tier: 'rtx4090', caseModel: 'compact-pro' },
+      ],
+    },
+    {
+      slug: 'darkline',
+      name: 'DARKLINE',
+      description: 'Строгий дизайн, минимум подсветки',
+      variants: [
+        { slug: 'darkline-rtx4070', name: 'DARKLINE RTX 4070', tier: 'rtx4070', caseModel: 'darkline' },
+        { slug: 'darkline-rtx4080', name: 'DARKLINE RTX 4080', tier: 'rtx4080', caseModel: 'darkline' },
+        { slug: 'darkline-rtx4090', name: 'DARKLINE RTX 4090', tier: 'rtx4090', caseModel: 'darkline' },
+      ],
+    },
+  ] as const
+
+  const variantIdBySlug: Record<string, string> = {}
+
+  for (const family of configuratorFamilies) {
+    const createdFamily = await prisma.configuratorBuildFamily.upsert({
+      where: { slug: family.slug },
+      update: { name: family.name, description: family.description, isActive: true },
+      create: { slug: family.slug, name: family.name, description: family.description, isActive: true },
+      select: { id: true },
+    })
+
+    for (const v of family.variants) {
+      const defaultSelection = {
+        tier: v.tier,
+        caseModel: v.caseModel,
+        caseColor: v.caseModel === 'neo-white' ? 'white' : v.caseModel === 'rog-x' ? 'gray' : 'black',
+        sidePanel: v.caseModel === 'darkline' ? 'mesh' : 'glass',
+        rgb: v.tier === 'rtx4090' ? 'rainbow' : 'purple',
+      }
+
+      const allowedOptions = {
+        tier: ['rtx4070', 'rtx4080', 'rtx4090'],
+        caseModel: [v.caseModel],
+        caseColor: v.caseModel === 'neo-white' ? ['white'] : v.caseModel === 'darkline' ? ['black'] : ['black', 'white', 'gray'],
+        sidePanel: v.caseModel === 'darkline' ? ['mesh'] : ['glass', 'mesh'],
+        rgb: v.caseModel === 'darkline' ? ['off', 'purple'] : ['off', 'purple', 'fuchsia', 'rainbow'],
+      }
+
+      const maskSrc = `/images/cases/masks/${v.caseModel}.svg`
+      const preview = {
+        baseSrc: `/works/${v.caseModel}/cover.png`,
+        layers: [
+          { id: 'caseTint', type: 'tint', src: '', zIndex: 10, blendMode: 'color', opacity: 0.35, maskSrc, appliesTo: { caseColor: ['black', 'gray'] } },
+          { id: 'glassHighlight', type: 'glass', src: '', zIndex: 20, blendMode: 'screen', opacity: 0.25, maskSrc, appliesTo: { sidePanel: ['glass'] } },
+          { id: 'rgbGlow', type: 'rgb', src: '', zIndex: 30, blendMode: 'screen', opacity: 0.35, maskSrc, appliesTo: { rgb: ['purple', 'fuchsia', 'rainbow'] } },
+        ],
+      }
+
+      const createdVariant = await prisma.configuratorBuildVariant.upsert({
+        where: { slug: v.slug },
+        update: {
+          name: v.name,
+          tier: toTierEnum(v.tier),
+          caseModel: toCaseModelEnum(v.caseModel),
+          vkProductId: null,
+          isActive: true,
+          defaultSelection,
+          allowedOptions,
+          preview,
+          familyId: createdFamily.id,
+        },
+        create: {
+          slug: v.slug,
+          name: v.name,
+          tier: toTierEnum(v.tier),
+          caseModel: toCaseModelEnum(v.caseModel),
+          vkProductId: null,
+          isActive: true,
+          defaultSelection,
+          allowedOptions,
+          preview,
+          familyId: createdFamily.id,
+        },
+        select: { id: true },
+      })
+
+      variantIdBySlug[v.slug] = createdVariant.id
+    }
+  }
+
+  // Seed options + join table (skeleton for future admin UI)
+  const optionIds: Record<string, string> = {}
+
+  const addOption = async (key: ConfiguratorOptionKey, value: string, label: string, sortOrder = 0) => {
+    const k = `${key}:${value}`
+    if (optionIds[k]) return optionIds[k]
+    const created = await prisma.configuratorOption.upsert({
+      where: { key_value: { key, value } },
+      update: { label, sortOrder, isActive: true },
+      create: { key, value, label, sortOrder, isActive: true },
+      select: { id: true },
+    })
+    optionIds[k] = created.id
+    return created.id
+  }
+
+  await addOption(ConfiguratorOptionKey.TIER, 'rtx4070', 'RTX 4070', 1)
+  await addOption(ConfiguratorOptionKey.TIER, 'rtx4080', 'RTX 4080', 2)
+  await addOption(ConfiguratorOptionKey.TIER, 'rtx4090', 'RTX 4090', 3)
+
+  await addOption(ConfiguratorOptionKey.CASE_MODEL, 'rog-x', 'ROG-X', 1)
+  await addOption(ConfiguratorOptionKey.CASE_MODEL, 'neo-white', 'NEO WHITE', 2)
+  await addOption(ConfiguratorOptionKey.CASE_MODEL, 'compact-pro', 'COMPACT PRO', 3)
+  await addOption(ConfiguratorOptionKey.CASE_MODEL, 'darkline', 'DARKLINE', 4)
+
+  await addOption(ConfiguratorOptionKey.CASE_COLOR, 'black', 'Black', 1)
+  await addOption(ConfiguratorOptionKey.CASE_COLOR, 'gray', 'Gray', 2)
+  await addOption(ConfiguratorOptionKey.CASE_COLOR, 'white', 'White', 3)
+
+  await addOption(ConfiguratorOptionKey.SIDE_PANEL, 'glass', 'Стекло', 1)
+  await addOption(ConfiguratorOptionKey.SIDE_PANEL, 'mesh', 'Mesh', 2)
+
+  await addOption(ConfiguratorOptionKey.RGB, 'off', 'Off', 1)
+  await addOption(ConfiguratorOptionKey.RGB, 'purple', 'Purple', 2)
+  await addOption(ConfiguratorOptionKey.RGB, 'fuchsia', 'Fuchsia', 3)
+  await addOption(ConfiguratorOptionKey.RGB, 'rainbow', 'Rainbow', 4)
+
+  for (const [variantSlug, variantId] of Object.entries(variantIdBySlug)) {
+    const variant = await prisma.configuratorBuildVariant.findUnique({
+      where: { id: variantId },
+      select: { allowedOptions: true, defaultSelection: true },
+    })
+    if (!variant) continue
+
+    const allowed = variant.allowedOptions as any
+    const def = variant.defaultSelection as any
+
+    const connect: Array<{ key: ConfiguratorOptionKey; values: string[] }> = [
+      { key: ConfiguratorOptionKey.TIER, values: [def.tier] },
+      { key: ConfiguratorOptionKey.CASE_MODEL, values: [def.caseModel] },
+      { key: ConfiguratorOptionKey.CASE_COLOR, values: allowed.caseColor || [] },
+      { key: ConfiguratorOptionKey.SIDE_PANEL, values: allowed.sidePanel || [] },
+      { key: ConfiguratorOptionKey.RGB, values: allowed.rgb || [] },
+    ]
+
+    for (const group of connect) {
+      for (const value of group.values) {
+        const optionId = optionIds[`${group.key}:${value}`]
+        if (!optionId) continue
+        await prisma.configuratorVariantOption.upsert({
+          where: { variantId_optionId: { variantId, optionId } },
+          update: {},
+          create: { variantId, optionId },
+        })
+      }
+    }
+  }
+
   console.log('Database seed completed successfully!')
   console.log(`
 Summary:
@@ -729,6 +931,8 @@ Summary:
 - Brands: ${brands.length}
 - Products: ${products.length}
 - Prebuilt configs: ${prebuilts.length}
+- Configurator families: ${configuratorFamilies.length}
+- Configurator variants: ${Object.keys(variantIdBySlug).length}
 - Sample orders: 1
   `)
 }

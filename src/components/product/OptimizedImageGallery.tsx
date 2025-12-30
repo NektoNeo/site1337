@@ -199,15 +199,11 @@ function OptimizedImageGalleryComponent({
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="relative group"
         >
-          {/* RGB Animated Border */}
-          <div
-            className="absolute -inset-[2px] rounded-2xl bg-gradient-conic from-purple-500 via-purple-400 via-purple-500 to-purple-500 opacity-75 blur-sm group-hover:opacity-100 transition-opacity duration-500 animate-rgb-spin"
-            aria-hidden="true"
-          />
-          <div
-            className="absolute -inset-[2px] rounded-2xl bg-gradient-conic from-purple-500 via-purple-400 via-purple-500 to-purple-500 opacity-50 animate-rgb-spin"
-            aria-hidden="true"
-          />
+        {/* Clean static border (conic spin removed) */}
+        <div
+          className="absolute -inset-[2px] rounded-2xl border border-white/10"
+          aria-hidden="true"
+        />
 
           {/* Main Image */}
           <div

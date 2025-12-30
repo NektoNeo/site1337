@@ -1,6 +1,26 @@
 /** @type {import('next').NextConfig} */
+
+// Bundle analyzer configuration (optional dependency)
+let withBundleAnalyzer = (config) => config;
+try {
+  if (process.env.ANALYZE === 'true') {
+    withBundleAnalyzer = require('@next/bundle-analyzer')({ enabled: true });
+  }
+} catch (e) {
+  // Bundle analyzer not installed - skip
+}
+
 const nextConfig = {
-  // Image optimization configuration
+  // ============================================
+  // OUTPUT MODE: Standalone for Docker/Container
+  // ============================================
+  // Creates a minimal standalone build with only necessary files
+  // Reduces Docker image size by ~70% compared to full node_modules
+  output: 'standalone',
+
+  // ============================================
+  // IMAGE OPTIMIZATION
+  // ============================================
   images: {
     // Remote image patterns
     remotePatterns: [
@@ -41,43 +61,63 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     // Modern image formats for better compression
     formats: ['image/avif', 'image/webp'],
-    // Minimum cache TTL for optimized images (30 days for better caching)
+    // Minimum cache TTL for optimized images (30 days)
     minimumCacheTTL: 60 * 60 * 24 * 30,
-    // Note: placeholder is configured per-image in next/image component, not globally
     // Allow remote image optimization
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 
-  // Experimental features for better performance
+  // ============================================
+  // EXPERIMENTAL FEATURES
+  // ============================================
   experimental: {
-    // Enable optimized package imports for tree-shaking
+    // Optimized package imports for tree-shaking
+    // Reduces bundle size by only importing used modules
     optimizePackageImports: [
       'lucide-react',
       'framer-motion',
+      '@radix-ui/react-accordion',
+      '@radix-ui/react-dialog',
+      '@radix-ui/react-scroll-area',
+      '@radix-ui/react-select',
       '@radix-ui/react-slot',
+      '@radix-ui/react-tooltip',
+      '@tanstack/react-query',
       'class-variance-authority',
       'clsx',
       'tailwind-merge',
+      'embla-carousel-react',
+      'firebase',
     ],
-    // Turbopack is enabled via --turbopack flag at runtime, not in config
+
+    // Partial Prerendering (Next.js 14+)
+    // Combines static and dynamic rendering for faster initial load
+    // ppr: true, // Enable when ready for production testing
   },
 
-  // Modular imports for better tree-shaking of lucide-react icons
+  // ============================================
+  // MODULAR IMPORTS FOR TREE-SHAKING
+  // ============================================
   modularizeImports: {
     'lucide-react': {
       transform: 'lucide-react/dist/esm/icons/{{kebabCase member}}',
     },
   },
 
-  // Compiler optimizations
+  // ============================================
+  // COMPILER OPTIMIZATIONS
+  // ============================================
   compiler: {
-    // Remove console.log in production
+    // Remove console.log in production (keep error and warn)
     removeConsole: process.env.NODE_ENV === 'production' ? {
       exclude: ['error', 'warn'],
     } : false,
   },
 
+  // ============================================
+  // PERFORMANCE SETTINGS
+  // ============================================
   // Enable gzip/brotli compression
   compress: true,
 
@@ -87,10 +127,67 @@ const nextConfig = {
   // Strict mode for React
   reactStrictMode: true,
 
-  // Powered by header removal
+  // Powered by header removal (security)
   poweredByHeader: false,
 
-  // Configure headers for caching and security
+  // ============================================
+  // WEBPACK OPTIMIZATIONS
+  // ============================================
+  webpack: (config, { dev, isServer }) => {
+    // Production optimizations only
+    if (!dev && !isServer) {
+      config.optimization = {
+        ...config.optimization,
+        // Split chunks for better caching
+        splitChunks: {
+          chunks: 'all',
+          minSize: 20000,
+          maxSize: 244000,
+          cacheGroups: {
+            // Vendor chunk for node_modules
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'vendors',
+              chunks: 'all',
+              priority: 20,
+            },
+            // Framework chunk (React, Next.js)
+            framework: {
+              name: 'framework',
+              test: /[\\/]node_modules[\\/](react|react-dom|next)[\\/]/,
+              priority: 40,
+              chunks: 'all',
+              enforce: true,
+            },
+            // Common chunk for shared code
+            common: {
+              name: 'common',
+              minChunks: 2,
+              chunks: 'all',
+              priority: 10,
+              reuseExistingChunk: true,
+            },
+            // UI components chunk
+            ui: {
+              name: 'ui',
+              test: /[\\/]components[\\/]/,
+              chunks: 'all',
+              priority: 15,
+            },
+          },
+        },
+      };
+    }
+
+    // Tree-shaking is handled by Next.js automatically in production
+    // Don't override usedExports as it conflicts with cacheUnaffected
+
+    return config;
+  },
+
+  // ============================================
+  // HTTP HEADERS (Caching & Security)
+  // ============================================
   async headers() {
     return [
       {
@@ -120,7 +217,7 @@ const nextConfig = {
         ],
       },
       {
-        // Cache static assets aggressively
+        // Cache static assets aggressively (1 year)
         source: '/images/:path*',
         headers: [
           {
@@ -132,6 +229,16 @@ const nextConfig = {
       {
         // Cache fonts
         source: '/fonts/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        // Cache Next.js static files
+        source: '/_next/static/:path*',
         headers: [
           {
             key: 'Cache-Control',
@@ -153,4 +260,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = withBundleAnalyzer(nextConfig);

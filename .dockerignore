@@ -1,0 +1,108 @@
+# ============================================
+# Docker Ignore File
+# Exclude files not needed for the build
+# ============================================
+
+# Dependencies (will be installed fresh)
+node_modules
+.pnp
+.pnp.js
+
+# Build outputs (will be generated)
+.next
+out
+build
+dist
+
+# Testing
+coverage
+.nyc_output
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+__tests__
+**/__tests__
+
+# Development tools
+.turbo
+.swc
+
+# IDE and editors
+.vscode
+.idea
+*.sublime-*
+*.code-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+*.log
+
+# Environment files (sensitive)
+.env
+.env.local
+.env.development
+.env.test
+.env.production.local
+.env*.local
+
+# Git
+.git
+.gitignore
+
+# Documentation
+README.md
+CHANGELOG.md
+docs
+*.md
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.travis.yml
+.circleci
+
+# Linting and formatting
+.eslintrc*
+.prettierrc*
+.editorconfig
+.stylelintrc*
+
+# TypeScript build info (not needed at runtime)
+tsconfig.tsbuildinfo
+*.tsbuildinfo
+
+# Development configuration
+.serena
+.cursor
+scripts
+
+# Docker files (don't include in image)
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Prisma (migrations and seeds not needed at runtime)
+prisma/migrations
+prisma/seed.ts
+
+# Firebase configuration (not needed in container)
+firebase.json
+.firebaserc
+firestore.rules
+firestore.indexes.json
+storage.rules
+firebase-debug.log
+
+# Test and debug files
+vitest.config.ts
+jest.config.js
+playwright.config.ts
+*.log
+logs
+
+# Misc
+*.tgz
+*.tar.gz
+package-lock.json.bak

@@ -1,15 +1,16 @@
 /**
  * VK API Server-Side Cache
- * 
+ *
  * In-memory cache with TTL for VK API responses.
  * Prevents rate limiting and improves response times.
- * 
+ *
  * Features:
  * - TTL-based expiration
  * - Automatic cleanup of stale entries
  * - Cache key generation helpers
  * - Singleton pattern for consistent state
- * 
+ * - Request deduplication to prevent thundering herd
+ *
  * @module src/lib/vk-cache
  */
 
@@ -22,6 +23,14 @@ interface CacheEntry<T> {
   timestamp: number;
   expiresAt: number;
   hitCount: number;
+}
+
+/**
+ * Pending request for deduplication
+ */
+interface PendingRequest<T> {
+  promise: Promise<T>;
+  timestamp: number;
 }
 
 interface CacheStats {
@@ -59,10 +68,13 @@ export const VK_CACHE_TTL = {
 
 class VKCache {
   private cache: Map<string, CacheEntry<unknown>> = new Map();
+  private pendingRequests: Map<string, PendingRequest<unknown>> = new Map();
   private hits = 0;
   private misses = 0;
+  private dedupeHits = 0; // Track deduplication effectiveness
   private cleanupInterval: NodeJS.Timeout | null = null;
   private readonly maxSize: number;
+  private readonly maxPendingAge = 30000; // 30 seconds max for pending requests
 
   constructor(maxSize = 500) {
     this.maxSize = maxSize;
@@ -95,7 +107,7 @@ class VKCache {
   }
 
   /**
-   * Remove expired entries from cache
+   * Remove expired entries from cache and stale pending requests
    */
   cleanup(): number {
     const now = Date.now();
@@ -107,6 +119,9 @@ class VKCache {
         removed++;
       }
     }
+
+    // Also clean up stale pending requests
+    this.cleanupPendingRequests();
 
     return removed;
   }
@@ -177,12 +192,14 @@ class VKCache {
   }
 
   /**
-   * Clear all cache entries
+   * Clear all cache entries and pending requests
    */
   clear(): void {
     this.cache.clear();
+    this.pendingRequests.clear();
     this.hits = 0;
     this.misses = 0;
+    this.dedupeHits = 0;
   }
 
   /**
@@ -224,7 +241,7 @@ class VKCache {
   /**
    * Get cache statistics
    */
-  getStats(): CacheStats {
+  getStats(): CacheStats & { dedupeHits: number; pendingRequests: number } {
     let oldestEntry: number | null = null;
     let newestEntry: number | null = null;
 
@@ -246,13 +263,19 @@ class VKCache {
       hitRate: total > 0 ? this.hits / total : 0,
       oldestEntry,
       newestEntry,
+      dedupeHits: this.dedupeHits,
+      pendingRequests: this.pendingRequests.size,
     };
   }
 
   /**
-   * Get or fetch with caching
+   * Get or fetch with caching and request deduplication
    * If cached value exists and is valid, returns it.
+   * If a request for this key is already in-flight, returns the pending promise.
    * Otherwise, calls fetcher and caches the result.
+   *
+   * This prevents the "thundering herd" problem when cache expires
+   * and multiple requests try to refresh simultaneously.
    */
   async getOrFetch<T>(
     key: string,
@@ -265,13 +288,61 @@ class VKCache {
       return cached;
     }
 
-    // Fetch fresh data
-    const data = await fetcher();
-    
-    // Cache the result
-    this.set(key, data, ttl);
-    
-    return data;
+    // Check if there's already a pending request for this key
+    const pending = this.pendingRequests.get(key) as PendingRequest<T> | undefined;
+    if (pending) {
+      // Check if pending request is still valid (not too old)
+      const age = Date.now() - pending.timestamp;
+      if (age < this.maxPendingAge) {
+        this.dedupeHits++;
+        return pending.promise;
+      }
+      // Stale pending request, remove it
+      this.pendingRequests.delete(key);
+    }
+
+    // Create new request and track it
+    const promise = this.executeAndCache<T>(key, fetcher, ttl);
+    this.pendingRequests.set(key, { promise, timestamp: Date.now() });
+
+    return promise;
+  }
+
+  /**
+   * Execute fetcher and cache result, cleaning up pending request on completion
+   */
+  private async executeAndCache<T>(
+    key: string,
+    fetcher: () => Promise<T>,
+    ttl: number
+  ): Promise<T> {
+    try {
+      const data = await fetcher();
+      this.set(key, data, ttl);
+      return data;
+    } finally {
+      // Always clean up the pending request
+      this.pendingRequests.delete(key);
+    }
+  }
+
+  /**
+   * Get the number of pending requests (useful for monitoring)
+   */
+  getPendingCount(): number {
+    return this.pendingRequests.size;
+  }
+
+  /**
+   * Clean up stale pending requests
+   */
+  private cleanupPendingRequests(): void {
+    const now = Date.now();
+    for (const [key, pending] of this.pendingRequests.entries()) {
+      if (now - pending.timestamp > this.maxPendingAge) {
+        this.pendingRequests.delete(key);
+      }
+    }
   }
 }
 

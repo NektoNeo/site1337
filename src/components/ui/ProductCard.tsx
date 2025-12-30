@@ -1,8 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 import { GlowCard } from './GlowCard';
+import { memo } from 'react';
 
 interface ProductSpec {
   cpu: string;
@@ -21,7 +22,7 @@ interface ProductCardProps {
   index?: number;
 }
 
-export function ProductCard({
+export const ProductCard = memo(function ProductCard({
   name,
   specs,
   price,
@@ -30,6 +31,8 @@ export function ProductCard({
   badge,
   index = 0,
 }: ProductCardProps) {
+  const shouldReduceMotion = useReducedMotion();
+  
   const formatPrice = (value: number) => {
     return new Intl.NumberFormat('ru-RU', {
       style: 'currency',
@@ -39,27 +42,17 @@ export function ProductCard({
     }).format(value);
   };
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{
-        duration: 0.6,
-        delay: index * 0.1,
-        ease: [0.25, 0.46, 0.45, 0.94]
-      }}
+  const cardContent = (
+    <GlowCard
+      variant="cosmic"
+      enableTilt={!shouldReduceMotion}
+      tiltIntensity={8}
+      enableGlow={!shouldReduceMotion}
+      enableBorder={true}
+      enableShine={!shouldReduceMotion}
+      enableParticles={false}
+      className="h-full"
     >
-      <GlowCard
-        variant="premium"
-        enableTilt={true}
-        tiltIntensity={6}
-        enableGlow={true}
-        enableBorder={true}
-        enableShine={true}
-        enableParticles={true}
-        className="h-full"
-      >
         <div className="p-5 flex flex-col h-full">
           {/* Badge */}
           {badge && (
@@ -160,9 +153,27 @@ export function ProductCard({
           </div>
         </div>
       </GlowCard>
+  );
+
+  if (shouldReduceMotion) {
+    return cardContent;
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30, scale: 0.95 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{
+        duration: 0.5,
+        delay: index * 0.08,
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }}
+    >
+      {cardContent}
     </motion.div>
   );
-}
+});
 
 function SpecRow({ 
   icon, 

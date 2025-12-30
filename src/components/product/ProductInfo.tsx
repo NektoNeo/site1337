@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useMemo, useState } from 'react';
 import { ProductDetail, ProductBadge, ProductFeature } from '@/types/product';
 
 interface ProductInfoProps {
@@ -119,6 +120,24 @@ export function ProductInfo({ product, onOrder, onAddToCart }: ProductInfoProps)
     return new Intl.NumberFormat('ru-RU').format(price);
   };
 
+  // Simple configurable options (RAM / SSD) with price deltas
+  const ramOptions = [
+    { label: 'Базовая ОЗУ', delta: 0 },
+    { label: '+8 ГБ', delta: 2000 },
+    { label: '+16 ГБ', delta: 4000 },
+    { label: '+32 ГБ', delta: 8000 },
+  ];
+  const ssdOptions = [
+    { label: 'Базовый SSD', delta: 0 },
+    { label: '+512 ГБ', delta: 3000 },
+    { label: '+1 ТБ', delta: 7000 },
+  ];
+  const [ramIndex, setRamIndex] = useState(0);
+  const [ssdIndex, setSsdIndex] = useState(0);
+  const configuredPrice = useMemo(() => {
+    return product.price + ramOptions[ramIndex].delta + ssdOptions[ssdIndex].delta;
+  }, [product.price, ramIndex, ssdIndex]);
+
   return (
     <div className="flex flex-col gap-6">
       {/* Product Name */}
@@ -143,7 +162,7 @@ export function ProductInfo({ product, onOrder, onAddToCart }: ProductInfoProps)
       >
         <div className="flex items-baseline gap-2">
           <span className="text-4xl md:text-5xl font-bold text-white">
-            {formatPrice(product.price)}
+            {formatPrice(configuredPrice)}
           </span>
           <span className="text-xl text-gray-400">{product.currency}</span>
         </div>
@@ -163,6 +182,51 @@ export function ProductInfo({ product, onOrder, onAddToCart }: ProductInfoProps)
             </motion.span>
           </>
         )}
+      </motion.div>
+
+      {/* Configurator (RAM / SSD) */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.12 }}
+        className="grid grid-cols-1 sm:grid-cols-2 gap-3"
+      >
+        <div className="bg-black/40 border border-gray-800 rounded-xl p-4">
+          <div className="text-sm text-gray-400 mb-2">Оперативная память</div>
+          <div className="flex gap-2 flex-wrap">
+            {ramOptions.map((opt, i) => (
+              <button
+                key={opt.label}
+                onClick={() => setRamIndex(i)}
+                className={`px-3 py-1.5 rounded-lg text-sm border transition-all ${
+                  ramIndex === i
+                    ? 'bg-purple-500/20 border-purple-400 text-white'
+                    : 'bg-black/40 border-gray-800 text-gray-300 hover:border-purple-500/40'
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="bg-black/40 border border-gray-800 rounded-xl p-4">
+          <div className="text-sm text-gray-400 mb-2">SSD накопитель</div>
+          <div className="flex gap-2 flex-wrap">
+            {ssdOptions.map((opt, i) => (
+              <button
+                key={opt.label}
+                onClick={() => setSsdIndex(i)}
+                className={`px-3 py-1.5 rounded-lg text-sm border transition-all ${
+                  ssdIndex === i
+                    ? 'bg-purple-500/20 border-purple-400 text-white'
+                    : 'bg-black/40 border-gray-800 text-gray-300 hover:border-purple-500/40'
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
       </motion.div>
 
       {/* Short Description */}
@@ -202,7 +266,7 @@ export function ProductInfo({ product, onOrder, onAddToCart }: ProductInfoProps)
         className="bg-gradient-to-br from-gray-800/40 to-gray-900/40 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-5"
       >
         <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">
-          Included
+          В комплекте
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {product.features.map((feature, index) => (
@@ -218,9 +282,9 @@ export function ProductInfo({ product, onOrder, onAddToCart }: ProductInfoProps)
         transition={{ delay: 0.4 }}
         className="flex items-center gap-2"
       >
-        <span className={`w-2 h-2 rounded-full ${product.inStock ? 'bg-green-400 animate-pulse' : 'bg-red-500'}`} />
-        <span className={`text-sm ${product.inStock ? 'text-green-400' : 'text-red-400'}`}>
-          {product.inStock ? 'In Stock - Ready to Ship' : 'Out of Stock'}
+        <span className={`w-2 h-2 rounded-full ${product.inStock ? 'bg-purple-400 animate-pulse' : 'bg-red-500'}`} />
+        <span className={`text-sm ${product.inStock ? 'text-purple-400' : 'text-red-400'}`}>
+          {product.inStock ? 'В наличии — готов к отправке' : 'Нет в наличии'}
         </span>
       </motion.div>
 
@@ -270,7 +334,7 @@ export function ProductInfo({ product, onOrder, onAddToCart }: ProductInfoProps)
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
             </svg>
-            <span>Add to Cart</span>
+            <span>В корзину</span>
           </span>
         </button>
       </motion.div>
@@ -286,19 +350,19 @@ export function ProductInfo({ product, onOrder, onAddToCart }: ProductInfoProps)
           <svg className="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
           </svg>
-          <span>2 Year Warranty</span>
+          <span>Гарантия 2 года</span>
         </div>
         <div className="flex items-center gap-2 text-gray-400 text-sm">
           <svg className="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
           </svg>
-          <span>Free Shipping</span>
+          <span>Бесплатная доставка</span>
         </div>
         <div className="flex items-center gap-2 text-gray-400 text-sm">
           <svg className="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
           </svg>
-          <span>30-Day Returns</span>
+          <span>30 дней на возврат</span>
         </div>
       </motion.div>
     </div>

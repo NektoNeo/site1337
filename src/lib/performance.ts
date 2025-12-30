@@ -416,10 +416,135 @@ export function trackTimeToInteractive(
     markInteractive: () => {
       const duration = performance.now() - startTime;
       onInteractive();
-      
+
       if (process.env.NODE_ENV === 'development') {
         console.log(`[TTI] ${componentName}: ${duration.toFixed(2)}ms`);
       }
     },
   };
+}
+
+// ============================================================================
+// ANIMATION OPTIMIZATION
+// ============================================================================
+
+/**
+ * Animation priority levels for performance budgeting
+ * Use lower priority for less critical animations
+ */
+export const animationPriority = {
+  critical: { duration: 0.3, ease: 'easeOut' },
+  high: { duration: 0.4, ease: 'easeOut' },
+  normal: { duration: 0.5, ease: 'easeInOut' },
+  low: { duration: 0.6, ease: 'easeInOut' },
+  background: { duration: 1, ease: 'linear' },
+} as const;
+
+/**
+ * Creates a throttled function that only executes once per animation frame
+ * Useful for scroll handlers and resize listeners
+ */
+export function rafThrottle<T extends (...args: unknown[]) => void>(
+  callback: T
+): (...args: Parameters<T>) => void {
+  let requestId: number | null = null;
+
+  return function throttled(...args: Parameters<T>) {
+    if (requestId === null) {
+      requestId = requestAnimationFrame(() => {
+        callback.apply(null, args);
+        requestId = null;
+      });
+    }
+  };
+}
+
+/**
+ * Debounce function for search inputs and other user interactions
+ */
+export function debounce<T extends (...args: unknown[]) => void>(
+  callback: T,
+  delay: number
+): (...args: Parameters<T>) => void {
+  let timeoutId: ReturnType<typeof setTimeout>;
+
+  return function debounced(...args: Parameters<T>) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(null, args), delay);
+  };
+}
+
+// ============================================================================
+// IMAGE OPTIMIZATION HELPERS
+// ============================================================================
+
+/**
+ * Generates sizes attribute for responsive images
+ * Common patterns for typical layouts
+ */
+export const imageSizesPresets = {
+  // Full width on mobile, half on tablet, third on desktop
+  card: '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw',
+  // Full width always
+  hero: '100vw',
+  // Fixed width image
+  thumbnail: '(max-width: 640px) 50vw, 200px',
+  // Gallery grid
+  gallery: '(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw',
+  // Product card
+  productCard: '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw',
+} as const;
+
+/**
+ * Check if the browser supports modern image formats
+ */
+export function supportsAvif(): boolean {
+  if (typeof document === 'undefined') return false;
+
+  const canvas = document.createElement('canvas');
+  canvas.width = 1;
+  canvas.height = 1;
+  return canvas.toDataURL('image/avif').indexOf('data:image/avif') === 0;
+}
+
+export function supportsWebp(): boolean {
+  if (typeof document === 'undefined') return false;
+
+  const canvas = document.createElement('canvas');
+  canvas.width = 1;
+  canvas.height = 1;
+  return canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+}
+
+/**
+ * Optimal image format based on browser support
+ */
+export function getOptimalImageFormat(): 'avif' | 'webp' | 'jpg' {
+  if (supportsAvif()) return 'avif';
+  if (supportsWebp()) return 'webp';
+  return 'jpg';
+}
+
+// ============================================================================
+// LAZY LOADING OPTIONS
+// ============================================================================
+
+/**
+ * Create intersection observer options for lazy loading
+ */
+export const lazyLoadOptions = {
+  // Load when 100px from viewport
+  eager: { rootMargin: '100px', threshold: 0 },
+  // Load when 200px from viewport (default)
+  normal: { rootMargin: '200px', threshold: 0 },
+  // Load when 500px from viewport
+  aggressive: { rootMargin: '500px', threshold: 0 },
+} as const;
+
+/**
+ * Check if reduced motion is preferred
+ */
+export function prefersReducedMotion(): boolean {
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }

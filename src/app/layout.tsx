@@ -5,8 +5,23 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { MobileContactDock } from '@/components/layout/MobileContactDock';
 import { QueryProvider } from '@/lib/query-client';
+import { AnimationDeferProvider } from '@/providers/AnimationDeferProvider';
 import { OrganizationJsonLd, LocalBusinessJsonLd, WebSiteJsonLd } from '@/components/seo/JsonLd';
 import { UIMonitor } from '@/components/ui/UIMonitor';
+import { PerformanceErrorBoundary } from '@/components/error/PerformanceErrorBoundary';
+import dynamic from 'next/dynamic';
+
+// Lazy load CosmicBackdrop for better initial load performance
+const CosmicBackdrop = dynamic(
+  () => import('@/components/ambient/CosmicBackdrop').then(mod => ({ default: mod.CosmicBackdrop })),
+  { ssr: false }
+);
+
+// Lazy load PerformanceDashboard for dev only (toggle with Ctrl+Shift+P)
+const PerformanceDashboard = dynamic(
+  () => import('@/components/ui/PerformanceDashboard').then(mod => ({ default: mod.PerformanceDashboard })),
+  { ssr: false }
+);
 
 // Inter font everywhere - Grayscale Pro typography
 const inter = Inter({
@@ -65,6 +80,78 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // Global error handler for runtime errors (outside React Error Boundary)
+  if (typeof window !== 'undefined') {
+    // Only set up once
+    if (!(window as unknown as { __errorHandlerSetup?: boolean }).__errorHandlerSetup) {
+      (window as unknown as { __errorHandlerSetup?: boolean }).__errorHandlerSetup = true;
+      
+      window.addEventListener('error', (ev) => {
+        const err = ev.error || new Error(ev.message);
+        const logData = {
+          sessionId: 'debug-session',
+          runId: 'run1',
+          hypothesisId: 'H-E',
+          location: `${ev.filename}:${ev.lineno}:${ev.colno}`,
+          message: 'global:runtime-error',
+          data: {
+            error: err.message,
+            errorType: err?.constructor?.name,
+            stack: err.stack,
+            filename: ev.filename,
+            lineno: ev.lineno,
+            colno: ev.colno,
+          },
+          timestamp: Date.now(),
+        };
+        // Log via fetch
+        fetch('http://127.0.0.1:7243/ingest/003e9637-21f5-410c-9dc8-026e978b946c', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(logData),
+        }).catch(() => {});
+        // Also log via debugLogEvent if available
+        try {
+          // eslint-disable-next-line @typescript-eslint/no-var-requires
+          const { debugLogEvent } = require('@/hooks/useUIMonitor');
+          debugLogEvent(logData);
+        } catch {
+          // Ignore if not available
+        }
+      });
+
+      window.addEventListener('unhandledrejection', (ev) => {
+        const err = ev.reason instanceof Error ? ev.reason : new Error(String(ev.reason));
+        const logData = {
+          sessionId: 'debug-session',
+          runId: 'run1',
+          hypothesisId: 'H-E',
+          location: 'window:unhandledrejection',
+          message: 'global:unhandled-rejection',
+          data: {
+            error: err.message,
+            errorType: err?.constructor?.name,
+            stack: err.stack,
+            reason: String(ev.reason),
+          },
+          timestamp: Date.now(),
+        };
+        fetch('http://127.0.0.1:7243/ingest/003e9637-21f5-410c-9dc8-026e978b946c', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(logData),
+        }).catch(() => {});
+        try {
+          // eslint-disable-next-line @typescript-eslint/no-var-requires
+          const { debugLogEvent } = require('@/hooks/useUIMonitor');
+          debugLogEvent(logData);
+        } catch {
+          // Ignore
+        }
+      });
+    }
+  }
+
   return (
     <html
       lang="ru"
@@ -86,12 +173,12 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://api.va-pc.ru" />
         <link rel="dns-prefetch" href="https://api.vk.com" />
 
-        {/* Preload critical hero image for LCP optimization */}
+        {/* Preload critical hero image for LCP optimization - WebP (54KB vs 3.2MB) */}
         <link
           rel="preload"
-          href="/images/IMG_7790.JPG"
+          href="/pc_hero_750.webp"
           as="image"
-          type="image/png"
+          type="image/webp"
           fetchPriority="high"
         />
 
@@ -104,25 +191,37 @@ export default function RootLayout({
         <WebSiteJsonLd />
       </head>
       <body className="antialiased bg-black text-white min-h-screen flex flex-col font-inter">
+        {/* Cosmic ambient background */}
+        <CosmicBackdrop />
+        
+        {/* Animation Defer Provider - Defers animations until after LCP */}
+        <AnimationDeferProvider>
         {/* React Query Provider for data fetching */}
         <QueryProvider>
           {/* UI Monitor - Real-time monitoring of images and animations */}
           <UIMonitor enabled={true} />
 
-          {/* Global Header */}
-          <Header />
+          {/* Performance Dashboard - Dev only, toggle with Ctrl+Shift+P */}
+          {process.env.NODE_ENV === 'development' && <PerformanceDashboard />}
 
-          {/* Main Content - pb-20 on mobile for MobileContactDock clearance */}
-          <main className="flex-1 pt-20 pb-20 lg:pb-0">
-            {children}
-          </main>
+          {/* Error Boundary with Performance Tracking */}
+          <PerformanceErrorBoundary>
+            {/* Global Header */}
+            <Header />
 
-          {/* Global Footer */}
-          <Footer />
+            {/* Main Content - pb-20 on mobile for MobileContactDock clearance */}
+            <main className="flex-1 pt-20 pb-20 lg:pb-0">
+              {children}
+            </main>
+
+            {/* Global Footer */}
+            <Footer />
+          </PerformanceErrorBoundary>
 
           {/* Mobile Contact Dock - Fixed panel for mobile */}
           <MobileContactDock />
         </QueryProvider>
+        </AnimationDeferProvider>
       </body>
     </html>
   );

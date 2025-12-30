@@ -127,6 +127,13 @@
     line-height: 1.5;
   }
 
+  /* SVG sizing fix - ensure width/height classes work */
+  svg {
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0;
+  }
+
   /* Typography Scale - Strict Inter */
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-inter);
@@ -256,7 +263,8 @@
 
   /* Button Base - Clean, no glow fills */
   .glow-button {
-    @apply relative overflow-hidden transition-all duration-300;
+    @apply relative overflow-hidden;
+    transition: border-color 300ms, box-shadow 300ms, transform 300ms;
     border: 1px solid var(--va-border-base);
   }
 
@@ -373,7 +381,7 @@
 
   /* Input Glow */
   .input-glow {
-    @apply transition-all duration-300;
+    transition: box-shadow 300ms, border-color 300ms;
   }
 
   .input-glow:focus {
@@ -385,7 +393,7 @@
 
   /* Card Hover Effect - Subtle border glow, no background fill */
   .card-hover {
-    @apply transition-all duration-300;
+    transition: transform 300ms, border-color 300ms, box-shadow 300ms;
     border: 1px solid var(--va-border-base);
   }
 
@@ -542,7 +550,7 @@
 
   /* Hover Lift */
   .hover-lift {
-    @apply transition-all duration-300;
+    transition: transform 300ms, box-shadow 300ms;
   }
 
   .hover-lift:hover {
@@ -680,10 +688,339 @@
   }
 }
 
+/* ============================================
+   COSMIC UX ANIMATIONS
+   ============================================ */
+@keyframes cosmic-twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes cosmic-pulse {
+  0%, 100% { 
+    opacity: 0.5; 
+    transform: scale(1); 
+    box-shadow: 0 0 6px rgba(168, 85, 247, 0.4); 
+  }
+  50% { 
+    opacity: 1; 
+    transform: scale(1.3); 
+    box-shadow: 0 0 12px rgba(168, 85, 247, 0.6), 0 0 20px rgba(168, 85, 247, 0.3); 
+  }
+}
+
+@keyframes cosmic-float {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(10px, -10px); }
+  50% { transform: translate(0, -20px); }
+  75% { transform: translate(-10px, -10px); }
+}
+
+@keyframes cosmic-breathe {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% { 
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes cosmic-shimmer {
+  0% { 
+    background-position: -200% center;
+  }
+  100% { 
+    background-position: 200% center;
+  }
+}
+
+@keyframes cosmic-glow-ring {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.3), 0 0 40px rgba(168, 85, 247, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.5), 0 0 60px rgba(168, 85, 247, 0.2);
+  }
+}
+
+/* Scan line animation for product cards - single pass, no infinite loop */
+@keyframes scan-line {
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   PERFORMANCE-OPTIMIZED HERO ANIMATIONS
+   CSS-only animations for Hero section
+   ============================================ */
+
+/* Floating particle animation - GPU accelerated */
+@keyframes float-particle {
+  0%, 100% {
+    transform: translateY(0) translateX(0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(-20px) translateX(5px) scale(1);
+  }
+  90% {
+    opacity: 0.8;
+    transform: translateY(-180px) translateX(20px) scale(0.8);
+  }
+  100% {
+    transform: translateY(-200px) translateX(30px) scale(0);
+    opacity: 0;
+  }
+}
+
+/* Slow spin for energy rings */
+@keyframes spin-slow {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Pulsing glow effect - optimized */
+@keyframes glow-pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.15);
+    opacity: 0.7;
+  }
+}
+
+/* Animation utility classes */
+.animate-float-particle {
+  animation: float-particle 4s ease-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 50s linear infinite;
+  will-change: transform;
+}
+
+.animate-pulse-glow {
+  animation: glow-pulse 2.5s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Header/Modal animations - CSS only */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes gradient-shimmer {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+.animate-fade-in {
+  animation: fade-in 200ms ease-out forwards;
+}
+
+.animate-slide-down {
+  animation: slide-down 300ms ease-out forwards;
+}
+
+.animate-shimmer {
+  animation: gradient-shimmer 3s linear infinite;
+}
+
+.animate-shimmer-slow {
+  animation: gradient-shimmer 8s ease-in-out infinite;
+  animation-delay: 5s;
+}
+
+/* Loading spinner - CSS only */
+.animate-spin-slow {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 @property --border-angle {
   syntax: '<angle>';
   inherits: false;
   initial-value: 0deg;
+}
+
+/* ============================================
+   CTA SECTION ANIMATIONS (Framer Motion replacement)
+   ============================================ */
+
+/* Liquid rise animation for tubes */
+@keyframes liquid-rise {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+.animate-liquid-rise {
+  animation: liquid-rise 2s ease-out forwards;
+  will-change: transform, opacity;
+}
+
+/* Bubble floating animation */
+@keyframes bubble {
+  0% {
+    transform: translateY(0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    transform: translateY(-5px) scale(1);
+    opacity: 0.8;
+  }
+  90% {
+    transform: translateY(-60px) scale(0.8);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-80px) scale(0);
+    opacity: 0;
+  }
+}
+
+.animate-bubble {
+  animation: bubble 2.5s ease-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Data particle floating animation */
+@keyframes particle {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-150px);
+    opacity: 0;
+  }
+}
+
+.animate-particle {
+  animation: particle 4s ease-out infinite;
+  will-change: transform, opacity;
+}
+
+/* HUD bar graph animation */
+@keyframes bar-graph {
+  0%, 100% {
+    height: 30%;
+  }
+  25% {
+    height: 70%;
+  }
+  50% {
+    height: 45%;
+  }
+  75% {
+    height: 85%;
+  }
+}
+
+.animate-bar-graph {
+  animation: bar-graph 2s ease-in-out infinite;
+  will-change: height;
+}
+
+/* Slow pulse glow for gates */
+@keyframes pulse-glow-slow {
+  0%, 100% {
+    opacity: 0.4;
+    box-shadow: 0 0 10px currentColor;
+  }
+  50% {
+    opacity: 0.8;
+    box-shadow: 0 0 25px currentColor;
+  }
+}
+
+.animate-pulse-glow-slow {
+  animation: pulse-glow-slow 3s ease-in-out infinite;
+  will-change: opacity, box-shadow;
+}
+
+/* Scale pulse for reactor glow */
+@keyframes pulse-scale {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.8;
+  }
+}
+
+.animate-pulse-scale {
+  animation: pulse-scale 2s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Slow opacity pulse for status indicators */
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+  will-change: opacity;
 }
 
 /* ============================================

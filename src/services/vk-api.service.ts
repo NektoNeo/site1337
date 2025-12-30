@@ -4,6 +4,12 @@
  *
  * VK API Documentation: https://dev.vk.com/method/market
  * API Version: 5.199
+ *
+ * Performance Optimizations:
+ * - Request deduplication for concurrent identical requests
+ * - Retry logic with exponential backoff
+ * - Parallel batch fetching with controlled concurrency
+ * - Rate limiting (3 requests per second)
  */
 
 import {
@@ -32,44 +38,134 @@ const VK_API_VERSION = '5.199';
 // or using https://regvk.com/id/ to convert
 const DEFAULT_GROUP_SCREEN_NAME = 'vapcbuild';
 
+// Retry configuration
+const MAX_RETRIES = 3;
+const RETRY_BASE_DELAY_MS = 1000;
+const RETRY_MAX_DELAY_MS = 10000;
+
+// Concurrency control for parallel fetches
+const MAX_CONCURRENT_REQUESTS = 2; // Conservative to respect rate limits
+
 /**
  * VK API Error class
  */
 export class VKApiServiceError extends Error {
   public code: number;
   public vkErrorCode?: number;
+  public isRetryable: boolean;
 
   constructor(message: string, code: number, vkErrorCode?: number) {
     super(message);
     this.name = 'VKApiServiceError';
     this.code = code;
     this.vkErrorCode = vkErrorCode;
+    // Retryable errors: rate limit (6), server errors (5xx), network errors
+    this.isRetryable = vkErrorCode === 6 || code >= 500 || code === 0;
   }
 }
 
 /**
- * Rate limiter for VK API (3 requests per second)
+ * Request deduplication manager
+ * Prevents duplicate concurrent requests to the same endpoint
  */
-class RateLimiter {
-  private queue: Array<() => void> = [];
-  private lastRequestTime = 0;
-  private readonly minInterval = 334; // ~3 requests per second
+class RequestDeduplicator {
+  private pendingRequests = new Map<string, Promise<unknown>>();
 
-  async waitForSlot(): Promise<void> {
-    const now = Date.now();
-    const timeSinceLastRequest = now - this.lastRequestTime;
-
-    if (timeSinceLastRequest < this.minInterval) {
-      await new Promise(resolve =>
-        setTimeout(resolve, this.minInterval - timeSinceLastRequest)
-      );
+  /**
+   * Get or create a pending request
+   * If a request with the same key is in-flight, returns the existing promise
+   */
+  async dedupe<T>(key: string, fetcher: () => Promise<T>): Promise<T> {
+    const existing = this.pendingRequests.get(key);
+    if (existing) {
+      return existing as Promise<T>;
     }
 
-    this.lastRequestTime = Date.now();
+    const promise = fetcher()
+      .finally(() => {
+        this.pendingRequests.delete(key);
+      });
+
+    this.pendingRequests.set(key, promise);
+    return promise;
+  }
+
+  /**
+   * Check if there's a pending request for the given key
+   */
+  hasPending(key: string): boolean {
+    return this.pendingRequests.has(key);
+  }
+
+  /**
+   * Get current pending request count
+   */
+  get pendingCount(): number {
+    return this.pendingRequests.size;
+  }
+}
+
+const requestDeduplicator = new RequestDeduplicator();
+
+/**
+ * Rate limiter for VK API (3 requests per second)
+ * Uses token bucket algorithm for smoother rate limiting
+ */
+class RateLimiter {
+  private lastRequestTime = 0;
+  private readonly minInterval = 334; // ~3 requests per second
+  private requestQueue: Array<() => void> = [];
+  private isProcessing = false;
+
+  async waitForSlot(): Promise<void> {
+    return new Promise((resolve) => {
+      this.requestQueue.push(resolve);
+      this.processQueue();
+    });
+  }
+
+  private async processQueue(): Promise<void> {
+    if (this.isProcessing || this.requestQueue.length === 0) return;
+
+    this.isProcessing = true;
+
+    while (this.requestQueue.length > 0) {
+      const now = Date.now();
+      const timeSinceLastRequest = now - this.lastRequestTime;
+
+      if (timeSinceLastRequest < this.minInterval) {
+        await new Promise(resolve =>
+          setTimeout(resolve, this.minInterval - timeSinceLastRequest)
+        );
+      }
+
+      this.lastRequestTime = Date.now();
+      const resolve = this.requestQueue.shift();
+      if (resolve) resolve();
+    }
+
+    this.isProcessing = false;
   }
 }
 
 const rateLimiter = new RateLimiter();
+
+/**
+ * Calculate exponential backoff delay
+ */
+function getRetryDelay(attempt: number): number {
+  const delay = RETRY_BASE_DELAY_MS * Math.pow(2, attempt);
+  // Add jitter to prevent thundering herd
+  const jitter = Math.random() * 0.3 * delay;
+  return Math.min(delay + jitter, RETRY_MAX_DELAY_MS);
+}
+
+/**
+ * Sleep for specified milliseconds
+ */
+function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 /**
  * VK API Service Class
@@ -96,11 +192,38 @@ export class VKApiService {
   }
 
   /**
-   * Make a request to VK API
+   * Generate cache key for request deduplication
+   */
+  private getRequestKey(method: string, params: Record<string, unknown>): string {
+    const sortedParams = Object.keys(params)
+      .sort()
+      .map(k => `${k}=${params[k]}`)
+      .join('&');
+    return `${method}:${sortedParams}`;
+  }
+
+  /**
+   * Make a request to VK API with retry logic and deduplication
    */
   private async request<T>(
     method: string,
     params: Record<string, unknown>
+  ): Promise<T> {
+    const requestKey = this.getRequestKey(method, params);
+
+    // Use deduplication to prevent concurrent identical requests
+    return requestDeduplicator.dedupe(requestKey, async () => {
+      return this.executeRequest<T>(method, params);
+    });
+  }
+
+  /**
+   * Execute the actual API request with retry logic
+   */
+  private async executeRequest<T>(
+    method: string,
+    params: Record<string, unknown>,
+    attempt: number = 0
   ): Promise<T> {
     await rateLimiter.waitForSlot();
 
@@ -123,26 +246,45 @@ export class VKApiService {
         headers: {
           'Accept': 'application/json',
         },
-        // Note: In production, consider adding retry logic
       });
 
       if (!response.ok) {
-        throw new VKApiServiceError(
+        const error = new VKApiServiceError(
           `HTTP error: ${response.status} ${response.statusText}`,
           response.status
         );
+
+        // Retry on server errors
+        if (error.isRetryable && attempt < MAX_RETRIES) {
+          const delay = getRetryDelay(attempt);
+          console.warn(`[VK API] Retrying ${method} in ${delay}ms (attempt ${attempt + 1}/${MAX_RETRIES})`);
+          await sleep(delay);
+          return this.executeRequest<T>(method, params, attempt + 1);
+        }
+
+        throw error;
       }
 
       const data = await response.json();
 
       // Check for VK API error
       if (isVKApiError(data)) {
-        const error = data as VKApiError;
-        throw new VKApiServiceError(
-          `VK API Error: ${error.error.error_msg}`,
+        const apiError = data as VKApiError;
+        const error = new VKApiServiceError(
+          `VK API Error: ${apiError.error.error_msg}`,
           500,
-          error.error.error_code
+          apiError.error.error_code
         );
+
+        // Retry on rate limit or server errors
+        if (error.isRetryable && attempt < MAX_RETRIES) {
+          const delay = getRetryDelay(attempt);
+          console.warn(`[VK API] Retrying ${method} in ${delay}ms (attempt ${attempt + 1}/${MAX_RETRIES}) - VK error: ${apiError.error.error_code}`);
+          await sleep(delay);
+          return this.executeRequest<T>(method, params, attempt + 1);
+        }
+
+        throw error;
       }
 
       return (data as VKApiResponse<T>).response;
@@ -151,9 +293,17 @@ export class VKApiService {
         throw error;
       }
 
+      // Network errors are retryable
+      if (attempt < MAX_RETRIES) {
+        const delay = getRetryDelay(attempt);
+        console.warn(`[VK API] Network error, retrying ${method} in ${delay}ms (attempt ${attempt + 1}/${MAX_RETRIES})`);
+        await sleep(delay);
+        return this.executeRequest<T>(method, params, attempt + 1);
+      }
+
       throw new VKApiServiceError(
         `Failed to fetch from VK API: ${error instanceof Error ? error.message : 'Unknown error'}`,
-        500
+        0 // Network error
       );
     }
   }

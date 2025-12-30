@@ -1,7 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
-
 export function AnimatedBackground() {
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -9,57 +7,27 @@ export function AnimatedBackground() {
       <div className="absolute inset-0 bg-[#0a0a0f]" />
       
       {/* Animated gradient blobs - Violet + Magenta palette */}
-      <motion.div
-        className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full opacity-25"
+      <div
+        className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full opacity-25 will-change-transform [animation:va-bg-blob-1_20s_ease-in-out_infinite]"
         style={{
           background: 'radial-gradient(circle, rgba(139, 92, 246, 0.35) 0%, transparent 70%)',
           filter: 'blur(80px)',
         }}
-        animate={{
-          x: ['0%', '10%', '-5%', '0%'],
-          y: ['0%', '15%', '5%', '0%'],
-          scale: [1, 1.1, 0.95, 1],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
       />
       
-      <motion.div
-        className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full opacity-20"
+      <div
+        className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full opacity-20 will-change-transform [animation:va-bg-blob-2_25s_ease-in-out_infinite]"
         style={{
           background: 'radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)',
           filter: 'blur(80px)',
         }}
-        animate={{
-          x: ['0%', '-15%', '5%', '0%'],
-          y: ['0%', '-10%', '-20%', '0%'],
-          scale: [1, 0.9, 1.15, 1],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
       />
       
-      <motion.div
-        className="absolute top-[40%] left-[30%] w-[40%] h-[40%] rounded-full opacity-15"
+      <div
+        className="absolute top-[40%] left-[30%] w-[40%] h-[40%] rounded-full opacity-15 will-change-transform [animation:va-bg-blob-3_30s_ease-in-out_infinite]"
         style={{
           background: 'radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, transparent 70%)',
           filter: 'blur(100px)',
-        }}
-        animate={{
-          x: ['0%', '20%', '-10%', '0%'],
-          y: ['0%', '-15%', '10%', '0%'],
-          scale: [1, 1.2, 0.85, 1],
-        }}
-        transition={{
-          duration: 30,
-          repeat: Infinity,
-          ease: 'easeInOut',
         }}
       />
       

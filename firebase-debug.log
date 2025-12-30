@@ -1,0 +1,948 @@
+[debug] [2025-12-30T00:01:38.801Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T00:01:38.803Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T00:01:38.803Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T00:01:38.803Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T00:01:38.803Z] Checked if tokens are valid: false, expires at: 1767043116032
+[debug] [2025-12-30T00:01:38.804Z] Checked if tokens are valid: false, expires at: 1767043116032
+[debug] [2025-12-30T00:01:38.804Z] > refreshing access token with scopes: []
+[debug] [2025-12-30T00:01:38.804Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-12-30T00:01:38.804Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T00:01:38.822Z] Checked if tokens are valid: false, expires at: 1767043116032
+[debug] [2025-12-30T00:01:38.822Z] Checked if tokens are valid: false, expires at: 1767043116032
+[debug] [2025-12-30T00:01:38.822Z] > refreshing access token with scopes: []
+[debug] [2025-12-30T00:01:38.822Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-12-30T00:01:38.822Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T00:01:38.823Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T00:01:38.823Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T00:01:38.823Z] Checked if tokens are valid: false, expires at: 1767043116032
+[debug] [2025-12-30T00:01:38.823Z] Checked if tokens are valid: false, expires at: 1767043116032
+[debug] [2025-12-30T00:01:38.823Z] > refreshing access token with scopes: []
+[debug] [2025-12-30T00:01:38.823Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-12-30T00:01:38.823Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T00:01:39.034Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-12-30T00:01:39.034Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T00:01:39.055Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T00:01:39.057Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-12-30T00:01:39.057Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T00:01:39.070Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T00:01:39.071Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-12-30T00:01:39.071Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T00:01:39.081Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T00:01:39.561Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T00:01:39.561Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T00:01:39.564Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:39.564Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:39.564Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:39.564Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:39.568Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:39.568Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:39.568Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:39.568Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:39.569Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [none]
+[debug] [2025-12-30T00:01:39.569Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T00:01:39.569Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-12-30T00:01:39.569Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T00:01:39.570Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-12-30T00:01:39.570Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T00:01:39.570Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [none]
+[debug] [2025-12-30T00:01:39.570Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T00:01:39.902Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T00:01:39.902Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T00:01:39.906Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:39.906Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:39.906Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:39.906Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:39.908Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:39.908Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:39.908Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:39.908Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:39.908Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [none]
+[debug] [2025-12-30T00:01:39.908Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T00:01:39.908Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-12-30T00:01:39.908Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T00:01:39.909Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-12-30T00:01:39.909Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T00:01:39.909Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [none]
+[debug] [2025-12-30T00:01:39.909Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T00:01:39.957Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T00:01:39.957Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T00:01:39.957Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:39.957Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:39.957Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:39.957Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:39.958Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:39.958Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:39.958Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:39.959Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:39.959Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [none]
+[debug] [2025-12-30T00:01:39.959Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T00:01:39.959Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-12-30T00:01:39.959Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T00:01:39.959Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-12-30T00:01:39.959Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T00:01:39.959Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [none]
+[debug] [2025-12-30T00:01:39.959Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T00:01:40.495Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com 403
+[debug] [2025-12-30T00:01:40.495Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [omitted]
+[debug] [2025-12-30T00:01:40.616Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-12-30T00:01:40.616Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-12-30T00:01:40.627Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com 200
+[debug] [2025-12-30T00:01:40.627Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2025-12-30T00:01:40.650Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com 200
+[debug] [2025-12-30T00:01:40.650Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-12-30T00:01:40.651Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T00:01:40.651Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T00:01:40.652Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:40.652Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:40.652Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T00:01:40.887Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T00:01:40.887Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T00:01:40.888Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T00:01:40.888Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T00:01:41.181Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com 403
+[debug] [2025-12-30T00:01:41.181Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [omitted]
+[debug] [2025-12-30T00:01:41.184Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com 403
+[debug] [2025-12-30T00:01:41.184Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [omitted]
+[debug] [2025-12-30T00:01:41.403Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-12-30T00:01:41.404Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-12-30T00:01:41.406Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-12-30T00:01:41.406Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-12-30T00:01:41.407Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com 200
+[debug] [2025-12-30T00:01:41.407Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2025-12-30T00:01:41.415Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com 200
+[debug] [2025-12-30T00:01:41.415Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-12-30T00:01:41.438Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com 200
+[debug] [2025-12-30T00:01:41.439Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2025-12-30T00:01:41.476Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com 200
+[debug] [2025-12-30T00:01:41.477Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-12-30T00:01:41.479Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T00:01:41.479Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T00:01:41.479Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:41.479Z] Checked if tokens are valid: true, expires at: 1767056498071
+[debug] [2025-12-30T00:01:41.479Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T00:01:42.155Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T00:01:42.155Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T00:01:42.157Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T00:01:42.157Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T02:38:40.868Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T02:38:40.869Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T02:38:40.869Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T02:38:40.870Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T02:38:40.870Z] Checked if tokens are valid: false, expires at: 1767056498071
+[debug] [2025-12-30T02:38:40.870Z] Checked if tokens are valid: false, expires at: 1767056498071
+[debug] [2025-12-30T02:38:40.870Z] > refreshing access token with scopes: []
+[debug] [2025-12-30T02:38:40.871Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-12-30T02:38:40.871Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T02:38:40.888Z] Checked if tokens are valid: false, expires at: 1767056498071
+[debug] [2025-12-30T02:38:40.888Z] Checked if tokens are valid: false, expires at: 1767056498071
+[debug] [2025-12-30T02:38:40.888Z] > refreshing access token with scopes: []
+[debug] [2025-12-30T02:38:40.889Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-12-30T02:38:40.889Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T02:38:40.889Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T02:38:40.889Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T02:38:40.889Z] Checked if tokens are valid: false, expires at: 1767056498071
+[debug] [2025-12-30T02:38:40.889Z] Checked if tokens are valid: false, expires at: 1767056498071
+[debug] [2025-12-30T02:38:40.889Z] > refreshing access token with scopes: []
+[debug] [2025-12-30T02:38:40.889Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-12-30T02:38:40.890Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T02:38:41.171Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-12-30T02:38:41.171Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T02:38:41.198Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T02:38:41.212Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-12-30T02:38:41.212Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T02:38:41.225Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T02:38:41.252Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-12-30T02:38:41.252Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T02:38:41.261Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T02:38:42.124Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T02:38:42.124Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T02:38:42.127Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:42.127Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:42.127Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:42.127Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:42.132Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:42.132Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:42.132Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:42.132Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:42.132Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [none]
+[debug] [2025-12-30T02:38:42.132Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T02:38:42.133Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-12-30T02:38:42.133Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T02:38:42.133Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-12-30T02:38:42.133Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T02:38:42.135Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [none]
+[debug] [2025-12-30T02:38:42.135Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T02:38:42.156Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T02:38:42.156Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T02:38:42.160Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:42.161Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:42.161Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:42.161Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:42.162Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:42.162Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:42.162Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:42.162Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:42.162Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [none]
+[debug] [2025-12-30T02:38:42.162Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T02:38:42.163Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-12-30T02:38:42.163Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T02:38:42.163Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-12-30T02:38:42.163Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T02:38:42.163Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [none]
+[debug] [2025-12-30T02:38:42.163Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T02:38:42.172Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T02:38:42.173Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T02:38:42.173Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:42.173Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:42.173Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:42.173Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:42.174Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:42.175Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:42.175Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:42.175Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:42.175Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [none]
+[debug] [2025-12-30T02:38:42.175Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T02:38:42.175Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-12-30T02:38:42.175Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T02:38:42.175Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-12-30T02:38:42.175Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T02:38:42.176Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [none]
+[debug] [2025-12-30T02:38:42.176Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T02:38:42.740Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com 200
+[debug] [2025-12-30T02:38:42.740Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2025-12-30T02:38:43.102Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com 403
+[debug] [2025-12-30T02:38:43.102Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [omitted]
+[debug] [2025-12-30T02:38:43.103Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com 403
+[debug] [2025-12-30T02:38:43.103Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [omitted]
+[debug] [2025-12-30T02:38:43.114Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com 403
+[debug] [2025-12-30T02:38:43.115Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [omitted]
+[debug] [2025-12-30T02:38:43.220Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-12-30T02:38:43.220Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-12-30T02:38:43.241Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-12-30T02:38:43.241Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-12-30T02:38:43.242Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-12-30T02:38:43.242Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-12-30T02:38:43.242Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com 200
+[debug] [2025-12-30T02:38:43.242Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2025-12-30T02:38:43.248Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com 200
+[debug] [2025-12-30T02:38:43.248Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2025-12-30T02:38:43.255Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com 200
+[debug] [2025-12-30T02:38:43.255Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-12-30T02:38:43.256Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T02:38:43.256Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T02:38:43.256Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:43.256Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:43.256Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T02:38:43.291Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com 200
+[debug] [2025-12-30T02:38:43.291Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-12-30T02:38:43.291Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com 200
+[debug] [2025-12-30T02:38:43.291Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-12-30T02:38:43.293Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T02:38:43.293Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T02:38:43.293Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:43.293Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T02:38:43.293Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T02:38:43.642Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T02:38:43.642Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T02:38:43.643Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T02:38:43.643Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T02:38:43.967Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T02:38:43.967Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T02:38:43.968Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T02:38:43.968Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:22:51.801Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:22:51.803Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:22:51.803Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:22:51.803Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:22:51.803Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:51.804Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:51.804Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:51.804Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:51.804Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:22:51.804Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:22:51.804Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:51.804Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:51.804Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:22:51.820Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:22:51.821Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:22:52.362Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:22:52.362Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:22:52.371Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:52.371Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:52.371Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:52.371Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:52.383Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:52.383Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:52.383Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:52.383Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:52.384Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [none]
+[debug] [2025-12-30T03:22:52.384Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:22:52.385Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-12-30T03:22:52.385Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:22:52.386Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-12-30T03:22:52.386Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:22:52.387Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [none]
+[debug] [2025-12-30T03:22:52.387Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:22:52.753Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:22:52.753Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:22:52.762Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:52.762Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:52.763Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:52.763Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:52.766Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:52.766Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:52.767Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:52.767Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:52.767Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [none]
+[debug] [2025-12-30T03:22:52.767Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:22:52.768Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-12-30T03:22:52.768Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:22:52.771Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-12-30T03:22:52.771Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:22:52.772Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [none]
+[debug] [2025-12-30T03:22:52.772Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:22:52.796Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:22:52.796Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:22:52.797Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:52.797Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:52.797Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:52.797Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:52.798Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:52.798Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:52.799Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:52.799Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:52.799Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [none]
+[debug] [2025-12-30T03:22:52.799Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:22:52.800Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-12-30T03:22:52.800Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:22:52.800Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-12-30T03:22:52.800Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:22:52.800Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [none]
+[debug] [2025-12-30T03:22:52.800Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:22:53.390Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com 403
+[debug] [2025-12-30T03:22:53.390Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [omitted]
+[debug] [2025-12-30T03:22:53.486Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com 200
+[debug] [2025-12-30T03:22:53.486Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-12-30T03:22:53.516Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-12-30T03:22:53.516Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-12-30T03:22:53.517Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com 200
+[debug] [2025-12-30T03:22:53.517Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2025-12-30T03:22:54.057Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com 403
+[debug] [2025-12-30T03:22:54.057Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [omitted]
+[debug] [2025-12-30T03:22:54.067Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com 403
+[debug] [2025-12-30T03:22:54.067Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [omitted]
+[debug] [2025-12-30T03:22:54.287Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com 200
+[debug] [2025-12-30T03:22:54.288Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-12-30T03:22:54.288Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com 200
+[debug] [2025-12-30T03:22:54.288Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-12-30T03:22:54.319Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-12-30T03:22:54.319Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-12-30T03:22:54.320Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com 200
+[debug] [2025-12-30T03:22:54.320Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2025-12-30T03:22:54.327Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-12-30T03:22:54.327Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-12-30T03:22:54.330Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:22:54.330Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:22:54.331Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:54.331Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:54.331Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:22:54.346Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com 200
+[debug] [2025-12-30T03:22:54.346Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2025-12-30T03:22:54.351Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:22:54.351Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:22:54.352Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:54.352Z] Checked if tokens are valid: true, expires at: 1767065920252
+[debug] [2025-12-30T03:22:54.353Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:22:55.033Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:22:55.033Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:22:55.035Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:22:55.036Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:22:55.036Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:22:55.036Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:22:55.038Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:22:55.039Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:24:25.986Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:24:25.987Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:24:25.987Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:24:25.988Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:24:25.988Z] Checked if tokens are valid: false, expires at: 1767065920252
+[debug] [2025-12-30T03:24:25.988Z] Checked if tokens are valid: false, expires at: 1767065920252
+[debug] [2025-12-30T03:24:25.988Z] > refreshing access token with scopes: []
+[debug] [2025-12-30T03:24:25.989Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-12-30T03:24:25.989Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T03:24:26.005Z] Checked if tokens are valid: false, expires at: 1767065920252
+[debug] [2025-12-30T03:24:26.005Z] Checked if tokens are valid: false, expires at: 1767065920252
+[debug] [2025-12-30T03:24:26.005Z] > refreshing access token with scopes: []
+[debug] [2025-12-30T03:24:26.005Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-12-30T03:24:26.005Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T03:24:26.006Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:24:26.006Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:24:26.006Z] Checked if tokens are valid: false, expires at: 1767065920252
+[debug] [2025-12-30T03:24:26.006Z] Checked if tokens are valid: false, expires at: 1767065920252
+[debug] [2025-12-30T03:24:26.006Z] > refreshing access token with scopes: []
+[debug] [2025-12-30T03:24:26.006Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-12-30T03:24:26.006Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T03:24:26.286Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-12-30T03:24:26.286Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T03:24:26.319Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:24:26.322Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-12-30T03:24:26.322Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T03:24:26.343Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:24:26.346Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-12-30T03:24:26.347Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T03:24:26.357Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:24:27.179Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:24:27.180Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:24:27.184Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:27.184Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:27.185Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:27.185Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:27.189Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:27.189Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:27.189Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:27.189Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:27.189Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [none]
+[debug] [2025-12-30T03:24:27.189Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:24:27.190Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-12-30T03:24:27.190Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:24:27.190Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-12-30T03:24:27.190Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:24:27.191Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [none]
+[debug] [2025-12-30T03:24:27.191Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:24:27.213Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:24:27.213Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:24:27.217Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:27.217Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:27.217Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:27.217Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:27.218Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:27.218Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:27.218Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:27.218Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:27.218Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [none]
+[debug] [2025-12-30T03:24:27.218Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:24:27.219Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-12-30T03:24:27.219Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:24:27.219Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-12-30T03:24:27.219Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:24:27.220Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [none]
+[debug] [2025-12-30T03:24:27.220Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:24:27.236Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:24:27.236Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:24:27.236Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:27.236Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:27.236Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:27.236Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:27.237Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:27.237Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:27.237Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:27.237Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:27.237Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [none]
+[debug] [2025-12-30T03:24:27.237Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:24:27.237Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-12-30T03:24:27.237Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:24:27.238Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-12-30T03:24:27.238Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:24:27.238Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [none]
+[debug] [2025-12-30T03:24:27.238Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:24:28.077Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com 403
+[debug] [2025-12-30T03:24:28.077Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [omitted]
+[debug] [2025-12-30T03:24:28.118Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com 403
+[debug] [2025-12-30T03:24:28.118Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [omitted]
+[debug] [2025-12-30T03:24:28.158Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com 403
+[debug] [2025-12-30T03:24:28.159Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [omitted]
+[debug] [2025-12-30T03:24:28.184Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-12-30T03:24:28.184Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-12-30T03:24:28.185Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com 200
+[debug] [2025-12-30T03:24:28.185Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2025-12-30T03:24:28.192Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com 200
+[debug] [2025-12-30T03:24:28.192Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2025-12-30T03:24:28.201Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com 200
+[debug] [2025-12-30T03:24:28.201Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-12-30T03:24:28.203Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:24:28.203Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:24:28.203Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:28.203Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:28.203Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:24:28.205Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-12-30T03:24:28.205Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-12-30T03:24:28.215Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-12-30T03:24:28.215Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-12-30T03:24:28.233Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com 200
+[debug] [2025-12-30T03:24:28.233Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2025-12-30T03:24:28.250Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com 200
+[debug] [2025-12-30T03:24:28.250Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-12-30T03:24:28.251Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:24:28.251Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:24:28.251Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:28.251Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:24:28.251Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:24:28.258Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com 200
+[debug] [2025-12-30T03:24:28.258Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-12-30T03:24:28.896Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:24:28.896Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:24:28.897Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:24:28.897Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:24:28.937Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:24:28.937Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:24:28.938Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:24:28.938Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:29:37.131Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:29:37.132Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:29:37.132Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:29:37.132Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:29:37.133Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:37.133Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:37.133Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:37.133Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:37.133Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:29:37.133Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:29:37.133Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:37.133Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:37.134Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:29:37.150Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:29:37.151Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:29:37.743Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:29:37.743Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:29:37.749Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:37.749Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:37.750Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:37.750Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:37.761Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:37.761Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:37.762Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:37.762Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:37.762Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [none]
+[debug] [2025-12-30T03:29:37.762Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:29:37.764Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-12-30T03:29:37.764Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:29:37.765Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-12-30T03:29:37.765Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:29:37.767Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [none]
+[debug] [2025-12-30T03:29:37.767Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:29:38.141Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:29:38.141Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:29:38.154Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:38.155Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:38.155Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:38.155Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:38.158Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:38.158Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:38.159Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:38.159Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:38.159Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [none]
+[debug] [2025-12-30T03:29:38.159Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:29:38.160Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-12-30T03:29:38.160Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:29:38.163Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-12-30T03:29:38.163Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:29:38.164Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [none]
+[debug] [2025-12-30T03:29:38.164Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:29:38.186Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:29:38.186Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:29:38.187Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:38.187Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:38.187Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:38.187Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:38.188Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:38.188Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:38.188Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:38.188Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:38.189Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [none]
+[debug] [2025-12-30T03:29:38.189Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:29:38.189Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-12-30T03:29:38.189Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:29:38.190Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-12-30T03:29:38.190Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:29:38.190Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [none]
+[debug] [2025-12-30T03:29:38.190Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:29:38.762Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com 403
+[debug] [2025-12-30T03:29:38.762Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [omitted]
+[debug] [2025-12-30T03:29:38.899Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-12-30T03:29:38.900Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-12-30T03:29:38.909Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com 200
+[debug] [2025-12-30T03:29:38.909Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-12-30T03:29:38.925Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com 200
+[debug] [2025-12-30T03:29:38.925Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2025-12-30T03:29:39.063Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com 403
+[debug] [2025-12-30T03:29:39.064Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [omitted]
+[debug] [2025-12-30T03:29:39.109Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com 403
+[debug] [2025-12-30T03:29:39.109Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [omitted]
+[debug] [2025-12-30T03:29:39.183Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com 200
+[debug] [2025-12-30T03:29:39.184Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2025-12-30T03:29:39.187Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com 200
+[debug] [2025-12-30T03:29:39.187Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-12-30T03:29:39.188Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-12-30T03:29:39.188Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-12-30T03:29:39.192Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:29:39.192Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:29:39.192Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:39.193Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:39.193Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:29:39.199Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com 200
+[debug] [2025-12-30T03:29:39.199Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-12-30T03:29:39.220Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com 200
+[debug] [2025-12-30T03:29:39.220Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2025-12-30T03:29:39.284Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-12-30T03:29:39.284Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-12-30T03:29:39.286Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:29:39.287Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:29:39.287Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:39.287Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:29:39.287Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:29:40.078Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:29:40.079Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:29:40.081Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:29:40.081Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:29:40.091Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:29:40.091Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:29:40.093Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:29:40.093Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:31:03.394Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:31:03.396Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:31:03.396Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:31:03.396Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:31:03.396Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:03.397Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:03.397Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:03.397Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:03.397Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:31:03.397Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:31:03.397Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:03.397Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:03.397Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:31:03.413Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:31:03.414Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:31:04.298Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:31:04.299Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:31:04.305Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:04.305Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:04.305Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:04.305Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:04.315Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:04.315Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:04.315Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:04.315Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:04.316Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [none]
+[debug] [2025-12-30T03:31:04.316Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:31:04.317Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-12-30T03:31:04.317Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:31:04.318Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-12-30T03:31:04.318Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:31:04.319Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [none]
+[debug] [2025-12-30T03:31:04.319Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:31:04.333Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:31:04.333Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:31:04.339Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:04.339Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:04.339Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:04.339Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:04.341Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:04.341Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:04.341Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:04.341Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:04.341Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [none]
+[debug] [2025-12-30T03:31:04.342Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:31:04.342Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-12-30T03:31:04.342Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:31:04.344Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-12-30T03:31:04.344Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:31:04.344Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [none]
+[debug] [2025-12-30T03:31:04.345Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:31:04.375Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:31:04.375Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:31:04.375Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:04.375Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:04.376Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:04.376Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:04.377Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:04.377Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:04.377Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:04.377Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:04.377Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [none]
+[debug] [2025-12-30T03:31:04.377Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:31:04.377Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-12-30T03:31:04.377Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:31:04.377Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-12-30T03:31:04.377Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:31:04.378Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [none]
+[debug] [2025-12-30T03:31:04.378Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:31:05.201Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com 403
+[debug] [2025-12-30T03:31:05.202Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [omitted]
+[debug] [2025-12-30T03:31:05.246Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com 403
+[debug] [2025-12-30T03:31:05.246Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [omitted]
+[debug] [2025-12-30T03:31:05.286Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com 403
+[debug] [2025-12-30T03:31:05.286Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [omitted]
+[debug] [2025-12-30T03:31:05.391Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-12-30T03:31:05.391Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-12-30T03:31:05.394Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com 200
+[debug] [2025-12-30T03:31:05.394Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-12-30T03:31:05.395Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com 200
+[debug] [2025-12-30T03:31:05.395Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2025-12-30T03:31:05.398Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:31:05.398Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:31:05.398Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:05.398Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:05.398Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:31:05.400Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-12-30T03:31:05.401Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-12-30T03:31:05.401Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-12-30T03:31:05.401Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-12-30T03:31:05.401Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com 200
+[debug] [2025-12-30T03:31:05.401Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2025-12-30T03:31:05.402Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com 200
+[debug] [2025-12-30T03:31:05.402Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2025-12-30T03:31:05.415Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com 200
+[debug] [2025-12-30T03:31:05.415Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-12-30T03:31:05.416Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:31:05.416Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:31:05.416Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:05.416Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:31:05.416Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:31:05.417Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com 200
+[debug] [2025-12-30T03:31:05.417Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-12-30T03:31:06.082Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:31:06.083Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:31:06.084Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:31:06.084Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:31:06.135Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:31:06.135Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:31:06.136Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:31:06.136Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:32:15.466Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:32:15.468Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:32:15.468Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:32:15.468Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:32:15.468Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:15.468Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:15.468Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:15.468Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:15.469Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:32:15.469Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:32:15.469Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:15.469Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:15.469Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:32:15.485Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:32:15.485Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:32:16.322Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:32:16.322Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:32:16.346Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:16.346Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:16.347Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:16.348Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:16.358Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:16.359Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:16.359Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:16.359Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:16.359Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [none]
+[debug] [2025-12-30T03:32:16.359Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:32:16.360Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-12-30T03:32:16.360Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:32:16.362Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-12-30T03:32:16.362Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:32:16.364Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [none]
+[debug] [2025-12-30T03:32:16.364Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:32:16.396Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:32:16.396Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:32:16.400Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:16.400Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:16.400Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:16.400Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:16.402Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:16.402Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:16.402Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:16.402Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:16.402Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [none]
+[debug] [2025-12-30T03:32:16.402Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:32:16.403Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-12-30T03:32:16.403Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:32:16.404Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-12-30T03:32:16.404Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:32:16.404Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [none]
+[debug] [2025-12-30T03:32:16.404Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:32:16.405Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:32:16.405Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:32:16.405Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:16.405Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:16.405Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:16.405Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:16.406Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:16.406Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:16.406Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:16.406Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:16.406Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [none]
+[debug] [2025-12-30T03:32:16.406Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:32:16.406Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-12-30T03:32:16.406Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:32:16.407Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-12-30T03:32:16.407Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:32:16.407Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [none]
+[debug] [2025-12-30T03:32:16.407Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T03:32:17.263Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com 403
+[debug] [2025-12-30T03:32:17.264Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [omitted]
+[debug] [2025-12-30T03:32:17.282Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com 403
+[debug] [2025-12-30T03:32:17.283Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [omitted]
+[debug] [2025-12-30T03:32:17.289Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com 403
+[debug] [2025-12-30T03:32:17.289Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [omitted]
+[debug] [2025-12-30T03:32:17.349Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com 200
+[debug] [2025-12-30T03:32:17.350Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2025-12-30T03:32:17.373Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com 200
+[debug] [2025-12-30T03:32:17.374Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-12-30T03:32:17.382Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-12-30T03:32:17.382Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-12-30T03:32:17.385Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:32:17.385Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:32:17.385Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:17.385Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:17.386Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:32:17.389Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com 200
+[debug] [2025-12-30T03:32:17.389Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2025-12-30T03:32:17.390Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com 200
+[debug] [2025-12-30T03:32:17.390Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2025-12-30T03:32:17.396Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-12-30T03:32:17.396Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-12-30T03:32:17.414Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-12-30T03:32:17.414Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-12-30T03:32:17.421Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com 200
+[debug] [2025-12-30T03:32:17.421Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-12-30T03:32:17.423Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:32:17.423Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:32:17.424Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:17.424Z] Checked if tokens are valid: true, expires at: 1767068665347
+[debug] [2025-12-30T03:32:17.424Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T03:32:17.448Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com 200
+[debug] [2025-12-30T03:32:17.448Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-12-30T03:32:18.104Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:32:18.105Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:32:18.107Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:32:18.107Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T03:32:18.109Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T03:32:18.109Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T03:32:18.111Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T03:32:18.112Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T04:47:31.401Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T04:47:31.402Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T04:47:31.402Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T04:47:31.402Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T04:47:31.402Z] Checked if tokens are valid: false, expires at: 1767068665347
+[debug] [2025-12-30T04:47:31.403Z] Checked if tokens are valid: false, expires at: 1767068665347
+[debug] [2025-12-30T04:47:31.403Z] > refreshing access token with scopes: []
+[debug] [2025-12-30T04:47:31.403Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-12-30T04:47:31.404Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T04:47:31.420Z] Checked if tokens are valid: false, expires at: 1767068665347
+[debug] [2025-12-30T04:47:31.420Z] Checked if tokens are valid: false, expires at: 1767068665347
+[debug] [2025-12-30T04:47:31.420Z] > refreshing access token with scopes: []
+[debug] [2025-12-30T04:47:31.420Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-12-30T04:47:31.420Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T04:47:31.421Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T04:47:31.421Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T04:47:31.421Z] Checked if tokens are valid: false, expires at: 1767068665347
+[debug] [2025-12-30T04:47:31.421Z] Checked if tokens are valid: false, expires at: 1767068665347
+[debug] [2025-12-30T04:47:31.421Z] > refreshing access token with scopes: []
+[debug] [2025-12-30T04:47:31.421Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-12-30T04:47:31.421Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T04:47:31.737Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-12-30T04:47:31.737Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T04:47:31.771Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T04:47:31.775Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-12-30T04:47:31.775Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T04:47:31.789Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T04:47:31.793Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-12-30T04:47:31.793Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-30T04:47:31.802Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T04:47:32.289Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T04:47:32.289Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T04:47:32.292Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:32.292Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:32.292Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:32.292Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:32.296Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:32.296Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:32.296Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:32.296Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:32.297Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [none]
+[debug] [2025-12-30T04:47:32.297Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T04:47:32.297Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-12-30T04:47:32.297Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T04:47:32.297Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-12-30T04:47:32.297Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T04:47:32.298Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [none]
+[debug] [2025-12-30T04:47:32.298Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T04:47:32.724Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T04:47:32.724Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T04:47:32.734Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:32.734Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:32.735Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:32.735Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:32.738Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:32.738Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:32.738Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:32.738Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:32.738Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [none]
+[debug] [2025-12-30T04:47:32.738Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T04:47:32.739Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-12-30T04:47:32.739Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T04:47:32.740Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-12-30T04:47:32.741Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T04:47:32.741Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [none]
+[debug] [2025-12-30T04:47:32.741Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T04:47:32.757Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T04:47:32.757Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T04:47:32.757Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:32.757Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:32.757Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:32.757Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:32.759Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:32.759Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:32.759Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:32.759Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:32.759Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [none]
+[debug] [2025-12-30T04:47:32.759Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T04:47:32.760Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-12-30T04:47:32.760Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T04:47:32.760Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [none]
+[debug] [2025-12-30T04:47:32.760Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T04:47:32.760Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [none]
+[debug] [2025-12-30T04:47:32.760Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com x-goog-quota-user=projects/va-pc-market
+[debug] [2025-12-30T04:47:33.319Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com 403
+[debug] [2025-12-30T04:47:33.319Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [omitted]
+[debug] [2025-12-30T04:47:33.393Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-12-30T04:47:33.393Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-12-30T04:47:33.400Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com 200
+[debug] [2025-12-30T04:47:33.400Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2025-12-30T04:47:33.417Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com 200
+[debug] [2025-12-30T04:47:33.417Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-12-30T04:47:33.670Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com 403
+[debug] [2025-12-30T04:47:33.670Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [omitted]
+[debug] [2025-12-30T04:47:33.671Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com 403
+[debug] [2025-12-30T04:47:33.671Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseio.com [omitted]
+[debug] [2025-12-30T04:47:33.741Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com 200
+[debug] [2025-12-30T04:47:33.741Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2025-12-30T04:47:33.748Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-12-30T04:47:33.748Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-12-30T04:47:33.748Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com 200
+[debug] [2025-12-30T04:47:33.748Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2025-12-30T04:47:33.754Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com 200
+[debug] [2025-12-30T04:47:33.754Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2025-12-30T04:47:33.763Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com 200
+[debug] [2025-12-30T04:47:33.764Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-12-30T04:47:33.766Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T04:47:33.767Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T04:47:33.767Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:33.767Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:33.767Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T04:47:33.777Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com 200
+[debug] [2025-12-30T04:47:33.777Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/va-pc-market/services/cloudfunctions.googleapis.com [omitted]
+[debug] [2025-12-30T04:47:33.779Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T04:47:33.779Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T04:47:33.779Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:33.780Z] Checked if tokens are valid: true, expires at: 1767073650793
+[debug] [2025-12-30T04:47:33.780Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo [none]
+[debug] [2025-12-30T04:47:34.141Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T04:47:34.141Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T04:47:34.143Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T04:47:34.144Z] > authorizing via signed-in user (navigatians@gmail.com)
+[debug] [2025-12-30T04:47:34.474Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo 200
+[debug] [2025-12-30T04:47:34.475Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/va-pc-market/billingInfo {"name":"projects/va-pc-market/billingInfo","projectId":"va-pc-market","billingAccountName":"billingAccounts/01E2AC-CA646D-D229F2","billingEnabled":true}
+[debug] [2025-12-30T04:47:34.477Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-30T04:47:34.477Z] > authorizing via signed-in user (navigatians@gmail.com)

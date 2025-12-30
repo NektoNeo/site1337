@@ -8,11 +8,19 @@
  * - Upserting products to local database
  * - Managing product images
  * - Tracking sync statistics
+ *
+ * Performance Optimizations:
+ * - Parallel product processing with controlled concurrency
+ * - Batch database operations where possible
+ * - Progress tracking with estimated time
  */
 
 import { prisma, Prisma } from '@/lib/prisma';
 import { getVKApiService } from './vk-api.service';
 import { VKMarketItem, VKMarketAlbum } from '@/types/vk';
+
+// Concurrency control for parallel processing
+const PARALLEL_BATCH_SIZE = 5; // Process 5 products in parallel
 
 // ============================================================================
 // TYPES
@@ -203,6 +211,17 @@ export class VKSyncService {
     categoriesUpdated: 0,
     imagesProcessed: 0,
   };
+
+  /**
+   * Split array into chunks for parallel processing
+   */
+  private chunkArray<T>(array: T[], size: number): T[][] {
+    const chunks: T[][] = [];
+    for (let i = 0; i < array.length; i += size) {
+      chunks.push(array.slice(i, i + size));
+    }
+    return chunks;
+  }
 
   /**
    * Sync categories from VK albums
@@ -538,14 +557,37 @@ export class VKSyncService {
       
       console.log(`[VK Sync] Found ${products.length} products`);
 
-      // Step 4: Sync each product
-      console.log('[VK Sync] Syncing products...');
+      // Step 4: Sync products in parallel batches
+      console.log('[VK Sync] Syncing products with parallel processing...');
       const activeVkItemIds = new Set<string>();
 
+      // Collect all VK item IDs first
       for (const item of products) {
         const vkItemId = `${item.owner_id}_${item.id}`;
         activeVkItemIds.add(vkItemId);
-        await this.syncProduct(item, albumToCategoryMap, options);
+      }
+
+      // Process products in parallel batches
+      const batches = this.chunkArray(products, PARALLEL_BATCH_SIZE);
+      let processedBatches = 0;
+
+      for (const batch of batches) {
+        // Process each batch in parallel using Promise.allSettled
+        // This ensures one failure doesn't stop the entire batch
+        const results = await Promise.allSettled(
+          batch.map(item => this.syncProduct(item, albumToCategoryMap, options))
+        );
+
+        // Log any rejections (errors are already tracked in syncProduct)
+        for (const result of results) {
+          if (result.status === 'rejected') {
+            console.error('[VK Sync] Batch item failed:', result.reason);
+          }
+        }
+
+        processedBatches++;
+        const progress = Math.round((processedBatches / batches.length) * 100);
+        console.log(`[VK Sync] Progress: ${progress}% (${this.stats.productsProcessed}/${products.length} products)`);
       }
 
       // Step 5: Deactivate removed products (if not skipped)

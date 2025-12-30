@@ -1,13 +1,17 @@
 /**
  * VK Categories (Albums) API Route
  * GET /api/vk/categories - List VK Market albums as categories
- * 
+ *
  * VK Market uses "albums" as product collections/categories.
  * This endpoint fetches all albums and maps them to a category format.
- * 
+ *
  * Query parameters:
  * - fresh: boolean (bypass cache)
- * 
+ *
+ * Features:
+ * - ETag support for conditional requests
+ * - Long-lived cache (1 hour) for categories
+ *
  * @module src/app/api/vk/categories/route
  */
 
@@ -16,6 +20,15 @@ import { getVKApiService, VKApiServiceError } from '@/services/vk-api.service';
 import { mapVKAlbumsToCollections } from '@/lib/vk-to-product';
 import { VKProductCategoriesResponse } from '@/types/vk-product';
 import { vkCache, vkCategoriesKey, VK_CACHE_TTL } from '@/lib/vk-cache';
+import {
+  CACHE_PRESETS,
+  buildCacheControl,
+  generateETag,
+  checkETagMatch,
+  notModifiedResponse,
+  corsPreflightResponse,
+  createTimingContext,
+} from '@/lib/api-utils';
 
 // ============================================================================
 // CONFIGURATION
@@ -33,7 +46,7 @@ export const dynamic = 'force-dynamic';
  * Fetch all VK Market albums as categories
  */
 export async function GET(request: NextRequest) {
-  const startTime = Date.now();
+  const timing = createTimingContext();
 
   try {
     const { searchParams } = new URL(request.url);
@@ -46,12 +59,22 @@ export async function GET(request: NextRequest) {
     if (!fresh) {
       const cached = vkCache.get<VKProductCategoriesResponse>(cacheKey);
       if (cached) {
+        // Generate ETag for cached data
+        const etag = generateETag(cached);
+
+        // Check If-None-Match for conditional request
+        const ifNoneMatch = request.headers.get('if-none-match');
+        if (checkETagMatch(ifNoneMatch, etag)) {
+          return notModifiedResponse(etag, CACHE_PRESETS.STATIC);
+        }
+
         return NextResponse.json(cached, {
           headers: {
             'X-Cache': 'HIT',
             'X-Cache-Key': cacheKey,
-            'X-Response-Time': `${Date.now() - startTime}ms`,
-            'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=300',
+            'X-Response-Time': timing.getElapsedMs(),
+            'Cache-Control': buildCacheControl(CACHE_PRESETS.STATIC),
+            'ETag': etag,
           },
         });
       }
@@ -83,13 +106,17 @@ export async function GET(request: NextRequest) {
     // Cache the result (longer TTL for categories - they change less frequently)
     vkCache.set(cacheKey, result, VK_CACHE_TTL.LONG);
 
+    // Generate ETag for fresh data
+    const etag = generateETag(result);
+
     return NextResponse.json(result, {
       headers: {
         'X-Cache': 'MISS',
         'X-Cache-Key': cacheKey,
-        'X-Response-Time': `${Date.now() - startTime}ms`,
+        'X-Response-Time': timing.getElapsedMs(),
         'X-VK-Total-Albums': String(albums.length),
-        'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=300',
+        'Cache-Control': buildCacheControl(CACHE_PRESETS.STATIC),
+        'ETag': etag,
       },
     });
   } catch (error) {
@@ -110,7 +137,7 @@ export async function GET(request: NextRequest) {
         {
           status,
           headers: {
-            'X-Response-Time': `${Date.now() - startTime}ms`,
+            'X-Response-Time': timing.getElapsedMs(),
           },
         }
       );
@@ -130,7 +157,7 @@ export async function GET(request: NextRequest) {
       {
         status: 500,
         headers: {
-          'X-Response-Time': `${Date.now() - startTime}ms`,
+          'X-Response-Time': timing.getElapsedMs(),
         },
       }
     );
@@ -141,13 +168,5 @@ export async function GET(request: NextRequest) {
  * OPTIONS for CORS preflight
  */
 export async function OPTIONS() {
-  return new NextResponse(null, {
-    status: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      'Access-Control-Max-Age': '86400',
-    },
-  });
+  return corsPreflightResponse();
 }

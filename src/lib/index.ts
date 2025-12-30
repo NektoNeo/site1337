@@ -11,7 +11,39 @@ export { cn } from './cn';
 export * from './image-optimization';
 export * from './cache';
 export * from './memoization';
-export * from './performance';
+// Re-export performance.ts but exclude debounce (already exported from memoization)
+export {
+  WEB_VITALS_THRESHOLDS,
+  getRating,
+  markStart,
+  markEnd,
+  measureSync,
+  measureAsync,
+  setupWebVitalsReporting,
+  reportMetric,
+  webVitalsReporter,
+  preloadResource,
+  prefetchResource,
+  preconnect,
+  estimateRenderCost,
+  monitorLongTasks,
+  getMemoryUsage,
+  isMemoryPressure,
+  getNetworkInfo,
+  isSlowConnection,
+  getAdaptiveImageQuality,
+  trackTimeToInteractive,
+  animationPriority,
+  rafThrottle,
+  imageSizesPresets,
+  supportsAvif,
+  supportsWebp,
+  getOptimalImageFormat,
+  lazyLoadOptions,
+  prefersReducedMotion,
+  type PerformanceMetric,
+  type PerformanceThresholds,
+} from './performance';
 
 // React Query
 export {

@@ -41,6 +41,31 @@ enum ComponentType {
 }
 
 // ============================================================================
+// CONFIGURATOR (LIMITED-CHOICE, MAPPED-TO-BUILDS)
+// ============================================================================
+
+enum ConfiguratorTier {
+  RTX4070
+  RTX4080
+  RTX4090
+}
+
+enum ConfiguratorCaseModel {
+  ROG_X
+  NEO_WHITE
+  COMPACT_PRO
+  DARKLINE
+}
+
+enum ConfiguratorOptionKey {
+  TIER
+  CASE_MODEL
+  CASE_COLOR
+  SIDE_PANEL
+  RGB
+}
+
+// ============================================================================
 // USER & AUTHENTICATION
 // ============================================================================
 
@@ -396,4 +421,93 @@ model Setting {
   updatedAt   DateTime @updatedAt
   
   @@index([key])
+}
+
+// ============================================================================
+// CONFIGURATOR TABLES (CANONICAL BUILDS)
+// ============================================================================
+
+model ConfiguratorBuildFamily {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  description String?  @db.Text
+  isActive    Boolean  @default(true)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  variants    ConfiguratorBuildVariant[]
+
+  @@index([slug])
+  @@index([isActive])
+}
+
+model ConfiguratorBuildVariant {
+  id              String              @id @default(cuid())
+  slug            String              @unique
+  name            String
+  tier            ConfiguratorTier
+  caseModel       ConfiguratorCaseModel
+  vkProductId     String?             // "{itemId}" or "{ownerId}_{itemId}"
+  isActive        Boolean             @default(true)
+
+  // JSON blobs match the TS domain objects:
+  // - defaultSelection: ConfiguratorSelection
+  // - allowedOptions: ConfiguratorAllowedOptions
+  // - preview: PreviewRecipe
+  defaultSelection Json
+  allowedOptions   Json
+  preview          Json
+
+  // Foreign keys
+  familyId        String
+
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+
+  // Relations
+  family          ConfiguratorBuildFamily @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  options         ConfiguratorVariantOption[]
+
+  @@index([slug])
+  @@index([familyId])
+  @@index([isActive])
+  @@index([tier])
+  @@index([caseModel])
+  @@index([vkProductId])
+}
+
+model ConfiguratorOption {
+  id          String              @id @default(cuid())
+  key         ConfiguratorOptionKey
+  value       String
+  label       String
+  sortOrder   Int                 @default(0)
+  isActive    Boolean             @default(true)
+
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+
+  // Relations
+  variants    ConfiguratorVariantOption[]
+
+  @@unique([key, value])
+  @@index([key])
+  @@index([isActive])
+}
+
+model ConfiguratorVariantOption {
+  id          String                @id @default(cuid())
+  variantId   String
+  optionId    String
+  createdAt   DateTime              @default(now())
+
+  variant     ConfiguratorBuildVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  option      ConfiguratorOption       @relation(fields: [optionId], references: [id], onDelete: Cascade)
+
+  @@unique([variantId, optionId])
+  @@index([variantId])
+  @@index([optionId])
 }

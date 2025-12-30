@@ -279,6 +279,10 @@ export function preloadImages(srcs: string[]): void {
  * Check if image URL is valid and from allowed domains
  */
 export function isValidImageUrl(url: string): boolean {
+  // Allow local/public assets (Next.js) and data URLs
+  if (url.startsWith('/')) return true;
+  if (url.startsWith('data:')) return true;
+
   try {
     const parsed = new URL(url);
     const allowedHosts = [
@@ -301,7 +305,7 @@ export function isValidImageUrl(url: string): boolean {
  */
 export function getImageWithFallback(
   src: string | undefined | null,
-  fallback: string = '/images/placeholder-product.png'
+  fallback: string = '/images/placeholder-product.svg'
 ): string {
   if (!src) return fallback;
   if (!isValidImageUrl(src)) return fallback;

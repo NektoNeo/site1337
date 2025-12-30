@@ -1,13 +1,18 @@
 'use client';
 
 /**
- * Featured Products Section
+ * Featured Products Section - OPTIMIZED FOR PERFORMANCE
  * Displays a carousel of VK products from the catalog
  * Uses shadcn/embla-carousel for smooth navigation and touch support
+ *
+ * Changes from original:
+ * 1. Removed Framer Motion completely
+ * 2. CSS-only animations with IntersectionObserver
+ * 3. Replaced whileHover/whileTap with CSS hover:/active: states
+ * 4. Replaced transition-all with specific transitions
  */
 
-import { useState, useCallback } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useCallback, memo, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { AlertCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { ProductCard } from '../ui/ProductCard';
@@ -18,9 +23,10 @@ import {
   CarouselItem,
   type CarouselApi,
 } from '@/components/ui/carousel';
+import { cn } from '@/lib/cn';
 
 // Loading skeleton
-function FeaturedSkeleton() {
+const FeaturedSkeleton = memo(function FeaturedSkeleton() {
   return (
     <div className="flex gap-6 overflow-hidden">
       {[...Array(4)].map((_, i) => (
@@ -31,32 +37,91 @@ function FeaturedSkeleton() {
       ))}
     </div>
   );
-}
+});
 
 // Error state
-function FeaturedError({ onRetry }: { onRetry: () => void }) {
+const FeaturedError = memo(function FeaturedError({ onRetry }: { onRetry: () => void }) {
   return (
     <div className="flex flex-col items-center justify-center py-16 text-center">
       <div className="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center mb-4">
         <AlertCircle className="w-8 h-8 text-red-400" />
       </div>
       <p className="text-white/50 mb-4">Не удалось загрузить товары</p>
-      <motion.button
+      <button
         onClick={onRetry}
-        className="px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 text-sm font-semibold hover:bg-purple-500/30 transition-all"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        className={cn(
+          "px-4 py-2 rounded-lg bg-purple-500/20 border border-purple-500/30",
+          "text-purple-400 text-sm font-semibold",
+          "hover:bg-purple-500/30 hover:scale-105",
+          "active:scale-95",
+          "transition-[background-color,transform] duration-200"
+        )}
       >
         Повторить
-      </motion.button>
+      </button>
     </div>
   );
-}
+});
+
+// Navigation button component
+const NavButton = memo(function NavButton({
+  direction,
+  onClick,
+  disabled,
+}: {
+  direction: 'prev' | 'next';
+  onClick: () => void;
+  disabled: boolean;
+}) {
+  const Icon = direction === 'prev' ? ChevronLeft : ChevronRight;
+
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={cn(
+        "w-12 h-12 rounded-xl bg-white/5 border border-white/10",
+        "flex items-center justify-center",
+        "text-white/50",
+        "hover:text-white hover:bg-white/10 hover:border-purple-500/30 hover:scale-105",
+        "active:scale-95",
+        "disabled:opacity-30 disabled:cursor-not-allowed",
+        "disabled:hover:bg-white/5 disabled:hover:border-white/10 disabled:hover:text-white/50 disabled:hover:scale-100",
+        "transition-[color,background-color,border-color,transform,opacity] duration-200"
+      )}
+      aria-label={direction === 'prev' ? 'Прокрутить влево' : 'Прокрутить вправо'}
+    >
+      <Icon className="w-5 h-5" />
+    </button>
+  );
+});
 
 export function FeaturedProducts() {
   const [api, setApi] = useState<CarouselApi>();
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
+
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  // IntersectionObserver for scroll-triggered animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1, rootMargin: '50px' }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   // Fetch featured products (8 products sorted by popularity)
   const { products, isLoading, error, refetch } = useVKCatalogPage({
@@ -104,19 +169,19 @@ export function FeaturedProducts() {
   }, [api]);
 
   return (
-    <section className="relative py-24 overflow-hidden">
+    <section ref={sectionRef} className="relative py-24 overflow-hidden">
       {/* Background accents */}
       <div className="absolute right-0 top-1/4 w-[500px] h-[500px] rounded-full bg-purple-500/5 blur-3xl pointer-events-none" />
       <div className="absolute left-0 bottom-1/4 w-[400px] h-[400px] rounded-full bg-fuchsia-500/5 blur-3xl pointer-events-none" />
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4"
+        <div
+          className={cn(
+            "flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4",
+            "transition-[opacity,transform] duration-600",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+          )}
         >
           <div>
             <h2 className="font-inter font-bold text-3xl md:text-4xl lg:text-5xl text-white mb-4">
@@ -129,28 +194,18 @@ export function FeaturedProducts() {
 
           {/* Navigation arrows */}
           <div className="flex gap-3">
-            <motion.button
+            <NavButton
+              direction="prev"
               onClick={scrollPrev}
               disabled={!canScrollPrev}
-              className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 hover:border-purple-500/30 transition-all disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-white/5 disabled:hover:border-white/10 disabled:hover:text-white/50"
-              whileHover={canScrollPrev ? { scale: 1.05 } : undefined}
-              whileTap={canScrollPrev ? { scale: 0.95 } : undefined}
-              aria-label="Прокрутить влево"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </motion.button>
-            <motion.button
+            />
+            <NavButton
+              direction="next"
               onClick={scrollNext}
               disabled={!canScrollNext}
-              className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 hover:border-purple-500/30 transition-all disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-white/5 disabled:hover:border-white/10 disabled:hover:text-white/50"
-              whileHover={canScrollNext ? { scale: 1.05 } : undefined}
-              whileTap={canScrollNext ? { scale: 0.95 } : undefined}
-              aria-label="Прокрутить вправо"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </motion.button>
+            />
           </div>
-        </motion.div>
+        </div>
 
         {/* Products Carousel */}
         <div className="relative">
@@ -217,25 +272,35 @@ export function FeaturedProducts() {
         </div>
 
         {/* View all link */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="text-center mt-12"
+        <div
+          className={cn(
+            "text-center mt-12",
+            "transition-[opacity,transform] duration-600",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+          )}
+          style={{ transitionDelay: '400ms' }}
         >
           <Link href="/catalog">
-            <motion.span
-              className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 font-semibold transition-colors cursor-pointer"
-              whileHover={{ x: 5 }}
+            <span
+              className={cn(
+                "inline-flex items-center gap-2",
+                "text-purple-400 hover:text-purple-300 font-semibold",
+                "cursor-pointer group",
+                "transition-colors duration-200"
+              )}
             >
               <span>Смотреть все модели</span>
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg
+                className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-            </motion.span>
+            </span>
           </Link>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -18,6 +18,8 @@ import {
   SpecificationsTable,
   RelatedProducts,
 } from '@/components/product';
+import SpecsSummaryCard from '@/components/product/SpecsSummaryCard';
+import FPSMeter from '@/components/product/FPSMeter';
 import { useVKProduct } from '@/hooks/use-vk-product';
 import { Button } from '@/components/ui/button';
 
@@ -266,6 +268,22 @@ export default function ProductPage() {
                 onOrder={handleOrder}
                 onAddToCart={handleAddToCart}
               />
+
+              {/* Concise Specs Summary */}
+              {product.specifications && product.specifications.length > 0 && (
+                <div className="mt-6">
+                  <SpecsSummaryCard specs={product.specifications as any} />
+                </div>
+              )}
+
+              {/* FPS Meter */}
+              <div className="mt-6">
+                <FPSMeter
+                  gpuLabel={(product.specifications as any)?.find?.((s: any) =>
+                    typeof s?.name === 'string' && s.name.toLowerCase().includes('видеокарта')
+                  )?.value || product?.badges?.find?.((b: any) => typeof b === 'string' && /rtx|radeon/i.test(b)) || ''}
+                />
+              </div>
             </motion.div>
           </div>
 

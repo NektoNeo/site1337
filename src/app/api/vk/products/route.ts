@@ -1,10 +1,10 @@
 /**
  * VK Products API Route
  * GET /api/vk/products - List products directly from VK Market
- * 
+ *
  * This endpoint provides server-side caching to avoid VK API rate limits
  * and ensures fast response times for the frontend.
- * 
+ *
  * Query parameters:
  * - page: number (default: 1)
  * - pageSize: number (default: 20, max: 100)
@@ -14,7 +14,8 @@
  * - priceFrom: number (in rubles)
  * - priceTo: number (in rubles)
  * - fresh: boolean (bypass cache)
- * 
+ * - fields: string (comma-separated, sparse fieldset)
+ *
  * @module src/app/api/vk/products/route
  */
 
@@ -23,6 +24,7 @@ import { getVKApiService, VKApiServiceError } from '@/services/vk-api.service';
 import { mapVKMarketItemsToProducts } from '@/lib/vk-to-product';
 import { VKProduct, VKProductsListResponse, VKProductsQueryParams } from '@/types/vk-product';
 import { vkCache, vkProductsKey, VK_CACHE_TTL } from '@/lib/vk-cache';
+import { parseFieldsParam, filterArrayFields, createTimingContext, CACHE_PRESETS, buildCacheControl, corsPreflightResponse } from '@/lib/api-utils';
 
 // ============================================================================
 // CONFIGURATION
@@ -44,9 +46,17 @@ const VK_SORT_MAP: Record<string, 0 | 1 | 2 | 3> = {
 // ============================================================================
 
 /**
+ * Extended query params with fields support
+ */
+interface ExtendedQueryParams extends VKProductsQueryParams {
+  fresh?: boolean;
+  fields?: string[];
+}
+
+/**
  * Parse and validate query parameters
  */
-function parseQueryParams(searchParams: URLSearchParams): VKProductsQueryParams & { fresh?: boolean } {
+function parseQueryParams(searchParams: URLSearchParams): ExtendedQueryParams {
   const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
   const pageSize = Math.min(100, Math.max(1, parseInt(searchParams.get('pageSize') || '20', 10)));
   const categoryId = searchParams.get('categoryId') || undefined;
@@ -59,6 +69,7 @@ function parseQueryParams(searchParams: URLSearchParams): VKProductsQueryParams 
     ? parseInt(searchParams.get('priceTo')!, 10)
     : undefined;
   const fresh = searchParams.get('fresh') === 'true';
+  const fields = parseFieldsParam(searchParams.get('fields'));
 
   return {
     page,
@@ -69,6 +80,7 @@ function parseQueryParams(searchParams: URLSearchParams): VKProductsQueryParams 
     priceFrom,
     priceTo,
     fresh,
+    fields,
   };
 }
 
@@ -127,7 +139,7 @@ function filterByPrice(
  * Fetch products from VK Market with caching
  */
 export async function GET(request: NextRequest) {
-  const startTime = Date.now();
+  const timing = createTimingContext();
 
   try {
     const { searchParams } = new URL(request.url);
@@ -148,12 +160,20 @@ export async function GET(request: NextRequest) {
     if (!params.fresh) {
       const cached = vkCache.get<VKProductsListResponse>(cacheKey);
       if (cached) {
-        return NextResponse.json(cached, {
+        // Apply field filtering to cached response if needed
+        const responseData = params.fields?.length
+          ? {
+              ...cached,
+              products: filterArrayFields(cached.products, params.fields),
+            }
+          : cached;
+
+        return NextResponse.json(responseData, {
           headers: {
             'X-Cache': 'HIT',
             'X-Cache-Key': cacheKey,
-            'X-Response-Time': `${Date.now() - startTime}ms`,
-            'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=60',
+            'X-Response-Time': timing.getElapsedMs(),
+            'Cache-Control': buildCacheControl(CACHE_PRESETS.SEMI_STATIC),
           },
         });
       }
@@ -197,7 +217,7 @@ export async function GET(request: NextRequest) {
     // Apply price filtering (additional client-side filtering for precision)
     products = filterByPrice(products, params.priceFrom, params.priceTo);
 
-    // Build response
+    // Build response (cache full data)
     const result: VKProductsListResponse = {
       products,
       total: response.count,
@@ -206,16 +226,24 @@ export async function GET(request: NextRequest) {
       hasMore: offset + products.length < response.count,
     };
 
-    // Cache the result
+    // Cache the full result (before field filtering)
     vkCache.set(cacheKey, result, VK_CACHE_TTL.SHORT);
 
-    return NextResponse.json(result, {
+    // Apply field filtering if requested (after caching full data)
+    const responseData = params.fields?.length
+      ? {
+          ...result,
+          products: filterArrayFields(products, params.fields),
+        }
+      : result;
+
+    return NextResponse.json(responseData, {
       headers: {
         'X-Cache': 'MISS',
         'X-Cache-Key': cacheKey,
-        'X-Response-Time': `${Date.now() - startTime}ms`,
+        'X-Response-Time': timing.getElapsedMs(),
         'X-VK-Total': String(response.count),
-        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=60',
+        'Cache-Control': buildCacheControl(CACHE_PRESETS.SEMI_STATIC),
       },
     });
   } catch (error) {
@@ -236,7 +264,7 @@ export async function GET(request: NextRequest) {
         {
           status,
           headers: {
-            'X-Response-Time': `${Date.now() - startTime}ms`,
+            'X-Response-Time': timing.getElapsedMs(),
           },
         }
       );
@@ -256,7 +284,7 @@ export async function GET(request: NextRequest) {
       {
         status: 500,
         headers: {
-          'X-Response-Time': `${Date.now() - startTime}ms`,
+          'X-Response-Time': timing.getElapsedMs(),
         },
       }
     );
@@ -267,13 +295,5 @@ export async function GET(request: NextRequest) {
  * OPTIONS for CORS preflight
  */
 export async function OPTIONS() {
-  return new NextResponse(null, {
-    status: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      'Access-Control-Max-Age': '86400',
-    },
-  });
+  return corsPreflightResponse();
 }

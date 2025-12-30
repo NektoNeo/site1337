@@ -2,6 +2,7 @@
 
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
+import type { ConfiguratorSelection } from '@/types/configurator';
 
 /**
  * Cart item representing a product in the shopping cart
@@ -14,6 +15,17 @@ export interface CartItem {
   quantity: number;
   image: string;
   slug?: string;
+  /**
+   * Optional metadata for non-standard items (e.g. configurator results).
+   * Existing UI can ignore this safely.
+   */
+  kind?: 'product' | 'configurator';
+  configurator?: {
+    variantId: string;
+    vkProductId: string;
+    selection: ConfiguratorSelection;
+    vkUrl?: string;
+  };
 }
 
 /**
@@ -46,6 +58,16 @@ interface CartState {
 
 interface CartActions {
   addItem: (item: Omit<CartItem, 'quantity'>) => void;
+  addConfiguredItem: (payload: {
+    variantId: string;
+    variantName: string;
+    vkProductId: string;
+    selection: ConfiguratorSelection;
+    price: number;
+    image: string;
+    specs?: string;
+    vkUrl?: string;
+  }) => void;
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
@@ -98,6 +120,33 @@ export const useCartStore = create<CartStore>()(
           return {
             items: [...state.items, { ...item, quantity: 1 }],
           };
+        });
+      },
+
+      addConfiguredItem: (payload) => {
+        const id =
+          `cfg:${payload.variantId}` +
+          `:${payload.selection.tier}` +
+          `:${payload.selection.caseModel}` +
+          `:${payload.selection.caseColor}` +
+          `:${payload.selection.sidePanel}` +
+          `:${payload.selection.rgb}`;
+
+        get().addItem({
+          id,
+          name: payload.variantName,
+          specs:
+            payload.specs ??
+            `Корпус: ${payload.selection.caseModel}, цвет: ${payload.selection.caseColor}, панель: ${payload.selection.sidePanel}, RGB: ${payload.selection.rgb}`,
+          price: payload.price,
+          image: payload.image,
+          kind: 'configurator',
+          configurator: {
+            variantId: payload.variantId,
+            vkProductId: payload.vkProductId,
+            selection: payload.selection,
+            vkUrl: payload.vkUrl,
+          },
         });
       },
 

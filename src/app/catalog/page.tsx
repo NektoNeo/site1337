@@ -25,6 +25,10 @@ import { Button } from '@/components/ui/button';
 // ANIMATED BACKGROUND
 // ============================================
 
+/**
+ * BackgroundEffects - Optimized with CSS animations instead of JS
+ * Uses CSS keyframes for better performance (GPU-accelerated)
+ */
 function BackgroundEffects() {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
@@ -43,36 +47,44 @@ function BackgroundEffects() {
         }}
       />
 
-      {/* Ambient glow orbs */}
-      <motion.div
-        className="absolute top-1/4 -left-32 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px]"
-        animate={{
-          x: [0, 50, 0],
-          y: [0, 30, 0],
-          scale: [1, 1.1, 1],
+      {/* Ambient glow orbs - CSS animations for better performance */}
+      <div
+        className="absolute top-1/4 -left-32 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px] will-change-transform"
+        style={{
+          animation: 'catalog-orb-1 15s ease-in-out infinite',
         }}
-        transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
       />
-      <motion.div
-        className="absolute bottom-1/4 -right-32 w-96 h-96 bg-magenta-600/15 rounded-full blur-[120px]"
-        animate={{
-          x: [0, -50, 0],
-          y: [0, -30, 0],
-          scale: [1, 1.2, 1],
+      <div
+        className="absolute bottom-1/4 -right-32 w-96 h-96 bg-fuchsia-600/15 rounded-full blur-[120px] will-change-transform"
+        style={{
+          animation: 'catalog-orb-2 18s ease-in-out infinite',
         }}
-        transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
       />
-      <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-[150px]"
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.3, 0.5, 0.3],
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-[150px] will-change-transform"
+        style={{
+          animation: 'catalog-orb-3 10s ease-in-out infinite',
         }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
       />
 
       {/* Bottom gradient */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-purple-900/20 to-transparent" />
+
+      {/* CSS Keyframes for orb animations */}
+      <style jsx>{`
+        @keyframes catalog-orb-1 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(50px, 30px) scale(1.1); }
+        }
+        @keyframes catalog-orb-2 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(-50px, -30px) scale(1.2); }
+        }
+        @keyframes catalog-orb-3 {
+          0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+          50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.5; }
+        }
+      `}</style>
     </div>
   );
 }

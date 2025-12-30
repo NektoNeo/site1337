@@ -1,7 +1,18 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { memo, useRef, useEffect, useState } from 'react';
 import { ExternalLink } from 'lucide-react';
+import { cn } from '@/lib/cn';
+
+// ============================================
+// SOCIALS - OPTIMIZED FOR PERFORMANCE
+// ============================================
+// Changes from original:
+// 1. Removed Framer Motion completely
+// 2. CSS-only animations with IntersectionObserver
+// 3. whileHover={{ y: -8 }} replaced with CSS hover:-translate-y-2
+// 4. Replaced transition-all with specific transitions
+// ============================================
 
 const socials = [
   {
@@ -77,15 +88,95 @@ const socials = [
   },
 ];
 
-export function Socials() {
+const SocialCard = memo(function SocialCard({
+  social,
+  index,
+  isVisible,
+}: {
+  social: typeof socials[0];
+  index: number;
+  isVisible: boolean;
+}) {
   return (
-    <section id="socials" className="py-24 relative">
+    <a
+      href={social.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={cn(
+        "group relative rounded-2xl p-6 text-center",
+        social.bgColor,
+        "border",
+        social.borderColor,
+        "hover:border-opacity-60 hover:-translate-y-2 hover:scale-[1.02]",
+        "transition-[opacity,transform,border-color] duration-300 ease-out",
+        isVisible
+          ? "opacity-100 translate-y-0 scale-100"
+          : "opacity-0 translate-y-5 scale-90"
+      )}
+      style={{ transitionDelay: `${100 + index * 80}ms` }}
+    >
+      {/* Icon */}
+      <div
+        className={cn(
+          "w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4 text-white shadow-lg",
+          "bg-gradient-to-br",
+          social.color,
+          "group-hover:scale-110",
+          "transition-transform duration-300"
+        )}
+      >
+        {social.icon}
+      </div>
+
+      <h3 className="font-bold text-white mb-1">{social.name}</h3>
+      <p className="text-xs text-gray-500 mb-2">{social.description}</p>
+
+      {/* Followers badge */}
+      <div className="inline-flex items-center gap-1 px-2 py-1 bg-white/5 rounded-full text-xs text-gray-400">
+        <span className={cn("font-bold bg-clip-text text-transparent bg-gradient-to-r", social.color)}>
+          {social.followers}
+        </span>
+        подписчиков
+      </div>
+
+      {/* External link indicator */}
+      <ExternalLink className="absolute top-3 right-3 w-4 h-4 text-gray-600 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+    </a>
+  );
+});
+
+export function Socials() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1, rootMargin: '50px' }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section ref={sectionRef} id="socials" className="py-24 relative">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
+        {/* Header */}
+        <div
+          className={cn(
+            "text-center mb-16",
+            "transition-[opacity,transform] duration-600",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+          )}
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-purple-400 to-purple-300 bg-clip-text text-transparent">
@@ -95,41 +186,17 @@ export function Socials() {
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             Подписывайтесь, чтобы быть в курсе новинок и акций
           </p>
-        </motion.div>
+        </div>
 
+        {/* Social Cards Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {socials.map((social, index) => (
-            <motion.a
+            <SocialCard
               key={social.name}
-              href={social.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 20, scale: 0.9 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -8, scale: 1.02 }}
-              className={`group relative ${social.bgColor} border ${social.borderColor} rounded-2xl p-6 text-center hover:border-opacity-60 transition-all duration-300`}
-            >
-              {/* Icon */}
-              <div className={`w-16 h-16 bg-gradient-to-br ${social.color} rounded-xl flex items-center justify-center mx-auto mb-4 text-white group-hover:scale-110 transition-transform shadow-lg`}>
-                {social.icon}
-              </div>
-
-              <h3 className="font-bold text-white mb-1">{social.name}</h3>
-              <p className="text-xs text-gray-500 mb-2">{social.description}</p>
-
-              {/* Followers badge */}
-              <div className="inline-flex items-center gap-1 px-2 py-1 bg-white/5 rounded-full text-xs text-gray-400">
-                <span className={`bg-gradient-to-r ${social.color} bg-clip-text text-transparent font-bold`}>
-                  {social.followers}
-                </span>
-                подписчиков
-              </div>
-
-              {/* External link indicator */}
-              <ExternalLink className="absolute top-3 right-3 w-4 h-4 text-gray-600 opacity-0 group-hover:opacity-100 transition-opacity" />
-            </motion.a>
+              social={social}
+              index={index}
+              isVisible={isVisible}
+            />
           ))}
         </div>
       </div>

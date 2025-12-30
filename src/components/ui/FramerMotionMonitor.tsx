@@ -6,8 +6,8 @@
  * Wraps Framer Motion components to monitor animation performance
  */
 
-import { useEffect, useRef } from 'react';
-import { motion, MotionProps } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, MotionProps, AnimationDefinition } from 'framer-motion';
 
 const DEBUG_SERVER = 'http://127.0.0.1:7243/ingest/003e9637-21f5-410c-9dc8-026e978b946c';
 
@@ -53,9 +53,9 @@ export function MonitoredMotionDiv({
 }: MonitoredMotionProps) {
   const startTimeRef = useRef<number | null>(null);
 
-  const handleAnimationStart = () => {
+  const handleAnimationStart = (definition: AnimationDefinition) => {
     startTimeRef.current = Date.now();
-    
+
     // #region agent log
     logEvent({
       location: 'FramerMotionMonitor:animation-start',
@@ -68,12 +68,12 @@ export function MonitoredMotionDiv({
     });
     // #endregion agent log
 
-    onAnimationStart?.();
+    onAnimationStart?.(definition);
   };
 
-  const handleAnimationComplete = () => {
+  const handleAnimationComplete = (definition: AnimationDefinition) => {
     const duration = startTimeRef.current ? Date.now() - startTimeRef.current : undefined;
-    
+
     // #region agent log
     logEvent({
       location: 'FramerMotionMonitor:animation-complete',
@@ -87,7 +87,7 @@ export function MonitoredMotionDiv({
     });
     // #endregion agent log
 
-    onAnimationComplete?.();
+    onAnimationComplete?.(definition);
     startTimeRef.current = null;
   };
 
