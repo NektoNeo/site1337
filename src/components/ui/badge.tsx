@@ -253,6 +253,14 @@ export interface BadgeProps
   dotColor?: string;
 }
 
+// Static dot colors for performance
+const dotColors = {
+  success: "#10B981",
+  destructive: "#EF4444",
+  warning: "#F59E0B",
+  default: "#a855f7", // purple-500
+} as const;
+
 /**
  * VA-PC Badge Component
  *
@@ -277,58 +285,56 @@ export interface BadgeProps
  * <Badge variant="glow" animated>Limited Edition</Badge>
  * ```
  */
-const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
-  (
-    {
-      className,
-      variant = "default",
-      size = "default",
-      animated = false,
-      asChild = false,
-      icon,
-      dot = false,
-      dotColor,
-      children,
-      ...props
-    },
-    ref
-  ) => {
-    const Comp = asChild ? Slot : "span";
+const Badge = React.memo(
+  React.forwardRef<HTMLSpanElement, BadgeProps>(
+    (
+      {
+        className,
+        variant = "default",
+        size = "default",
+        animated = false,
+        asChild = false,
+        icon,
+        dot = false,
+        dotColor,
+        children,
+        ...props
+      },
+      ref
+    ) => {
+      const Comp = asChild ? Slot : "span";
 
-    return (
-      <Comp
-        ref={ref}
-        data-slot="badge"
-        data-variant={variant}
-        className={cn(badgeVariants({ variant, size, animated, className }))}
-        {...props}
-      >
-        {/* Status dot */}
-        {dot && (
-          <span
-            className="w-1.5 h-1.5 rounded-full mr-1.5 animate-pulse"
-            style={{
-              backgroundColor:
-                dotColor ||
-                (variant === "success"
-                  ? "#10B981"
-                  : variant === "destructive"
-                  ? "#EF4444"
-                  : variant === "warning"
-                  ? "#F59E0B"
-                  : "#a855f7"), // purple-500
-            }}
-          />
-        )}
+      // Memoize dot color to avoid object recreation
+      const computedDotColor = React.useMemo(() => {
+        if (dotColor) return dotColor;
+        return dotColors[variant as keyof typeof dotColors] || dotColors.default;
+      }, [dotColor, variant]);
 
-        {/* Icon */}
-        {icon}
+      return (
+        <Comp
+          ref={ref}
+          data-slot="badge"
+          data-variant={variant}
+          className={cn(badgeVariants({ variant, size, animated, className }))}
+          {...props}
+        >
+          {/* Status dot */}
+          {dot && (
+            <span
+              className="w-1.5 h-1.5 rounded-full mr-1.5 animate-pulse"
+              style={{ backgroundColor: computedDotColor }}
+            />
+          )}
 
-        {/* Content */}
-        {children}
-      </Comp>
-    );
-  }
+          {/* Icon */}
+          {icon}
+
+          {/* Content */}
+          {children}
+        </Comp>
+      );
+    }
+  )
 );
 
 Badge.displayName = "Badge";
@@ -340,97 +346,86 @@ interface SpecBadgeProps extends Omit<BadgeProps, "variant" | "children"> {
   value: string;
 }
 
-const SpecBadge = React.forwardRef<HTMLSpanElement, SpecBadgeProps>(
-  ({ type, brand, value, className, ...props }, ref) => {
-    // Determine variant based on brand or type
-    const getVariant = (): BadgeProps["variant"] => {
-      if (brand) {
-        return brand as BadgeProps["variant"];
-      }
+// Static type-to-variant mapping
+const typeVariantMap = {
+  cpu: "intel",
+  gpu: "nvidia",
+  ram: "secondary",
+  storage: "secondary",
+  cooling: "glow-magenta",
+  psu: "warning",
+  case: "glass",
+} as const;
 
-      switch (type) {
-        case "cpu":
-          return "intel";
-        case "gpu":
-          return "nvidia";
-        case "ram":
-        case "storage":
-          return "secondary";
-        case "cooling":
-          return "glow-magenta";
-        case "psu":
-          return "warning";
-        case "case":
-          return "glass";
-        default:
-          return "default";
-      }
-    };
+// Static SVG icons - defined outside component to prevent recreation
+const specIcons = {
+  cpu: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <rect x="4" y="4" width="16" height="16" rx="2" />
+      <rect x="9" y="9" width="6" height="6" />
+      <line x1="9" y1="1" x2="9" y2="4" />
+      <line x1="15" y1="1" x2="15" y2="4" />
+      <line x1="9" y1="20" x2="9" y2="23" />
+      <line x1="15" y1="20" x2="15" y2="23" />
+      <line x1="20" y1="9" x2="23" y2="9" />
+      <line x1="20" y1="14" x2="23" y2="14" />
+      <line x1="1" y1="9" x2="4" y2="9" />
+      <line x1="1" y1="14" x2="4" y2="14" />
+    </svg>
+  ),
+  gpu: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <rect x="2" y="6" width="20" height="12" rx="2" />
+      <circle cx="7" cy="12" r="2" />
+      <circle cx="17" cy="12" r="2" />
+      <line x1="11" y1="9" x2="13" y2="9" />
+      <line x1="11" y1="12" x2="13" y2="12" />
+      <line x1="11" y1="15" x2="13" y2="15" />
+    </svg>
+  ),
+  ram: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <rect x="2" y="7" width="20" height="10" rx="1" />
+      <line x1="6" y1="10" x2="6" y2="14" />
+      <line x1="10" y1="10" x2="10" y2="14" />
+      <line x1="14" y1="10" x2="14" y2="14" />
+      <line x1="18" y1="10" x2="18" y2="14" />
+    </svg>
+  ),
+  storage: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <line x1="3" y1="9" x2="21" y2="9" />
+      <line x1="9" y1="21" x2="9" y2="9" />
+    </svg>
+  ),
+} as const;
 
-    // Get icon based on type
-    const getIcon = () => {
-      switch (type) {
-        case "cpu":
-          return (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <rect x="4" y="4" width="16" height="16" rx="2" />
-              <rect x="9" y="9" width="6" height="6" />
-              <line x1="9" y1="1" x2="9" y2="4" />
-              <line x1="15" y1="1" x2="15" y2="4" />
-              <line x1="9" y1="20" x2="9" y2="23" />
-              <line x1="15" y1="20" x2="15" y2="23" />
-              <line x1="20" y1="9" x2="23" y2="9" />
-              <line x1="20" y1="14" x2="23" y2="14" />
-              <line x1="1" y1="9" x2="4" y2="9" />
-              <line x1="1" y1="14" x2="4" y2="14" />
-            </svg>
-          );
-        case "gpu":
-          return (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <rect x="2" y="6" width="20" height="12" rx="2" />
-              <circle cx="7" cy="12" r="2" />
-              <circle cx="17" cy="12" r="2" />
-              <line x1="11" y1="9" x2="13" y2="9" />
-              <line x1="11" y1="12" x2="13" y2="12" />
-              <line x1="11" y1="15" x2="13" y2="15" />
-            </svg>
-          );
-        case "ram":
-          return (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <rect x="2" y="7" width="20" height="10" rx="1" />
-              <line x1="6" y1="10" x2="6" y2="14" />
-              <line x1="10" y1="10" x2="10" y2="14" />
-              <line x1="14" y1="10" x2="14" y2="14" />
-              <line x1="18" y1="10" x2="18" y2="14" />
-            </svg>
-          );
-        case "storage":
-          return (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <rect x="3" y="3" width="18" height="18" rx="2" />
-              <line x1="3" y1="9" x2="21" y2="9" />
-              <line x1="9" y1="21" x2="9" y2="9" />
-            </svg>
-          );
-        default:
-          return null;
-      }
-    };
+const SpecBadge = React.memo(
+  React.forwardRef<HTMLSpanElement, SpecBadgeProps>(
+    ({ type, brand, value, className, ...props }, ref) => {
+      // Memoize variant determination
+      const variant = React.useMemo((): BadgeProps["variant"] => {
+        if (brand) return brand as BadgeProps["variant"];
+        return (typeVariantMap[type] || "default") as BadgeProps["variant"];
+      }, [brand, type]);
 
-    return (
-      <Badge
-        ref={ref}
-        variant={getVariant()}
-        icon={getIcon()}
-        className={className}
-        {...props}
-      >
-        {value}
-      </Badge>
-    );
-  }
+      // Get static icon
+      const icon = specIcons[type as keyof typeof specIcons] || null;
+
+      return (
+        <Badge
+          ref={ref}
+          variant={variant}
+          icon={icon}
+          className={className}
+          {...props}
+        >
+          {value}
+        </Badge>
+      );
+    }
+  )
 );
 
 SpecBadge.displayName = "SpecBadge";

@@ -34,49 +34,50 @@ import { cn } from "@/lib/utils";
  * ```
  */
 
-function Dialog({
+const Dialog = React.memo(function Dialog({
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Root>) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;
-}
+});
 
-function DialogTrigger({
+const DialogTrigger = React.memo(function DialogTrigger({
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Trigger>) {
   return <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} />;
-}
+});
 
-function DialogPortal({
+const DialogPortal = React.memo(function DialogPortal({
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Portal>) {
   return <DialogPrimitive.Portal data-slot="dialog-portal" {...props} />;
-}
+});
 
-function DialogClose({
+const DialogClose = React.memo(function DialogClose({
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Close>) {
   return <DialogPrimitive.Close data-slot="dialog-close" {...props} />;
-}
+});
 
-function DialogOverlay({
+// Static overlay classes
+const overlayClasses = [
+  "fixed inset-0 z-50",
+  "bg-black/70 backdrop-blur-sm",
+  "data-[state=open]:animate-in data-[state=closed]:animate-out",
+  "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+].join(" ");
+
+const DialogOverlay = React.memo(function DialogOverlay({
   className,
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Overlay>) {
   return (
     <DialogPrimitive.Overlay
       data-slot="dialog-overlay"
-      className={cn(
-        "fixed inset-0 z-50",
-        "bg-black/70 backdrop-blur-sm",
-        // Animation
-        "data-[state=open]:animate-in data-[state=closed]:animate-out",
-        "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-        className
-      )}
+      className={cn(overlayClasses, className)}
       {...props}
     />
   );
-}
+});
 
 const dialogContentVariants = cva(
   [
@@ -140,7 +141,26 @@ interface DialogContentProps
   showCloseButton?: boolean;
 }
 
-function DialogContent({
+// Static styles extracted for performance
+const gradientOverlayStyle = {
+  background:
+    "linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, transparent 50%, rgba(139, 92, 246, 0.05) 100%)",
+} as const;
+
+const closeButtonClasses = [
+  "absolute top-4 right-4",
+  "size-8 rounded-lg",
+  "flex items-center justify-center",
+  "bg-zinc-800/50 border border-zinc-700",
+  "text-zinc-400 hover:text-white",
+  "transition-all duration-200",
+  "hover:bg-zinc-700/50 hover:border-[#8B5CF6]/30",
+  "hover:shadow-[0_0_10px_rgba(139,92,246,0.2)]",
+  "focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/50",
+  "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:size-4",
+].join(" ");
+
+const DialogContent = React.memo(function DialogContent({
   className,
   children,
   variant = "default",
@@ -153,19 +173,13 @@ function DialogContent({
       <DialogOverlay />
       <DialogPrimitive.Content
         data-slot="dialog-content"
-        className={cn(
-          dialogContentVariants({ variant, size }),
-          className
-        )}
+        className={cn(dialogContentVariants({ variant, size }), className)}
         {...props}
       >
         {/* Gradient overlay effect */}
         <div
           className="absolute inset-0 rounded-xl pointer-events-none opacity-50"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, transparent 50%, rgba(139, 92, 246, 0.05) 100%)",
-          }}
+          style={gradientOverlayStyle}
         />
 
         {/* Content */}
@@ -175,18 +189,7 @@ function DialogContent({
         {showCloseButton && (
           <DialogPrimitive.Close
             data-slot="dialog-close"
-            className={cn(
-              "absolute top-4 right-4",
-              "size-8 rounded-lg",
-              "flex items-center justify-center",
-              "bg-zinc-800/50 border border-zinc-700",
-              "text-zinc-400 hover:text-white",
-              "transition-all duration-200",
-              "hover:bg-zinc-700/50 hover:border-[#8B5CF6]/30",
-              "hover:shadow-[0_0_10px_rgba(139,92,246,0.2)]",
-              "focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/50",
-              "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:size-4"
-            )}
+            className={closeButtonClasses}
           >
             <XIcon />
             <span className="sr-only">Close</span>
@@ -195,40 +198,46 @@ function DialogContent({
       </DialogPrimitive.Content>
     </DialogPortal>
   );
-}
+});
 
-function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
+const DialogHeader = React.memo(function DialogHeader({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="dialog-header"
-      className={cn(
-        "flex flex-col gap-2 text-center sm:text-left",
-        className
-      )}
+      className={cn("flex flex-col gap-2 text-center sm:text-left", className)}
       {...props}
     />
   );
-}
+});
 
-function DialogFooter({ className, ...props }: React.ComponentProps<"div">) {
+const dialogFooterClasses = [
+  "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
+  "pt-4 mt-2 border-t border-zinc-800/50",
+].join(" ");
+
+const DialogFooter = React.memo(function DialogFooter({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="dialog-footer"
-      className={cn(
-        "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
-        "pt-4 mt-2 border-t border-zinc-800/50",
-        className
-      )}
+      className={cn(dialogFooterClasses, className)}
       {...props}
     />
   );
-}
+});
 
-function DialogTitle({
+const DialogTitle = React.memo(function DialogTitle({
   className,
   gradient = false,
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Title> & { gradient?: boolean }) {
+}: React.ComponentProps<typeof DialogPrimitive.Title> & {
+  gradient?: boolean;
+}) {
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
@@ -242,9 +251,9 @@ function DialogTitle({
       {...props}
     />
   );
-}
+});
 
-function DialogDescription({
+const DialogDescription = React.memo(function DialogDescription({
   className,
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Description>) {
@@ -255,7 +264,7 @@ function DialogDescription({
       {...props}
     />
   );
-}
+});
 
 // Alert Dialog - For confirmations and warnings
 interface AlertDialogProps {
@@ -271,7 +280,28 @@ interface AlertDialogProps {
   children?: React.ReactNode;
 }
 
-function AlertDialog({
+// Static button styles
+const alertCancelButtonClasses = [
+  "px-4 py-2 rounded-lg text-sm font-medium",
+  "bg-zinc-800 text-zinc-300",
+  "border border-zinc-700",
+  "hover:bg-zinc-700 hover:text-white",
+  "transition-all duration-200",
+].join(" ");
+
+const alertConfirmButtonBase = [
+  "px-4 py-2 rounded-lg text-sm font-medium text-white",
+  "transition-all duration-200",
+].join(" ");
+
+const alertConfirmButtonVariants = {
+  danger:
+    "bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 shadow-[0_0_15px_rgba(239,68,68,0.3)]",
+  default:
+    "bg-gradient-to-r from-[#8B5CF6] to-[#A855F7] hover:from-[#A855F7] hover:to-[#C084FC] shadow-[0_0_15px_rgba(139,92,246,0.3)]",
+} as const;
+
+const AlertDialog = React.memo(function AlertDialog({
   open,
   onOpenChange,
   title,
@@ -283,6 +313,16 @@ function AlertDialog({
   variant = "default",
   children,
 }: AlertDialogProps) {
+  const handleCancel = React.useCallback(() => {
+    onCancel?.();
+    onOpenChange?.(false);
+  }, [onCancel, onOpenChange]);
+
+  const handleConfirm = React.useCallback(() => {
+    onConfirm?.();
+    onOpenChange?.(false);
+  }, [onConfirm, onOpenChange]);
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       {children && <DialogTrigger asChild>{children}</DialogTrigger>}
@@ -293,37 +333,17 @@ function AlertDialog({
       >
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
-          {description && (
-            <DialogDescription>{description}</DialogDescription>
-          )}
+          {description && <DialogDescription>{description}</DialogDescription>}
         </DialogHeader>
         <DialogFooter>
-          <button
-            onClick={() => {
-              onCancel?.();
-              onOpenChange?.(false);
-            }}
-            className={cn(
-              "px-4 py-2 rounded-lg text-sm font-medium",
-              "bg-zinc-800 text-zinc-300",
-              "border border-zinc-700",
-              "hover:bg-zinc-700 hover:text-white",
-              "transition-all duration-200"
-            )}
-          >
+          <button onClick={handleCancel} className={alertCancelButtonClasses}>
             {cancelText}
           </button>
           <button
-            onClick={() => {
-              onConfirm?.();
-              onOpenChange?.(false);
-            }}
+            onClick={handleConfirm}
             className={cn(
-              "px-4 py-2 rounded-lg text-sm font-medium text-white",
-              "transition-all duration-200",
-              variant === "danger"
-                ? "bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 shadow-[0_0_15px_rgba(239,68,68,0.3)]"
-                : "bg-gradient-to-r from-[#8B5CF6] to-[#A855F7] hover:from-[#A855F7] hover:to-[#C084FC] shadow-[0_0_15px_rgba(139,92,246,0.3)]"
+              alertConfirmButtonBase,
+              alertConfirmButtonVariants[variant]
             )}
           >
             {confirmText}
@@ -332,7 +352,7 @@ function AlertDialog({
       </DialogContent>
     </Dialog>
   );
-}
+});
 
 export {
   Dialog,

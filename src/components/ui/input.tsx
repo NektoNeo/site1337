@@ -152,169 +152,181 @@ export interface InputProps
  * <Input variant="error" error="This field is required" />
  * ```
  */
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  (
-    {
-      className,
-      type = "text",
-      variant = "default",
-      inputSize = "default",
-      fullWidth = true,
-      leftIcon,
-      rightIcon,
-      error,
-      success,
-      hint,
-      label,
-      required,
-      disabled,
-      id,
-      ...props
-    },
-    ref
-  ) => {
-    const inputId = id || React.useId();
+// Static glow gradients for performance
+const glowGradients = {
+  error: "radial-gradient(circle at center, rgba(239,68,68,0.1) 0%, transparent 70%)",
+  success: "radial-gradient(circle at center, rgba(16,185,129,0.1) 0%, transparent 70%)",
+  fuchsia: "radial-gradient(circle at center, rgba(217,70,239,0.1) 0%, transparent 70%)",
+  "neon-fuchsia": "radial-gradient(circle at center, rgba(217,70,239,0.1) 0%, transparent 70%)",
+  default: "radial-gradient(circle at center, rgba(168,85,247,0.1) 0%, transparent 70%)",
+} as const;
 
-    // Determine variant based on error/success states
-    const computedVariant = error ? "error" : success ? "success" : variant;
+// Static SVG icons for error/success
+const ErrorIcon = React.memo(function ErrorIcon() {
+  return (
+    <svg className="size-3" viewBox="0 0 20 20" fill="currentColor">
+      <path
+        fillRule="evenodd"
+        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+});
 
-    return (
-      <div className={cn("relative", fullWidth && "w-full")}>
-        {/* Label */}
-        {label && (
-          <label
-            htmlFor={inputId}
-            className={cn(
-              "block mb-2 text-sm font-medium text-zinc-300 font-inter",
-              disabled && "opacity-50"
-            )}
-          >
-            {label}
-            {required && <span className="ml-1 text-purple-500">*</span>}
-          </label>
-        )}
+const SuccessIcon = React.memo(function SuccessIcon() {
+  return (
+    <svg className="size-3" viewBox="0 0 20 20" fill="currentColor">
+      <path
+        fillRule="evenodd"
+        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+});
 
-        {/* Input wrapper */}
-        <div className="relative">
-          {/* Left icon */}
-          {leftIcon && (
-            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none">
-              {leftIcon}
-            </div>
+const Input = React.memo(
+  React.forwardRef<HTMLInputElement, InputProps>(
+    (
+      {
+        className,
+        type = "text",
+        variant = "default",
+        inputSize = "default",
+        fullWidth = true,
+        leftIcon,
+        rightIcon,
+        error,
+        success,
+        hint,
+        label,
+        required,
+        disabled,
+        id,
+        ...props
+      },
+      ref
+    ) => {
+      const inputId = id || React.useId();
+
+      // Determine variant based on error/success states
+      const computedVariant = error ? "error" : success ? "success" : variant;
+
+      // Memoize glow gradient
+      const glowBackground = React.useMemo(() => {
+        return glowGradients[computedVariant as keyof typeof glowGradients] || glowGradients.default;
+      }, [computedVariant]);
+
+      return (
+        <div className={cn("relative", fullWidth && "w-full")}>
+          {/* Label */}
+          {label && (
+            <label
+              htmlFor={inputId}
+              className={cn(
+                "block mb-2 text-sm font-medium text-zinc-300 font-inter",
+                disabled && "opacity-50"
+              )}
+            >
+              {label}
+              {required && <span className="ml-1 text-purple-500">*</span>}
+            </label>
           )}
 
-          {/* Input element */}
-          <input
-            ref={ref}
-            id={inputId}
-            type={type}
-            disabled={disabled}
-            data-slot="input"
-            data-variant={computedVariant}
-            data-size={inputSize}
-            className={cn(
-              inputVariants({
-                variant: computedVariant,
-                inputSize,
-                fullWidth,
-                className,
-              }),
-              leftIcon && "pl-10",
-              rightIcon && "pr-10",
-              // shadcn v4 focus-visible pattern
-              "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
-              // aria-invalid styling
-              "aria-invalid:ring-destructive/20 aria-invalid:border-destructive"
+          {/* Input wrapper */}
+          <div className="relative">
+            {/* Left icon */}
+            {leftIcon && (
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none">
+                {leftIcon}
+              </div>
             )}
-            aria-invalid={!!error}
-            aria-describedby={
-              error
-                ? `${inputId}-error`
-                : hint
-                ? `${inputId}-hint`
-                : undefined
-            }
-            {...props}
-          />
 
-          {/* Right icon */}
-          {rightIcon && (
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none">
-              {rightIcon}
-            </div>
+            {/* Input element */}
+            <input
+              ref={ref}
+              id={inputId}
+              type={type}
+              disabled={disabled}
+              data-slot="input"
+              data-variant={computedVariant}
+              data-size={inputSize}
+              className={cn(
+                inputVariants({
+                  variant: computedVariant,
+                  inputSize,
+                  fullWidth,
+                  className,
+                }),
+                leftIcon && "pl-10",
+                rightIcon && "pr-10",
+                // shadcn v4 focus-visible pattern
+                "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+                // aria-invalid styling
+                "aria-invalid:ring-destructive/20 aria-invalid:border-destructive"
+              )}
+              aria-invalid={!!error}
+              aria-describedby={
+                error
+                  ? `${inputId}-error`
+                  : hint
+                  ? `${inputId}-hint`
+                  : undefined
+              }
+              {...props}
+            />
+
+            {/* Right icon */}
+            {rightIcon && (
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none">
+                {rightIcon}
+              </div>
+            )}
+
+            {/* Focus glow effect (additional visual) */}
+            <div
+              className={cn(
+                "absolute inset-0 rounded-lg pointer-events-none opacity-0",
+                "transition-opacity duration-300",
+                "peer-focus:opacity-100"
+              )}
+              style={{ background: glowBackground }}
+            />
+          </div>
+
+          {/* Error message */}
+          {error && (
+            <p
+              id={`${inputId}-error`}
+              className="mt-2 text-xs text-red-400 flex items-center gap-1"
+            >
+              <ErrorIcon />
+              {error}
+            </p>
           )}
 
-          {/* Focus glow effect (additional visual) */}
-          <div
-            className={cn(
-              "absolute inset-0 rounded-lg pointer-events-none opacity-0",
-              "transition-opacity duration-300",
-              "peer-focus:opacity-100"
-            )}
-            style={{
-              background:
-                computedVariant === "error"
-                  ? "radial-gradient(circle at center, rgba(239,68,68,0.1) 0%, transparent 70%)"
-                  : computedVariant === "success"
-                  ? "radial-gradient(circle at center, rgba(16,185,129,0.1) 0%, transparent 70%)"
-                  : computedVariant === "fuchsia" || computedVariant === "neon-fuchsia"
-                  ? "radial-gradient(circle at center, rgba(217,70,239,0.1) 0%, transparent 70%)"
-                  : "radial-gradient(circle at center, rgba(168,85,247,0.1) 0%, transparent 70%)",
-            }}
-          />
+          {/* Success message */}
+          {success && !error && (
+            <p className="mt-2 text-xs text-emerald-400 flex items-center gap-1">
+              <SuccessIcon />
+              {success}
+            </p>
+          )}
+
+          {/* Hint text */}
+          {hint && !error && !success && (
+            <p
+              id={`${inputId}-hint`}
+              className="mt-2 text-xs text-zinc-500"
+            >
+              {hint}
+            </p>
+          )}
         </div>
-
-        {/* Error message */}
-        {error && (
-          <p
-            id={`${inputId}-error`}
-            className="mt-2 text-xs text-red-400 flex items-center gap-1"
-          >
-            <svg
-              className="size-3"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                clipRule="evenodd"
-              />
-            </svg>
-            {error}
-          </p>
-        )}
-
-        {/* Success message */}
-        {success && !error && (
-          <p className="mt-2 text-xs text-emerald-400 flex items-center gap-1">
-            <svg
-              className="size-3"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                clipRule="evenodd"
-              />
-            </svg>
-            {success}
-          </p>
-        )}
-
-        {/* Hint text */}
-        {hint && !error && !success && (
-          <p
-            id={`${inputId}-hint`}
-            className="mt-2 text-xs text-zinc-500"
-          >
-            {hint}
-          </p>
-        )}
-      </div>
-    );
-  }
+      );
+    }
+  )
 );
 
 Input.displayName = "Input";
@@ -325,87 +337,113 @@ interface SearchInputProps extends Omit<InputProps, "leftIcon" | "type"> {
   loading?: boolean;
 }
 
-const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
-  ({ onSearch, loading, className, ...props }, ref) => {
-    const [value, setValue] = React.useState("");
+// Static search icons for performance
+const LoadingIcon = React.memo(function LoadingIcon() {
+  return (
+    <svg className="animate-spin size-4" viewBox="0 0 24 24" fill="none">
+      <circle
+        className="opacity-25"
+        cx="12"
+        cy="12"
+        r="10"
+        stroke="currentColor"
+        strokeWidth="4"
+      />
+      <path
+        className="opacity-75"
+        fill="currentColor"
+        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+      />
+    </svg>
+  );
+});
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === "Enter" && onSearch) {
-        onSearch(value);
-      }
-    };
+const SearchIcon = React.memo(function SearchIcon() {
+  return (
+    <svg
+      className="size-4"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
+      <circle cx="11" cy="11" r="8" />
+      <path d="m21 21-4.35-4.35" />
+    </svg>
+  );
+});
 
-    return (
-      <div data-slot="search-input">
-        <Input
-          ref={ref}
-          type="search"
-          variant="glass"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        onKeyDown={handleKeyDown}
-        className={className}
-        leftIcon={
-          loading ? (
-            <svg
-              className="animate-spin size-4"
-              viewBox="0 0 24 24"
-              fill="none"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              />
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              />
-            </svg>
-          ) : (
-            <svg
-              className="size-4"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <circle cx="11" cy="11" r="8" />
-              <path d="m21 21-4.35-4.35" />
-            </svg>
-          )
-        }
-        rightIcon={
-          value && (
-            <button
-              type="button"
-              onClick={() => {
-                setValue("");
-                onSearch?.("");
-              }}
-              className="text-zinc-500 hover:text-white transition-colors cursor-pointer pointer-events-auto"
-            >
-              <svg
-                className="size-4"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path d="M18 6L6 18M6 6l12 12" />
-              </svg>
-            </button>
-          )
-        }
-        {...props}
-        />
-      </div>
-    );
-  }
+const ClearIcon = React.memo(function ClearIcon() {
+  return (
+    <svg
+      className="size-4"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
+      <path d="M18 6L6 18M6 6l12 12" />
+    </svg>
+  );
+});
+
+const SearchInput = React.memo(
+  React.forwardRef<HTMLInputElement, SearchInputProps>(
+    ({ onSearch, loading, className, ...props }, ref) => {
+      const [value, setValue] = React.useState("");
+
+      const handleKeyDown = React.useCallback(
+        (e: React.KeyboardEvent<HTMLInputElement>) => {
+          if (e.key === "Enter" && onSearch) {
+            onSearch(value);
+          }
+        },
+        [onSearch, value]
+      );
+
+      const handleChange = React.useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+          setValue(e.target.value);
+        },
+        []
+      );
+
+      const handleClear = React.useCallback(() => {
+        setValue("");
+        onSearch?.("");
+      }, [onSearch]);
+
+      // Memoize icons based on loading state
+      const leftIcon = loading ? <LoadingIcon /> : <SearchIcon />;
+
+      const rightIcon = value ? (
+        <button
+          type="button"
+          onClick={handleClear}
+          className="text-zinc-500 hover:text-white transition-colors cursor-pointer pointer-events-auto"
+        >
+          <ClearIcon />
+        </button>
+      ) : null;
+
+      return (
+        <div data-slot="search-input">
+          <Input
+            ref={ref}
+            type="search"
+            variant="glass"
+            value={value}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            className={className}
+            leftIcon={leftIcon}
+            rightIcon={rightIcon}
+            {...props}
+          />
+        </div>
+      );
+    }
+  )
 );
 
 SearchInput.displayName = "SearchInput";

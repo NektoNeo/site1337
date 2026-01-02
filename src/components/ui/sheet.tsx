@@ -32,47 +32,50 @@ import { cn } from "@/lib/utils";
  * ```
  */
 
-function Sheet({ ...props }: React.ComponentProps<typeof SheetPrimitive.Root>) {
+const Sheet = React.memo(function Sheet({
+  ...props
+}: React.ComponentProps<typeof SheetPrimitive.Root>) {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />;
-}
+});
 
-function SheetTrigger({
+const SheetTrigger = React.memo(function SheetTrigger({
   ...props
 }: React.ComponentProps<typeof SheetPrimitive.Trigger>) {
   return <SheetPrimitive.Trigger data-slot="sheet-trigger" {...props} />;
-}
+});
 
-function SheetClose({
+const SheetClose = React.memo(function SheetClose({
   ...props
 }: React.ComponentProps<typeof SheetPrimitive.Close>) {
   return <SheetPrimitive.Close data-slot="sheet-close" {...props} />;
-}
+});
 
-function SheetPortal({
+const SheetPortal = React.memo(function SheetPortal({
   ...props
 }: React.ComponentProps<typeof SheetPrimitive.Portal>) {
   return <SheetPrimitive.Portal data-slot="sheet-portal" {...props} />;
-}
+});
 
-function SheetOverlay({
+// Static overlay classes for performance
+const overlayClasses = [
+  "fixed inset-0 z-50",
+  "bg-black/60 backdrop-blur-sm",
+  "data-[state=open]:animate-in data-[state=closed]:animate-out",
+  "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+].join(" ");
+
+const SheetOverlay = React.memo(function SheetOverlay({
   className,
   ...props
 }: React.ComponentProps<typeof SheetPrimitive.Overlay>) {
   return (
     <SheetPrimitive.Overlay
       data-slot="sheet-overlay"
-      className={cn(
-        "fixed inset-0 z-50",
-        "bg-black/60 backdrop-blur-sm",
-        // Animation
-        "data-[state=open]:animate-in data-[state=closed]:animate-out",
-        "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-        className
-      )}
+      className={cn(overlayClasses, className)}
       {...props}
     />
   );
-}
+});
 
 const sheetContentVariants = cva(
   [
@@ -125,7 +128,28 @@ interface SheetContentProps
   showCloseButton?: boolean;
 }
 
-function SheetContent({
+// Static gradient styles for performance
+const gradientStyles = {
+  vertical:
+    "linear-gradient(180deg, rgba(139, 92, 246, 0.05) 0%, transparent 20%, transparent 80%, rgba(139, 92, 246, 0.05) 100%)",
+  horizontal:
+    "linear-gradient(90deg, rgba(139, 92, 246, 0.05) 0%, transparent 20%, transparent 80%, rgba(139, 92, 246, 0.05) 100%)",
+} as const;
+
+// Static close button classes
+const closeButtonClasses = [
+  "absolute top-4 right-4 z-20",
+  "size-8 rounded-lg",
+  "flex items-center justify-center",
+  "bg-zinc-800/50 border border-zinc-700",
+  "text-zinc-400 hover:text-white",
+  "transition-all duration-200",
+  "hover:bg-zinc-700/50 hover:border-[#8B5CF6]/30",
+  "hover:shadow-[0_0_10px_rgba(139,92,246,0.2)]",
+  "focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/50",
+].join(" ");
+
+const SheetContent = React.memo(function SheetContent({
   className,
   children,
   side = "right",
@@ -133,6 +157,15 @@ function SheetContent({
   showCloseButton = true,
   ...props
 }: SheetContentProps) {
+  // Memoize gradient background based on side
+  const gradientBackground = React.useMemo(
+    () =>
+      side === "right" || side === "left"
+        ? gradientStyles.vertical
+        : gradientStyles.horizontal,
+    [side]
+  );
+
   return (
     <SheetPortal>
       <SheetOverlay />
@@ -140,7 +173,6 @@ function SheetContent({
         data-slot="sheet-content"
         className={cn(
           sheetContentVariants({ side, glowColor }),
-          // Animation classes
           "data-[state=open]:animate-in data-[state=closed]:animate-out",
           className
         )}
@@ -149,34 +181,15 @@ function SheetContent({
         {/* Gradient overlay effect */}
         <div
           className="absolute inset-0 pointer-events-none opacity-50"
-          style={{
-            background:
-              side === "right" || side === "left"
-                ? "linear-gradient(180deg, rgba(139, 92, 246, 0.05) 0%, transparent 20%, transparent 80%, rgba(139, 92, 246, 0.05) 100%)"
-                : "linear-gradient(90deg, rgba(139, 92, 246, 0.05) 0%, transparent 20%, transparent 80%, rgba(139, 92, 246, 0.05) 100%)",
-          }}
+          style={{ background: gradientBackground }}
         />
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col h-full">
-          {children}
-        </div>
+        <div className="relative z-10 flex flex-col h-full">{children}</div>
 
         {/* Close button */}
         {showCloseButton && (
-          <SheetPrimitive.Close
-            className={cn(
-              "absolute top-4 right-4 z-20",
-              "size-8 rounded-lg",
-              "flex items-center justify-center",
-              "bg-zinc-800/50 border border-zinc-700",
-              "text-zinc-400 hover:text-white",
-              "transition-all duration-200",
-              "hover:bg-zinc-700/50 hover:border-[#8B5CF6]/30",
-              "hover:shadow-[0_0_10px_rgba(139,92,246,0.2)]",
-              "focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/50"
-            )}
-          >
+          <SheetPrimitive.Close className={closeButtonClasses}>
             <XIcon className="size-4" />
             <span className="sr-only">Close</span>
           </SheetPrimitive.Close>
@@ -184,80 +197,80 @@ function SheetContent({
       </SheetPrimitive.Content>
     </SheetPortal>
   );
-}
+});
 
-function SheetHeader({ className, ...props }: React.ComponentProps<"div">) {
+// Static classes for header/footer/title/description
+const headerClasses = "flex flex-col gap-2 p-6 border-b border-zinc-800/50";
+const footerClasses =
+  "mt-auto flex flex-col gap-3 p-6 border-t border-zinc-800/50 bg-[#0a0a0a]/50";
+const titleClasses = "text-xl font-bold text-white font-orbitron tracking-wide";
+const descriptionClasses = "text-sm text-zinc-400 font-inter";
+
+const SheetHeader = React.memo(function SheetHeader({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="sheet-header"
-      className={cn(
-        "flex flex-col gap-2 p-6",
-        "border-b border-zinc-800/50",
-        className
-      )}
+      className={cn(headerClasses, className)}
       {...props}
     />
   );
-}
+});
 
-function SheetFooter({ className, ...props }: React.ComponentProps<"div">) {
+const SheetFooter = React.memo(function SheetFooter({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="sheet-footer"
-      className={cn(
-        "mt-auto flex flex-col gap-3 p-6",
-        "border-t border-zinc-800/50",
-        "bg-[#0a0a0a]/50",
-        className
-      )}
+      className={cn(footerClasses, className)}
       {...props}
     />
   );
-}
+});
 
-function SheetTitle({
+const SheetTitle = React.memo(function SheetTitle({
   className,
   ...props
 }: React.ComponentProps<typeof SheetPrimitive.Title>) {
   return (
     <SheetPrimitive.Title
       data-slot="sheet-title"
-      className={cn(
-        "text-xl font-bold text-white font-orbitron tracking-wide",
-        className
-      )}
+      className={cn(titleClasses, className)}
       {...props}
     />
   );
-}
+});
 
-function SheetDescription({
+const SheetDescription = React.memo(function SheetDescription({
   className,
   ...props
 }: React.ComponentProps<typeof SheetPrimitive.Description>) {
   return (
     <SheetPrimitive.Description
       data-slot="sheet-description"
-      className={cn("text-sm text-zinc-400 font-inter", className)}
+      className={cn(descriptionClasses, className)}
       {...props}
     />
   );
-}
+});
 
 // Cart Sheet - Specialized sheet for shopping cart
 interface CartSheetProps extends React.ComponentProps<typeof Sheet> {
   cartCount?: number;
 }
 
-function CartSheet({ cartCount = 0, children, ...props }: CartSheetProps) {
-  return (
-    <Sheet {...props}>
-      {children}
-    </Sheet>
-  );
-}
+const CartSheet = React.memo(function CartSheet({
+  children,
+  ...props
+}: CartSheetProps) {
+  return <Sheet {...props}>{children}</Sheet>;
+});
 
-function CartSheetContent({
+const CartSheetContent = React.memo(function CartSheetContent({
   className,
   children,
   ...props
@@ -272,7 +285,7 @@ function CartSheetContent({
       {children}
     </SheetContent>
   );
-}
+});
 
 export {
   Sheet,
