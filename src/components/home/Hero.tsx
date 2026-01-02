@@ -225,8 +225,8 @@ export function Hero() {
         transition={{ duration: 1.2, ease: 'easeOut' }}
       />
       
-      {/* Background - Deep space black */}
-      <div className="absolute inset-0 bg-[#030308]" />
+      {/* Background - Transparent to show SpaceViewport cosmic background */}
+      {/* Removed solid bg-[#030308] to allow cosmic stars to show through */}
       
       {/* Subtle noise texture */}
       <div 

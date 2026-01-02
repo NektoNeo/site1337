@@ -8,6 +8,11 @@ import { useDeferredAnimation } from '@/providers/AnimationDeferProvider';
 // Critical above-fold components loaded immediately
 import { Hero } from '@/components/home/Hero';
 import { SectionDivider } from '@/components/ambient/SectionDivider';
+import { SpaceViewport } from '@/components/ambient/SpaceViewport';
+
+// Lab/Porthole effects - disabled for now (too intrusive)
+// import { PortholeFrame } from '@/components/ambient/PortholeFrame';
+// import { LabOverlay } from '@/components/ambient/LabElements';
 
 // Lazy load cosmic effects - only after LCP
 const LazyInteractiveStarfield = dynamic(
@@ -225,10 +230,15 @@ export default function HomePage() {
       {/* Floating RGB Particles - CSS animated, only after LCP */}
       <FloatingParticles />
 
+      {/* Lab effects disabled - were too intrusive */}
+      {/* TODO: Create subtle background version instead */}
+
       {/* Main content */}
       <div className="relative z-10">
-        {/* 1. Hero Section with Trust Metrics */}
-        <Hero />
+        {/* 1. Hero Section with Trust Metrics - Wrapped in SpaceViewport (subtle porthole effect) */}
+        <SpaceViewport height="100vh" intensity={0.8} enableParallax={true}>
+          <Hero />
+        </SpaceViewport>
 
         <SectionDivider variant="glow" intensity="strong" />
 
