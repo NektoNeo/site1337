@@ -530,7 +530,7 @@ export function CTASection() {
               )}
             >
               <Image
-                src="/Blue.png"
+                src="/aqua.png"
                 alt="Игровой компьютер VA‑PC"
                 width={520}
                 height={650}
