@@ -5,7 +5,7 @@
  * Displays VK products with filtering, sorting, and infinite scroll
  */
 
-import { Suspense, useMemo, useCallback, useRef, useEffect } from 'react';
+import { Suspense, useMemo, useCallback, useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2, Search, AlertCircle, RefreshCw, Package } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -13,13 +13,14 @@ import { cn } from '@/lib/utils';
 // Hooks
 import { useVKCatalog } from '@/hooks/use-vk-catalog';
 import { useCatalogFilters } from '@/hooks/use-catalog-filters';
-import { countActiveFilters, DEFAULT_PRICE_BOUNDS } from '@/types/catalog';
+import { countActiveFilters, DEFAULT_PRICE_BOUNDS, CatalogProduct } from '@/types/catalog';
 
 // Components
-import { VKProductCard } from '@/components/catalog/VKProductCard';
+import { ProductCard } from '@/components/ui/ProductCard';
 import { ProductFilters, MobileFilterBar } from '@/components/catalog/ProductFilters';
 import { ProductSkeletonGrid } from '@/components/catalog/ProductSkeleton';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 // ============================================
 // ANIMATED BACKGROUND
@@ -241,20 +242,30 @@ function ProductsGrid({
   return (
     <div className="space-y-8">
       {/* Products Grid */}
-      <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"
-        layout
-      >
-        <AnimatePresence mode="popLayout">
-          {products.map((product, index) => (
-            <VKProductCard
-              key={product.id}
-              product={product}
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+        {products.map((product, index) => (
+          <Link
+            key={product.id}
+            href={`/product/${product.slug}`}
+            className="block"
+          >
+            <ProductCard
+              name={product.title}
+              specs={{
+                cpu: product.specs?.cpu || 'Не указано',
+                gpu: product.specs?.gpu || 'Не указано',
+                ram: product.specs?.ram || 'Не указано',
+                storage: product.specs?.ssd || 'Не указано',
+              }}
+              price={product.price.amount}
+              originalPrice={product.price.originalAmount || undefined}
+              image={product.images?.[0]?.url || ''}
+              badge={product.platformBadge || undefined}
               index={index}
             />
-          ))}
-        </AnimatePresence>
-      </motion.div>
+          </Link>
+        ))}
+      </div>
 
       {/* Loading more indicator */}
       {isLoadingMore && (
