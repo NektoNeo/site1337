@@ -78,13 +78,18 @@ async function main() {
   // ============================================================================
   console.log('Creating admin user...')
   
-  const adminPassword = await hash('admin123', 12)
-  const admin = await prisma.user.upsert({
-    where: { email: 'admin@va-pc.ru' },
+  const adminEmail = process.env.ADMIN_BOOTSTRAP_EMAIL || 'admin@va-pc.ru'
+  const existingAdmin = await prisma.user.findUnique({ where: { email: adminEmail } })
+  const initialPassword = process.env.ADMIN_BOOTSTRAP_PASSWORD
+  if (!existingAdmin && (!initialPassword || initialPassword.length < 16 || Buffer.byteLength(initialPassword) > 72)) {
+    throw new Error('Set ADMIN_BOOTSTRAP_PASSWORD before creating the administrator (16 characters minimum, 72 bytes maximum).')
+  }
+  const admin = existingAdmin ?? await prisma.user.upsert({
+    where: { email: adminEmail },
     update: {},
     create: {
-      email: 'admin@va-pc.ru',
-      password: adminPassword,
+      email: adminEmail,
+      password: await hash(initialPassword!, 12),
       name: 'Administrator',
       phone: '+7 (999) 123-45-67',
       role: UserRole.ADMIN,
